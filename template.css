@@ -1,0 +1,2504 @@
+/* =================================================================
+   0. FOUNDATION VARIABLES & Z-INDEX SYSTEM
+   ================================================================= */
+:root {
+    /* Z-Index Scale */
+    --z-background: -1;
+    --z-content: 1;
+    --z-floating: 5;
+    --z-sidebar: 10;
+    --z-header: 100;
+    --z-indicator: 1000;
+    --z-modal: 10000;
+    
+    /* Layout Variables - FIXED: Reduced gutter size */
+    --gutter: clamp(1rem, 4vw, 2rem);  /* ← FIXED: Was 8vw, 4rem */
+    --content-width: min(84vw, 1200px);
+    --sidebar-width: clamp(250px, 35vw, 400px);
+    --header-height: clamp(3rem, 4vh, 5rem);
+    
+    /* Typography Scale */
+    --font-3xl: clamp(3rem, 8vw, 8rem);
+    --font-2xl: clamp(2rem, 6vw, 4rem);
+    --font-xl: clamp(1.5rem, 4vw, 2.5rem);
+    
+    /* Spacing Scale */
+    --space-xs: calc(var(--gutter) * 0.125);
+    --space-sm: calc(var(--gutter) * 0.25);
+    --space-md: calc(var(--gutter) * 0.5);
+    --space-lg: var(--gutter);
+    --space-xl: calc(var(--gutter) * 1.5);
+    --space-2xl: calc(var(--gutter) * 2);
+    
+    /* Sidebar dimensions */
+    --sidebar-height: 60vh;
+    --sidebar-top-offset: 100px;
+    --sidebar-max-width: 350px;
+    --sidebar-min-width: 200px;
+    --sidebar-active-left: var(--space-lg);
+    --indicator-width: 30px;
+    --indicator-pill-height: 10vh;
+    --indicator-circle-height: 30px;
+    --indicator-gap: var(--space-md);
+    
+    /* Dot dimensions */
+    --dot-size: 8px;
+    --dot-spacing: 16px;
+    --dot-color: #CACACA;
+}
+
+/* =================================================================
+   I. MONOSPACE - TT Commons Pro Mono
+   ================================================================= */
+@font-face {
+  font-family: "TT Commons Pro Mono";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/TTCommonsProMono/TTCommonsProMono-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TT Commons Pro Mono";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/TTCommonsProMono/TT%20Commons%20Pro%20Mono%20Trial%20Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TT Commons Pro Mono";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/TTCommonsProMono/TT%20Commons%20Pro%20Mono%20Trial%20Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TT Commons Pro Mono";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/TTCommonsProMono/TT%20Commons%20Pro%20Mono%20Trial%20Medium%20Italic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TT Commons Pro Mono";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/TTCommonsProMono/TT%20Commons%20Pro%20Mono%20Trial%20DemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TT Commons Pro Mono";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/TTCommonsProMono/TT%20Commons%20Pro%20Mono%20Trial%20DemiBold%20Italic.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* =================================================================
+   II. SERIF FONT FAMILY - Minion Pro
+   ================================================================= */
+@font-face {
+  font-family: "Minion Pro";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/Minion-Pro/6817.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Minion Pro";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/Minion-Pro/6814.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Minion Pro";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/Minion-Pro/6815.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Minion Pro";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/Minion-Pro/6816.otf") format("opentype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Minion Pro";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/Minion-Pro/6818.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Minion Pro";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/Minion-Pro/6819.otf") format("opentype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Minion Pro";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/Minion-Pro/6812.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Minion Pro";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/Minion-Pro/6813.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* =================================================================
+   III. SANS-SERIF FONT FAMILY - Helvetica Neue LT Com
+   ================================================================= */
+@font-face {
+  font-family: "Helvetica Neue LT Com";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/HelveticaNeueLTCom/HelveticaNeueLTCom-MdEx.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Helvetica Neue LT Com";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/HelveticaNeueLTCom/HelveticaNeueLTCom-MdEx.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue Haas Display";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/NeueHaasGroteskDisplayPro/NeueHaasDisplayMediu.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue Haas Display";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/NeueHaasGroteskDisplayPro/NeueHaasDisplayMediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* =================================================================
+   IV. APPLIED TYPOGRAPHY STYLES
+   ================================================================= */
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT IV.1: DEFAULT BODY TEXT
+   ───────────────────────────────────────────────────────────────── */
+body {
+  font-family: "Minion Pro", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT IV.2: HEADING HIERARCHY
+   ───────────────────────────────────────────────────────────────── */
+h1, h3, h4, h5, h6 {
+  font-family: "Neue Haas Display", sans-serif;
+  font-weight: 500;
+  line-height: 1.2;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+h1 {
+  font-family: "Neue Haas Display", sans-serif;
+  font-weight: 500;
+  line-height: 0.9em;
+  letter-spacing: -0.015em !important;
+  word-spacing: 0.23em;
+  margin-top: 0.3em !important;
+  margin-bottom: 5em !important; /* FIXED: Consistent spacing */
+  padding-right: 30vw;
+}
+
+h2 {
+  font-family: "Neue Haas Display", sans-serif;
+  margin-top: 2em; /* FIXED: Consistent spacing */
+  margin-bottom: 0.5em;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT IV.3: HEADING SIZES
+   ───────────────────────────────────────────────────────────────── */
+h1 { font-size: 7rem !important; }
+h2 { font-size: 3rem; }
+h3 { font-size: 2rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1.1rem; }
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT IV.4: CODE ELEMENTS BASE
+   ───────────────────────────────────────────────────────────────── */
+pre, code, kbd, samp, tt, .sourceCode, .r {
+  font-family: "TT Commons Pro Mono", monospace;
+  font-variant-ligatures: none;
+  font-size: 0.8em;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT IV.5: INLINE CODE STYLING
+   ───────────────────────────────────────────────────────────────── */
+code:not(pre code) {
+  background-color: #f0f0f0;
+  border: 1px solid #dee2e6;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT IV.6: CODE BLOCK STYLING
+   ───────────────────────────────────────────────────────────────── */
+pre {
+  font-weight: 400;
+  line-height: 1.4;
+  background-color: #f8f9fa;
+  padding: 1em;
+  border-radius: 4px;
+  overflow-x: auto;
+  position: relative;
+  font-family: "TT Commons Pro Mono", monospace;
+  line-height: 1.5;
+  margin-bottom: 1.5em;
+  padding-top: 2em !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+pre:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT IV.7: OUTPUT PRESENTATION
+   ───────────────────────────────────────────────────────────────── */
+.r-output {
+  background-color: #fcfcfc;
+  border-left: 3px solid #adb5bd;
+  color: #495057;
+  margin-top: -1em;
+  padding: 1em;
+  font-size: 0.85em;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT IV.8: TEXT EMPHASIS
+   ───────────────────────────────────────────────────────────────── */
+em, i {
+  font-style: italic;
+}
+
+strong, b {
+  font-weight: 700;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT IV.9: SPECIAL TYPOGRAPHY
+   ───────────────────────────────────────────────────────────────── */
+.caption {
+  font-family: "Minion Pro", serif;
+  font-weight: 500;
+  font-size: 0.9em;
+}
+
+.subhead {
+  font-family: "Minion Pro", serif;
+  font-weight: 600;
+  font-size: 1.1em;
+}
+
+table.dataTable,
+table.dataTable th,
+table.dataTable td,
+table,
+table th,
+table td {
+  font-family: "TT Commons Pro Mono", monospace !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT IV.10: METADATA DISPLAY CONTROL
+   ───────────────────────────────────────────────────────────────── */
+.author, .date {
+  display: none;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT IV.11: HERO INFODELEGATE LAYOUT - FIXED
+   ───────────────────────────────────────────────────────────────── */
+.hero-infodelegate {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  column-gap: 1.1em;
+  margin: 2em 0 2em auto; /* FIXED: Consistent spacing */
+  max-width: 450px;
+  padding: 1em 0.1em 1em 0;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  font-family: "TT Commons Pro Mono", monospace;
+  font-size: 1.35rem;
+  font-weight: 500;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT IV.12: HEADER LEFT/RIGHT COLUMNS
+   ───────────────────────────────────────────────────────────────── */
+.header-label {
+  text-align: right;
+  color: #CACACA;
+  font-size: 1.35rem;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.header-value {
+  color: #606060;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT IV.13: TITLE TYPOGRAPHY
+   ───────────────────────────────────────────────────────────────── */
+.title {
+  text-align: left;
+  margin-bottom: 0.5em;
+}
+
+.subtitle {
+  font-family: "TT Commons Pro Mono", monospace;
+  font-feature-settings: "ss01" 1;
+  font-size: 3rem;
+  font-weight: 500;
+  text-align: left;
+  margin-bottom: 2em;
+  font-style: normal;
+  color: #333;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT IV.14: FULL-WIDTH LAYOUT - FIXED
+   ───────────────────────────────────────────────────────────────── */
+.main-container, 
+.container-fluid, 
+body > .container {
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: var(--gutter) !important; /* FIXED: Use variable */
+  padding-right: var(--gutter) !important; /* FIXED: Use variable */
+  width: 100% !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT IV.15: ROOT ELEMENT SIZING
+   ───────────────────────────────────────────────────────────────── */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.content {
+  width: 100%;
+  max-width: none;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT IV.16: DOCUMENT NAVIGATION - FIXED
+   ───────────────────────────────────────────────────────────────── */
+.page-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  top: 0;
+  width: 100vw !important;
+  left: 0;
+  margin-left: calc(-1 * var(--gutter));
+  margin-right: calc(-1 * var(--gutter));
+  padding: 0.75rem 0 !important;
+  line-height: 1.1;
+  font-family: "TT Commons Pro Mono", monospace;
+  font-size: 1.3rem;
+  color: #CBCBCB;
+  font-weight: 500;
+  position: sticky;
+  @extend .glass-blur-dynamic;
+  z-index: var(--z-header);
+  border-bottom: 1px solid #e5e5e5;
+  transition: all 0.3s ease;
+}
+
+.page-footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw !important;  /* ← FIXED: Match header full width */
+  left: 0;  /* ← ADDED: Position from left edge */
+  margin-left: calc(-1 * var(--gutter));  /* ← ADDED: Break out of container */
+  margin-right: calc(-1 * var(--gutter));  /* ← ADDED: Break out of container */
+  padding: 0.5rem 0 !important;
+  font-family: "TT Commons Pro Mono", monospace;
+  font-size: 1.3rem;
+  color: #CBCBCB;
+  font-weight: 500;
+  background-color: white;
+  z-index: 1000;
+  border-top: 1px solid #e5e5e5;
+  margin-top: 2rem;
+}
+
+.header-left, .footer-left {
+  text-align: left;
+  margin-left: var(--gutter);
+  padding-left: 0;
+}
+
+.header-right, .footer-right {
+  text-align: right;
+  margin-right: var(--gutter);
+  padding-right: 0;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT IV.17: SECTION SPACING
+   ───────────────────────────────────────────────────────────────── */
+.content-section {
+  margin-bottom: var(--space-2xl);
+}
+
+.section-divider {
+  margin: var(--space-2xl) 0;
+  border: none;
+  height: 1px;
+  background: #dee2e6;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT IV.18: BLOCKQUOTE STYLING
+   ───────────────────────────────────────────────────────────────── */
+blockquote {
+  border-left: 6px solid #333;
+  padding-left: 1em;
+  margin-left: 0;
+  margin-bottom: 2em;
+  background-color: #f8f9fa;
+}
+
+blockquote h3 {
+  font-family: "Helvetica Neue LT Com", sans-serif;
+  text-transform: uppercase;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.2em;
+  color: #333;
+  margin: 0.5em 0 1em;
+}
+
+blockquote p {
+  margin: 0;
+  font-family: "Minion Pro", serif;
+  font-style: normal;
+  color: #333;
+  line-height: 1.4;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT IV.19: H2 CODE STYLING
+   ───────────────────────────────────────────────────────────────── */
+h2 code {
+  font-size: 0.7em;
+  font-weight: 400;
+  padding: 0.1em 0.2em;
+  background-color: #f0f0f0;
+  border-radius: 3px;
+  vertical-align: baseline;
+  margin: 0 0.1em;
+  font-feature-settings: "ss01" 1;
+  position: relative;
+  top: -2px;
+}
+
+/* =================================================================
+   V. SIDEBAR CARD SYSTEM & TABLE OF CONTENTS
+   ================================================================= */
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT V.1: SIDEBAR CARD SYSTEM
+   ───────────────────────────────────────────────────────────────── */
+.sidebar-card {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transition: box-shadow 0.2s ease;
+}
+
+.sidebar-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.card-title {
+  font-family: "Helvetica Neue LT Com", sans-serif !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  margin: 0 0 0.8rem 0 !important;
+  color: #333 !important;
+  border-bottom: 1px solid #ddd !important;
+  padding-bottom: 0.5rem !important;
+  line-height: 1.2 !important;
+  position: relative;
+}
+
+.card-title::after {
+  content: "";
+  display: block;
+  width: 2rem;
+  height: 2px;
+  background-color: #1a56db;
+  margin-top: 0.25rem;
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+}
+
+.card-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, #dee2e6 20%, #dee2e6 80%, transparent 100%);
+  margin: 1.2rem 0;
+  border: none;
+}
+
+.card-content {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #555;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT V.2: TABLE OF CONTENTS - PRESERVE V4 STYLING
+   ───────────────────────────────────────────────────────────────── */
+#TOC {
+  display: none !important;
+}
+
+#sidebar-toc-container #TOC {
+  display: block !important;
+}
+
+/* Preserve original v4 TOC card styling */
+#TOC, .tocify {
+  font-family: "TT Commons Pro Mono", monospace !important;
+  font-size: 0.8em;
+  background-color: rgba(255, 255, 255, 0.8) !important;  /* ← BACK TO WHITE */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid #dee2e6 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 12px rgba(0,0,0,0.1) !important;
+  padding: 1.5rem !important;
+  padding-left: 2rem !important;
+  margin-top: 0.2rem !important;
+  max-height: 70vh !important;
+  line-spacing: 1.2em;
+}
+
+#TOC > h2, #sidebar-toc-container > h2, .toc-title {
+  font-family: "Helvetica Neue LT Com", sans-serif !important;
+  font-size: 1.35rem !important;  /* ← REDUCED: Was 1.5rem */
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  margin-top: 2rem !important;
+  margin-bottom: 0.4rem !important;
+  color: #333 !important;
+  line-height: 1.2 !important;
+}
+
+#sidebar-toc-container .toc-title {
+  padding-bottom: 0.5rem !important;
+}
+
+#TOC ul {
+  list-style-type: none !important;
+  padding-left: 0 !important;
+}
+
+#TOC ul li {
+  margin-bottom: 1.2rem !important;
+}
+
+#TOC ul li a {
+  font-family: "TT Commons Pro Mono", monospace !important;
+  text-transform: none !important;
+  color: #333 !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+  display: block !important;
+  padding: 0.2rem !important;
+  line-height: 1em;
+}
+
+#TOC ul li a:hover {
+  color: #1a56db !important;
+  background-color: #f0f0f0 !important;
+  border-radius: 4px !important;
+}
+
+#TOC .toc-title {
+  font-family: "Helvetica Neue LT Com", sans-serif !important;
+  text-transform: uppercase;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.2em;
+  color: #333;
+  margin: 0.5em 0 1em;
+  position: relative;
+}
+
+#TOC .toc-title::after {
+  content: "";
+  display: block;
+  width: 2.5rem;
+  height: 2px;
+  background-color: #1a56db;
+  margin-top: 0.5rem;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT V.3: CARD CONTENT VARIATIONS
+   ───────────────────────────────────────────────────────────────── */
+.card-content ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.card-content ul li {
+  padding: 0.2rem 0;
+  color: #666;
+  font-size: 0.8rem;
+}
+
+.card-content ul li::before {
+  content: "•";
+  color: #1a56db;
+  margin-right: 0.5rem;
+}
+
+.card-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.card-stat:last-child {
+  border-bottom: none;
+}
+
+.card-stat-label {
+  font-size: 0.75rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-stat-value {
+  font-family: "TT Commons Pro Mono", monospace;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #333;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT V.4: PLACEHOLDER CARD STYLING
+   ───────────────────────────────────────────────────────────────── */
+.sidebar-card.placeholder {
+  border-style: dashed;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #999;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sidebar-card.placeholder:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #666;
+  border-color: #999;
+}
+
+.placeholder-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.6;
+}
+
+.placeholder-text {
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT V.3: CARD CONTENT VARIATIONS
+   ───────────────────────────────────────────────────────────────── */
+.card-content ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.card-content ul li {
+  padding: 0.2rem 0;
+  color: #666;
+  font-size: 0.8rem;
+}
+
+.card-content ul li::before {
+  content: "•";
+  color: #1a56db;
+  margin-right: 0.5rem;
+}
+
+.card-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.card-stat:last-child {
+  border-bottom: none;
+}
+
+.card-stat-label {
+  font-size: 0.75rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-stat-value {
+  font-family: "TT Commons Pro Mono", monospace;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #333;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT V.4: PLACEHOLDER CARD STYLING
+   ───────────────────────────────────────────────────────────────── */
+.sidebar-card.placeholder {
+  border-style: dashed;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #999;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sidebar-card.placeholder:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #666;
+  border-color: #999;
+}
+
+.placeholder-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.6;
+}
+
+.placeholder-text {
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+/* =================================================================
+   VI. SIDEBAR SYSTEM
+   ================================================================= */
+.sidebar-trigger {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 3vw;
+  height: var(--sidebar-height);
+  z-index: calc(var(--z-sidebar) - 1);
+  background-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+}
+
+.sidebar-indicator {
+  position: fixed;
+  top: calc(var(--sidebar-top-offset) + (var(--sidebar-height) / 2) - (var(--dynamic-pill-height, var(--indicator-pill-height)) / 2)); 
+  left: 0px;
+  width: var(--indicator-width);
+  height: var(--dynamic-pill-height, var(--indicator-pill-height)); /* Uses dynamic height */
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid #dee2e6;
+  border-radius: calc(var(--indicator-width) / 2);
+  z-index: var(--z-indicator);
+  pointer-events: none;
+  transition: left 0.3s ease, height 0.4s ease, top 0.4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT VI.3: INDICATOR DOTS - FIXED
+   ───────────────────────────────────────────────────────────────── */
+.sidebar-indicator::before,
+.sidebar-indicator::after {
+  content: "";
+  position: absolute;
+  width: var(--dot-size);
+  height: var(--dot-size);
+  background-color: var(--dot-color);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  border: 0.5px solid #AAAAAA;
+  box-shadow: 0px 0 10px rgba(0,0,0,0.5);
+}
+
+.sidebar-indicator::before {
+  transform: translateY(var(--dynamic-top-dot-position, calc(-1 * var(--dot-spacing))));
+}
+
+.sidebar-indicator::after {
+  transform: translateY(var(--dynamic-bottom-dot-position, var(--dot-spacing)));
+}
+
+.sidebar-indicator .middle-dot {
+  width: var(--dot-size);
+  height: var(--dot-size);
+  background-color: #CACACA;
+  border: 0.5px solid #AAAAAA; 
+  box-shadow: 0px 0 10px rgba(0,0,0,0.5);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1002;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT VI.5: CIRCLE TRANSFORMATION - FIXED
+   ───────────────────────────────────────────────────────────────── */
+.sidebar-trigger:hover + .sidebar ~ .sidebar-indicator::before,
+.sidebar-trigger:hover + .sidebar ~ .sidebar-indicator::after,
+.sidebar:hover ~ .sidebar-indicator::before,
+.sidebar:hover ~ .sidebar-indicator::after {
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  box-shadow: none !important; 
+  transform: translate(-50%, -50%) scale(1);
+  top: 50%;
+  left: 50%;
+}
+
+.sidebar-trigger:hover + .sidebar ~ .sidebar-indicator .middle-dot,
+.sidebar:hover ~ .sidebar-indicator .middle-dot {
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--dot-color); /* ← FIXED: Proper border! */
+  box-shadow: none !important; 
+  background-color: transparent;
+  transform: translate(-50%, -50%);
+}
+
+.sidebar {
+  position: fixed;
+  top: var(--sidebar-top-offset);
+  left: -50vw;
+  width: var(--sidebar-width);
+  max-width: var(--sidebar-max-width);
+  min-width: var(--sidebar-min-width);
+  height: var(--sidebar-height);
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid #dee2e6;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+  transition: left 0.3s ease;
+  overflow-y: auto;
+  z-index: var(--z-sidebar);
+  padding: 2rem;
+  border-radius: 12px;
+}
+
+.sidebar-trigger:hover + .sidebar,
+.sidebar:hover {
+  left: var(--sidebar-active-left);
+}
+
+.sidebar-trigger:hover + .sidebar ~ .sidebar-indicator,
+.sidebar:hover ~ .sidebar-indicator {
+  left: calc(var(--sidebar-active-left) + min(var(--sidebar-width), var(--sidebar-max-width)) + var(--indicator-gap));
+  height: var(--indicator-circle-height);
+  top: calc(var(--sidebar-top-offset) + (var(--sidebar-height) / 2) - (var(--indicator-circle-height) / 2));
+}
+
+.sidebar-content {
+  font-family: "TT Commons Pro Mono", monospace;
+}
+
+/* Responsive adjustments */
+@media (max-width: 400px) {
+  .sidebar-trigger:hover + .sidebar ~ .sidebar-indicator,
+  .sidebar:hover ~ .sidebar-indicator {
+    left: calc(var(--sidebar-active-left) + var(--sidebar-min-width) + var(--indicator-gap));
+  }
+}
+
+/* =================================================================
+   VII. MODULAR GLASSMORPHISM SYSTEM
+   ================================================================= */
+
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT VII.1: BASE GLASSMORPHISM EFFECTS
+   ───────────────────────────────────────────────────────────────── */
+
+/* Standard glassmorphism - most common */
+.glassmorphism {
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* High opacity glassmorphism - more opaque */
+.glassmorphism-high {
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Light glassmorphism - very subtle */
+.glassmorphism-light {
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Dark glassmorphism - for dark mode */
+.glassmorphism-dark {
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Heavy glassmorphism - for strong privacy/focus */
+.glassmorphism-heavy {
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT VII.2: DYNAMIC TEXT COLOR UTILITIES
+   ───────────────────────────────────────────────────────────────── */
+
+/* Base dynamic text - works with JavaScript */
+.dynamic-text {
+  color: var(--dynamic-text-color, #333);
+  transition: color 0.3s ease;
+}
+
+/* Force light text (for dark backgrounds) */
+.text-light {
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Force dark text (for light backgrounds) */
+.text-dark {
+  color: #333333;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+/* Auto contrast text using CSS filters (experimental) */
+.text-auto-contrast {
+  filter: invert(1) grayscale(1) brightness(1.3) contrast(2000);
+  mix-blend-mode: difference;
+  opacity: 0.9;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT VII.3: COMBINED GLASSMORPHISM + TEXT UTILITIES
+   ───────────────────────────────────────────────────────────────── */
+
+/* Glassmorphism with guaranteed light text */
+.glassmorphism-with-light-text {
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid #e5e5e5;
+}
+
+/* Glassmorphism with guaranteed dark text */
+.glassmorphism-with-dark-text {
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #333333;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+/* Glassmorphism with dynamic text (requires JavaScript) */
+.glassmorphism-dynamic {
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--dynamic-text-color, #333);
+  transition: color 0.3s ease;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT VII.4: SPECIALTY GLASSMORPHISM EFFECTS
+   ───────────────────────────────────────────────────────────────── */
+
+/* Tinted glassmorphism - slight color cast */
+.glassmorphism-warm {
+  background-color: rgba(255, 248, 240, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 248, 240, 0.3);
+}
+
+.glassmorphism-cool {
+  background-color: rgba(240, 248, 255, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(240, 248, 255, 0.3);
+}
+
+/* Frosted glassmorphism effect with noise */
+.glassmorphism-frosted {
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  position: relative;
+}
+
+.glassmorphism-frosted::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><filter id="noise"><feTurbulence baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/><feBlend mode="overlay"/></filter></defs><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.03"/></svg>');
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT VII.5: HOVER/INTERACTION STATES
+   ───────────────────────────────────────────────────────────────── */
+
+/* Hover states for interactive glassmorphism elements */
+.glassmorphism-interactive {
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.glassmorphism-interactive:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.glassmorphism-interactive:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT VII.6: JAVASCRIPT HELPERS
+   ───────────────────────────────────────────────────────────────── */
+
+/* These classes are applied by JavaScript for dynamic behavior */
+.js-light-bg { 
+  --dynamic-text-color: #333333; 
+}
+
+.js-dark-bg { 
+  --dynamic-text-color: #ffffff; 
+}
+
+.js-medium-bg { 
+  --dynamic-text-color: #000000; 
+}
+
+/* Transition support for dynamic changes */
+.glassmorphism-dynamic,
+.dynamic-text {
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT VII.7: SIDEBAR-SPECIFIC GLASSMORPHISM EFFECTS
+   ───────────────────────────────────────────────────────────────── */
+
+/* Main sidebar container */
+.glassmorphism-sidebar {
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid #dee2e6;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+/* Sidebar indicator (the dots) */
+.glassmorphism-sidebar-indicator {
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid #dee2e6;
+  border-radius: calc(var(--indicator-width) / 2);
+}
+
+/* Table of Contents card in sidebar */
+.glassmorphism-toc-card {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid #dee2e6 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Interactive sidebar elements */
+.glassmorphism-sidebar-interactive {
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.glassmorphism-sidebar-interactive:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Sidebar cards with different opacities */
+.glassmorphism-sidebar-card-light {
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.glassmorphism-sidebar-card-medium {
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.glassmorphism-sidebar-card-strong {
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT VII.8: UTILITY MODIFIERS
+   ───────────────────────────────────────────────────────────────── */
+
+/* Border radius modifiers */
+.glassmorphism-rounded { border-radius: 8px; }
+.glassmorphism-rounded-lg { border-radius: 12px; }
+.glassmorphism-rounded-xl { border-radius: 16px; }
+.glassmorphism-pill { border-radius: 9999px; }
+
+/* Shadow modifiers */
+.glassmorphism-shadow-soft { box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); }
+.glassmorphism-shadow-medium { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); }
+.glassmorphism-shadow-strong { box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); }
+.glassmorphism-shadow-sidebar { box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); }
+
+/* Size/padding modifiers */
+.glassmorphism-compact { padding: 0.5rem; }
+.glassmorphism-comfortable { padding: 1rem; }
+.glassmorphism-spacious { padding: 1.5rem; }
+
+/* =================================================================
+   DARK MODE SYSTEM - darkmode.css
+   ================================================================= */
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT I: DARK MODE VARIABLES
+   ───────────────────────────────────────────────────────────────── */
+
+/* Light mode variables (default) */
+:root {
+  /* Background Colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  
+  /* Text Colors */
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --text-tertiary: #999999;
+  --text-muted: #adb5bd;
+  
+  /* Border Colors */
+  --border-light: #e5e5e5;
+  --border-medium: #dee2e6;
+  --border-strong: #adb5bd;
+  
+  /* Glassmorphism Colors */
+  --glass-bg: rgba(255, 255, 255, 0.4);
+  --glass-bg-high: rgba(255, 255, 255, 0.8);
+  --glass-bg-light: rgba(255, 255, 255, 0.2);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-border-strong: rgba(255, 255, 255, 0.3);
+  
+  /* Shadow Colors */
+  --shadow-light: rgba(0, 0, 0, 0.05);
+  --shadow-medium: rgba(0, 0, 0, 0.1);
+  --shadow-strong: rgba(0, 0, 0, 0.15);
+  
+  /* Accent Colors */
+  --accent-blue: #1a56db;
+  --accent-blue-hover: #1e40af;
+  
+  /* Code Block Colors */
+  --code-bg: #f8f9fa;
+  --code-border: #dee2e6;
+  --inline-code-bg: #f0f0f0;
+}
+
+/* Dark mode variables */
+:root.dark-mode,
+[data-theme="dark"] {
+  /* Background Colors */
+  --bg-primary: #0f0f0f;
+  --bg-secondary: #1a1a1a;
+  --bg-tertiary: #2a2a2a;
+  
+  /* Text Colors */
+  --text-primary: #f0f0f0;
+  --text-secondary: #d0d0d0;
+  --text-tertiary: #a0a0a0;
+  --text-muted: #707070;
+  
+  /* Border Colors */
+  --border-light: #333333;
+  --border-medium: #404040;
+  --border-strong: #606060;
+  
+  /* Glassmorphism Colors */
+  --glass-bg: rgba(0, 0, 0, 0.4);
+  --glass-bg-high: rgba(0, 0, 0, 0.8);
+  --glass-bg-light: rgba(0, 0, 0, 0.2);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-border-strong: rgba(255, 255, 255, 0.2);
+  
+  /* Shadow Colors */
+  --shadow-light: rgba(0, 0, 0, 0.3);
+  --shadow-medium: rgba(0, 0, 0, 0.5);
+  --shadow-strong: rgba(0, 0, 0, 0.7);
+  
+  /* Accent Colors */
+  --accent-blue: #60a5fa;
+  --accent-blue-hover: #3b82f6;
+  
+  /* Code Block Colors */
+  --code-bg: #1e1e1e;
+  --code-border: #404040;
+  --inline-code-bg: #2a2a2a;
+}
+
+/* Auto dark mode based on system preference */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light-mode) {
+    /* Background Colors */
+    --bg-primary: #0f0f0f;
+    --bg-secondary: #1a1a1a;
+    --bg-tertiary: #2a2a2a;
+    
+    /* Text Colors */
+    --text-primary: #f0f0f0;
+    --text-secondary: #d0d0d0;
+    --text-tertiary: #a0a0a0;
+    --text-muted: #707070;
+    
+    /* Border Colors */
+    --border-light: #333333;
+    --border-medium: #404040;
+    --border-strong: #606060;
+    
+    /* Glassmorphism Colors */
+    --glass-bg: rgba(0, 0, 0, 0.4);
+    --glass-bg-high: rgba(0, 0, 0, 0.8);
+    --glass-bg-light: rgba(0, 0, 0, 0.2);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-border-strong: rgba(255, 255, 255, 0.2);
+    
+    /* Shadow Colors */
+    --shadow-light: rgba(0, 0, 0, 0.3);
+    --shadow-medium: rgba(0, 0, 0, 0.5);
+    --shadow-strong: rgba(0, 0, 0, 0.7);
+    
+    /* Accent Colors */
+    --accent-blue: #60a5fa;
+    --accent-blue-hover: #3b82f6;
+    
+    /* Code Block Colors */
+    --code-bg: #1e1e1e;
+    --code-border: #404040;
+    --inline-code-bg: #2a2a2a;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT II: BASE ELEMENT OVERRIDES
+   ───────────────────────────────────────────────────────────────── */
+
+/* Body and background */
+.dark-mode body,
+[data-theme="dark"] body,
+@media (prefers-color-scheme: dark) {
+  :root:not(.light-mode) body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+  }
+}
+
+/* Headings */
+.dark-mode h1, .dark-mode h2, .dark-mode h3, .dark-mode h4, .dark-mode h5, .dark-mode h6,
+[data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, [data-theme="dark"] h4, [data-theme="dark"] h5, [data-theme="dark"] h6 {
+  color: var(--text-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light-mode) h1, 
+  :root:not(.light-mode) h2, 
+  :root:not(.light-mode) h3, 
+  :root:not(.light-mode) h4, 
+  :root:not(.light-mode) h5, 
+  :root:not(.light-mode) h6 {
+    color: var(--text-primary);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT III: DARK MODE GLASSMORPHISM OVERRIDES
+   ───────────────────────────────────────────────────────────────── */
+
+/* Base glassmorphism effects for dark mode */
+.dark-mode .glassmorphism,
+[data-theme="dark"] .glassmorphism {
+  background-color: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+}
+
+.dark-mode .glassmorphism-high,
+[data-theme="dark"] .glassmorphism-high {
+  background-color: var(--glass-bg-high);
+  border: 1px solid var(--glass-border-strong);
+}
+
+.dark-mode .glassmorphism-light,
+[data-theme="dark"] .glassmorphism-light {
+  background-color: var(--glass-bg-light);
+  border: 1px solid var(--glass-border);
+}
+
+.dark-mode .glassmorphism-dynamic,
+[data-theme="dark"] .glassmorphism-dynamic {
+  background-color: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+}
+
+.dark-mode .glassmorphism-interactive,
+[data-theme="dark"] .glassmorphism-interactive {
+  background-color: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+}
+
+.dark-mode .glassmorphism-interactive:hover,
+[data-theme="dark"] .glassmorphism-interactive:hover {
+  background-color: var(--glass-bg-high);
+  border: 1px solid var(--glass-border-strong);
+  box-shadow: 0 4px 20px var(--shadow-medium);
+}
+
+/* Auto dark mode glassmorphism */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light-mode) .glassmorphism {
+    background-color: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+  }
+  
+  :root:not(.light-mode) .glassmorphism-high {
+    background-color: var(--glass-bg-high);
+    border: 1px solid var(--glass-border-strong);
+  }
+  
+  :root:not(.light-mode) .glassmorphism-light {
+    background-color: var(--glass-bg-light);
+    border: 1px solid var(--glass-border);
+  }
+  
+  :root:not(.light-mode) .glassmorphism-dynamic {
+    background-color: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+  }
+  
+  :root:not(.light-mode) .glassmorphism-interactive {
+    background-color: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+  }
+  
+  :root:not(.light-mode) .glassmorphism-interactive:hover {
+    background-color: var(--glass-bg-high);
+    border: 1px solid var(--glass-border-strong);
+    box-shadow: 0 4px 20px var(--shadow-medium);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT IV: SIDEBAR DARK MODE
+   ───────────────────────────────────────────────────────────────── */
+
+/* Sidebar container */
+.dark-mode .sidebar,
+[data-theme="dark"] .sidebar {
+  background-color: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: 2px 0 10px var(--shadow-medium);
+}
+
+.dark-mode .sidebar-indicator,
+[data-theme="dark"] .sidebar-indicator {
+  background-color: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+}
+
+/* Sidebar cards */
+.dark-mode .sidebar-card,
+[data-theme="dark"] .sidebar-card {
+  background-color: var(--glass-bg-high);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 2px 6px var(--shadow-light);
+}
+
+.dark-mode .sidebar-card:hover,
+[data-theme="dark"] .sidebar-card:hover {
+  box-shadow: 0 4px 12px var(--shadow-medium);
+}
+
+.dark-mode .card-title,
+[data-theme="dark"] .card-title {
+  color: var(--text-primary) !important;
+  border-bottom: 1px solid var(--border-medium) !important;
+}
+
+.dark-mode .card-content,
+[data-theme="dark"] .card-content {
+  color: var(--text-secondary);
+}
+
+.dark-mode .card-stat-label,
+[data-theme="dark"] .card-stat-label {
+  color: var(--text-tertiary);
+}
+
+.dark-mode .card-stat-value,
+[data-theme="dark"] .card-stat-value {
+  color: var(--text-primary);
+}
+
+/* Auto dark mode sidebar */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light-mode) .sidebar {
+    background-color: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: 2px 0 10px var(--shadow-medium);
+  }
+  
+  :root:not(.light-mode) .sidebar-indicator {
+    background-color: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+  }
+  
+  :root:not(.light-mode) .sidebar-card {
+    background-color: var(--glass-bg-high);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 2px 6px var(--shadow-light);
+  }
+  
+  :root:not(.light-mode) .sidebar-card:hover {
+    box-shadow: 0 4px 12px var(--shadow-medium);
+  }
+  
+  :root:not(.light-mode) .card-title {
+    color: var(--text-primary) !important;
+    border-bottom: 1px solid var(--border-medium) !important;
+  }
+  
+  :root:not(.light-mode) .card-content {
+    color: var(--text-secondary);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT V: HEADER AND FOOTER DARK MODE
+   ───────────────────────────────────────────────────────────────── */
+
+.dark-mode .page-header-container,
+[data-theme="dark"] .page-header-container {
+  background-color: var(--glass-bg);
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.dark-mode .page-footer-container,
+[data-theme="dark"] .page-footer-container {
+  background-color: var(--bg-primary);
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-light);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light-mode) .page-header-container {
+    background-color: var(--glass-bg);
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border-light);
+  }
+  
+  :root:not(.light-mode) .page-footer-container {
+    background-color: var(--bg-primary);
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-light);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT VI: CODE BLOCKS DARK MODE
+   ───────────────────────────────────────────────────────────────── */
+
+.dark-mode pre,
+[data-theme="dark"] pre {
+  background-color: var(--code-bg);
+  border: 1px solid var(--code-border);
+  box-shadow: 0 2px 4px var(--shadow-light);
+}
+
+.dark-mode pre:hover,
+[data-theme="dark"] pre:hover {
+  box-shadow: 0 4px 8px var(--shadow-medium);
+}
+
+.dark-mode code:not(pre code),
+[data-theme="dark"] code:not(pre code) {
+  background-color: var(--inline-code-bg);
+  border: 1px solid var(--code-border);
+  color: var(--text-primary);
+}
+
+.dark-mode .r-output,
+[data-theme="dark"] .r-output {
+  background-color: var(--bg-tertiary);
+  border-left: 3px solid var(--border-strong);
+  color: var(--text-secondary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light-mode) pre {
+    background-color: var(--code-bg);
+    border: 1px solid var(--code-border);
+    box-shadow: 0 2px 4px var(--shadow-light);
+  }
+  
+  :root:not(.light-mode) pre:hover {
+    box-shadow: 0 4px 8px var(--shadow-medium);
+  }
+  
+  :root:not(.light-mode) code:not(pre code) {
+    background-color: var(--inline-code-bg);
+    border: 1px solid var(--code-border);
+    color: var(--text-primary);
+  }
+  
+  :root:not(.light-mode) .r-output {
+    background-color: var(--bg-tertiary);
+    border-left: 3px solid var(--border-strong);
+    color: var(--text-secondary);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT VII: TABLE OF CONTENTS DARK MODE
+   ───────────────────────────────────────────────────────────────── */
+
+.dark-mode #TOC,
+[data-theme="dark"] #TOC {
+  background-color: var(--glass-bg-high) !important;
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: 0 8px 12px var(--shadow-medium) !important;
+}
+
+.dark-mode #TOC .toc-title,
+[data-theme="dark"] #TOC .toc-title {
+  color: var(--text-primary) !important;
+}
+
+.dark-mode #TOC ul li a,
+[data-theme="dark"] #TOC ul li a {
+  color: var(--text-secondary) !important;
+}
+
+.dark-mode #TOC ul li a:hover,
+[data-theme="dark"] #TOC ul li a:hover {
+  color: var(--accent-blue) !important;
+  background-color: var(--bg-tertiary) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light-mode) #TOC {
+    background-color: var(--glass-bg-high) !important;
+    border: 1px solid var(--glass-border) !important;
+    box-shadow: 0 8px 12px var(--shadow-medium) !important;
+  }
+  
+  :root:not(.light-mode) #TOC .toc-title {
+    color: var(--text-primary) !important;
+  }
+  
+  :root:not(.light-mode) #TOC ul li a {
+    color: var(--text-secondary) !important;
+  }
+  
+  :root:not(.light-mode) #TOC ul li a:hover {
+    color: var(--accent-blue) !important;
+    background-color: var(--bg-tertiary) !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT VIII: HERO INFODELEGATE DARK MODE
+   ───────────────────────────────────────────────────────────────── */
+
+.dark-mode .hero-infodelegate,
+[data-theme="dark"] .hero-infodelegate {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-medium);
+}
+
+.dark-mode .header-label,
+[data-theme="dark"] .header-label {
+  color: var(--text-muted);
+}
+
+.dark-mode .header-value,
+[data-theme="dark"] .header-value {
+  color: var(--text-secondary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light-mode) .hero-infodelegate {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-medium);
+  }
+  
+  :root:not(.light-mode) .header-label {
+    color: var(--text-muted);
+  }
+  
+  :root:not(.light-mode) .header-value {
+    color: var(--text-secondary);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT IX: BLOCKQUOTE DARK MODE
+   ───────────────────────────────────────────────────────────────── */
+
+.dark-mode blockquote,
+[data-theme="dark"] blockquote {
+  border-left: 6px solid var(--text-primary);
+  background-color: var(--bg-secondary);
+}
+
+.dark-mode blockquote h3,
+[data-theme="dark"] blockquote h3 {
+  color: var(--text-primary);
+}
+
+.dark-mode blockquote p,
+[data-theme="dark"] blockquote p {
+  color: var(--text-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light-mode) blockquote {
+    border-left: 6px solid var(--text-primary);
+    background-color: var(--bg-secondary);
+  }
+  
+  :root:not(.light-mode) blockquote h3 {
+    color: var(--text-primary);
+  }
+  
+  :root:not(.light-mode) blockquote p {
+    color: var(--text-primary);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT X: DARK MODE TOGGLE BUTTON (OPTIONAL)
+   ───────────────────────────────────────────────────────────────── */
+
+.dark-mode-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: var(--glassmorphism-bg, rgba(255, 255, 255, 0.4));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glassmorphism-border, rgba(255, 255, 255, 0.2));
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1001;
+  font-size: 1.2rem;
+}
+
+.dark-mode-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 20px var(--shadow-medium);
+}
+
+.dark-mode-toggle::before {
+  content: "🌙";
+}
+
+.dark-mode .dark-mode-toggle::before,
+[data-theme="dark"] .dark-mode-toggle::before {
+  content: "☀️";
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light-mode) .dark-mode-toggle::before {
+    content: "☀️";
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT XI: SMOOTH TRANSITIONS
+   ───────────────────────────────────────────────────────────────── */
+
+/* Add smooth transitions for theme changes */
+*,
+*::before,
+*::after {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Disable transitions during theme change to prevent flashing */
+.theme-transition * {
+  transition: none !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   COMPONENT: DYNAMIC WHITE TEXT + DROP SHADOW CLASSES
+   ───────────────────────────────────────────────────────────────── */
+
+/* Pure white text + dark shadow for light backgrounds */
+.page-header-container.light-bg {
+  color: #FFFFFF !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8), 
+               0 2px 6px rgba(0, 0, 0, 0.4) !important;
+}
+
+.page-header-container.light-bg .header-left,
+.page-header-container.light-bg .header-right {
+  color: #FFFFFF !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8), 
+               0 2px 6px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Pure white text + light shadow for dark backgrounds */
+.page-header-container.dark-bg {
+  color: #FFFFFF !important;
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9), 
+               0 2px 6px rgba(255, 255, 255, 0.5) !important;
+}
+
+.page-header-container.dark-bg .header-left,
+.page-header-container.dark-bg .header-right {
+  color: #FFFFFF !important;
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9), 
+               0 2px 6px rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Pure white text + mixed shadow for medium backgrounds */
+.page-header-container.medium-bg {
+  color: #FFFFFF !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7), 
+               0 1px 4px rgba(255, 255, 255, 0.4) !important;
+}
+
+.page-header-container.medium-bg .header-left,
+.page-header-container.medium-bg .header-right {
+  color: #FFFFFF !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7), 
+               0 1px 4px rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Smooth transition for both color AND shadow changes */
+.page-header-container,
+.page-header-container .header-left,
+.page-header-container .header-right {
+  transition: color 0.4s ease, text-shadow 0.4s ease !important;
+}
+
+/* Ensure default state remains #CACACA when no classes are applied */
+.page-header-container:not(.light-bg):not(.dark-bg):not(.medium-bg) {
+  color: #CACACA !important;
+  text-shadow: none !important;
+}
+
+.page-header-container:not(.light-bg):not(.dark-bg):not(.medium-bg) .header-left,
+.page-header-container:not(.light-bg):not(.dark-bg):not(.medium-bg) .header-right {
+  color: #CACACA !important;
+  text-shadow: none !important;
+}
+
+/* =================================================================
+   CODE BLOCK STYLING FIXES - ADD TO v6.css
+   ================================================================= */
+
+/* ─────────────────────────────────────────────────────────────────
+   ENHANCED CODE BLOCK STYLING (Missing from v6.css)
+   ───────────────────────────────────────────────────────────────── */
+
+/* Enhanced line number styling that overrides syntax highlighting */
+code .line-number {
+  display: inline-block !important;
+  width: 4.5em !important;
+  position: absolute !important;
+  left: 0 !important;
+  text-align: right !important;
+  padding-right: 1em !important;
+  /* More specific color declaration to override syntax highlighting */
+  color: #adb5bd !important;
+  background-color: transparent !important;
+  font-weight: normal !important;
+  font-style: normal !important;
+  text-decoration: none !important;
+  user-select: none !important;
+  border-right: 1px solid #e0e0e0 !important;
+  margin-right: 1em !important;
+  /* Ensure it doesn't inherit any syntax highlighting styles */
+  font-family: "TT Commons Pro Mono", monospace !important;
+  /* Prevent any text effects from syntax highlighting */
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+/* More specific selectors to override syntax highlighting classes */
+pre code .line-number,
+.sourceCode .line-number,
+.hljs .line-number,
+code[class*="language-"] .line-number,
+pre[class*="language-"] .line-number {
+  color: #adb5bd !important;
+  background: transparent !important;
+  font-weight: normal !important;
+}
+
+/* Override any potential syntax highlighting on numbers specifically for line numbers */
+.line-number span,
+.line-number * {
+  color: inherit !important;
+  background: transparent !important;
+  font-weight: inherit !important;
+}
+
+/* Ensure line numbers maintain consistent appearance */
+pre.numbered {
+  position: relative;
+  padding-left: 5.5em !important;
+  counter-reset: line;
+}
+
+/* Alternative approach: Use CSS counters instead of JavaScript insertion */
+.use-css-counters code {
+  counter-reset: line;
+}
+
+.use-css-counters code .line {
+  counter-increment: line;
+}
+
+.use-css-counters code .line::before {
+  content: counter(line);
+  display: inline-block;
+  width: 4.5em;
+  position: absolute;
+  left: 0;
+  text-align: right;
+  padding-right: 1em;
+  color: #adb5bd !important;
+  user-select: none;
+  border-right: 1px solid #e0e0e0;
+  margin-right: 1em;
+  font-family: "TT Commons Pro Mono", monospace !important;
+}
+
+/* Enhanced pre block styling - OVERRIDE v6.css version */
+pre {
+  position: relative;
+  background-color: white !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 4px !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+  margin: 1em 0 !important;
+  padding: 0.75em !important;
+  padding-top: 2em !important; /* Make space for language label */
+  font-weight: 400;
+  line-height: 1.4;
+  font-family: "TT Commons Pro Mono", monospace;
+  line-height: 1.5;
+  margin-bottom: 1.5em;
+  overflow-x: auto;
+}
+
+/* Language label styling */
+pre[class]::before {
+  content: attr(class);
+  font-family: "TT Commons Pro Mono", monospace;
+  font-size: 0.9em;
+  color: #909090;
+  position: absolute;
+  right: 0.8em;
+  top: 0.4em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+/* Specific language overrides */
+pre.r::before { content: "R"; }
+pre.python::before { content: "PYTHON"; }
+pre.sql::before { content: "SQL"; }
+pre.javascript::before { content: "JAVASCRIPT"; }
+pre.css::before { content: "CSS"; }
+pre.html::before { content: "HTML"; }
+
+/* Better hover effect */
+pre:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+  transition: box-shadow 0.3s ease;
+}
+
+/* Ensure code inside pre blocks is styled correctly */
+pre code {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  font-family: "TT Commons Pro Mono", monospace;
+  font-size: inherit;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   DARK MODE FIXES FOR CODE BLOCKS
+   ───────────────────────────────────────────────────────────────── */
+
+.dark-mode pre,
+[data-theme="dark"] pre {
+  background-color: #1e1e1e !important;
+  border: 1px solid #404040 !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+}
+
+.dark-mode pre:hover,
+[data-theme="dark"] pre:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5) !important;
+}
+
+.dark-mode pre[class]::before,
+[data-theme="dark"] pre[class]::before {
+  color: #888 !important;
+}
+
+.dark-mode code .line-number,
+[data-theme="dark"] code .line-number {
+  color: #666 !important;
+  border-right: 1px solid #404040 !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light-mode) pre {
+    background-color: #1e1e1e !important;
+    border: 1px solid #404040 !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+  }
+  
+  :root:not(.light-mode) pre:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5) !important;
+  }
+  
+  :root:not(.light-mode) pre[class]::before {
+    color: #888 !important;
+  }
+  
+  :root:not(.light-mode) code .line-number {
+    color: #666 !important;
+    border-right: 1px solid #404040 !important;
+  }
+}
+
+/* =================================================================
+   PROJECT HEADER STYLING - LOGO TOP LEFT VERSION
+   ================================================================= */
+
+/* Make project header edge-to-edge at top WITH NEW LAYOUT */
+.sidebar-card.project-header {
+  /* RETAIN: Use negative margins to break out of sidebar padding */
+  margin-top: -2rem;    /* Offset the sidebar's top padding */
+  margin-left: -2rem;   /* Offset the sidebar's left padding */
+  margin-right: -2rem;  /* Offset the sidebar's right padding */
+  margin-bottom: 1.5rem; /* Keep bottom spacing */
+  
+  /* RETAIN: Add top border radius only to bottom since top is now flush */
+  border-radius: 0 0 12px 12px; /* Only round bottom corners */
+  
+  /* RETAIN: TRANSPARENT STYLING */
+  background: transparent; /* ← CHANGED: was linear-gradient */
+  color: #333; /* ← CHANGED: dark text since no blue background */
+  border: none; /* ← CHANGED: remove border entirely */
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  
+  /* NEW: Grid layout - Logo top left, version below, other stuff right */
+  display: grid;
+  grid-template-columns: 120px 1fr; /* Left: 120px for logo+version, Right: remaining space */
+  column-gap: 1rem;
+  align-items: start; /* TOP alignment - no centering */
+  align-content: start; /* Also align grid content to top */
+  border: 1px dashed rgba(255, 255, 255, 0.3) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  
+}
+
+/* DEBUG: Temporary grid visualization */
+.sidebar-card.project-header * {
+  border: 1px dashed rgba(255, 255, 255, 0.3) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.project-branding {
+  border: 2px solid yellow !important;
+  background: rgba(255, 255, 0, 0.1) !important;
+}
+
+.project-meta {
+  border: 2px solid cyan !important;
+  background: rgba(0, 255, 255, 0.1) !important;
+}
+
+.project-title, .project-subtitle {
+  border-color: orange !important;
+  background: rgba(255, 165, 0, 0.1) !important;
+}
+
+.sidebar:hover .sidebar-card.project-header {
+  /* RETAIN: Ensure it stays edge-to-edge even on hover */
+  margin-left: -2rem !important;
+  margin-right: -2rem !important;
+}
+
+.sidebar-card.project-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><filter id="noise"><feTurbulence baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter></defs><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.03"/></svg>');
+  pointer-events: none;
+}
+
+/* NEW: Left column container for logo and version */
+.project-logo-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start; /* Left align within the column */
+  align-self: start; /* TOP alignment for this column */
+  border: 2px solid yellow !important;
+  background: rgba(255, 255, 0, 0.1) !important;
+}
+
+/* NEW: Bigger logo container */
+.project-logo {
+  width: 100px; /* Increased from 60px */
+  height: 100px; /* Increased from 60px */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  border: 3px solid red !important;
+  outline: 2px solid blue !important;
+}
+
+.project-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.8;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  transition: all 0.3s ease;
+  border: 2px solid cyan !important;
+  background: rgba(0, 255, 255, 0.1) !important;
+}
+
+.project-logo:hover img {
+  opacity: 1;
+  transform: scale(1.05);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+/* NEW: Version info positioned under logo */
+.project-version-under-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  border: 2px solid orange !important;
+  background: rgba(255, 165, 0, 0.1) !important;
+}
+
+.project-version-under-logo .version-label {
+  font-family: "TT Commons Pro Mono", monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  opacity: 0.7;
+  text-transform: uppercase;
+}
+
+.project-version-under-logo .version-number {
+  font-family: "TT Commons Pro Mono", monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  background: rgba(0, 0, 0, 0.1);
+  color: #333;
+  padding: 0.15rem 0.35rem;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+/* NEW: Right side content wrapper - spans full height */
+.project-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  position: relative;
+  z-index: 2;
+  align-self: start; /* TOP alignment for this column */
+  justify-content: flex-start; /* Start from top, no centering */
+  border: 2px solid lime !important;
+  background: rgba(0, 255, 0, 0.2) !important;
+}
+
+/* UPDATED: Project Branding - now empty but keep for structure */
+.project-branding {
+  margin-bottom: 0;
+  position: relative;
+  z-index: 2;
+  border: 2px solid magenta !important;
+  background: rgba(255, 0, 255, 0.2) !important;
+}
+
+.project-title {
+  display: none; /* Hidden since you removed it */
+}
+
+.project-subtitle {
+  display: none; /* Hidden since you removed it */
+}
+
+/* Project Meta Information - now without version (moved to left) */
+.project-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  position: relative;
+  z-index: 2;
+  border: 2px solid pink !important;
+  background: rgba(255, 192, 203, 0.2) !important;
+}
+
+/* Hide the original version info since it's now under the logo */
+.project-meta .version-info {
+  display: none;
+}
+
+/* Build Tools - keep as is */
+.build-tools {
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+}
+
+.tool-icon {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 50%;
+  cursor: help;
+  transition: all 0.2s ease;
+  border: 2px solid pink !important;
+  background: rgba(255, 192, 203, 0.2) !important;
+}
+
+.tool-icon:hover {
+  background: rgba(0, 0, 0, 0.15);
+  border-color: rgba(0, 0, 0, 0.25);
+  transform: scale(1.1);
+}
+
+/* Status Indicator - keep as is */
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0;
+  border: 1px dashed rgba(255, 255, 255, 0.8) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #fbbf24;
+  animation: pulse 2s infinite;
+  transition: all 0.3s ease;
+}
+
+.status-dot.loading {
+  background: #fbbf24;
+  animation: pulse 2s infinite;
+}
+
+.status-dot.success {
+  background: #10b981;
+  animation: none;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+}
+
+.status-dot.error {
+  background: #ef4444;
+  animation: none;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.4);
+}
+
+.status-text {
+  font-family: "TT Commons Pro Mono", monospace;
+  font-size: 0.6rem;
+  font-weight: 500;
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Pulse animation for loading state */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+}
+
+/* Dark mode support - keep transparent but adjust text/elements */
+.dark-mode .sidebar-card.project-header,
+[data-theme="dark"] .sidebar-card.project-header {
+  background: transparent;
+  color: #f0f0f0;
+}
+
+.dark-mode .project-version-under-logo .version-number,
+[data-theme="dark"] .project-version-under-logo .version-number {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f0f0f0;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.dark-mode .tool-icon,
+[data-theme="dark"] .tool-icon {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.dark-mode .tool-icon:hover,
+[data-theme="dark"] .tool-icon:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.dark-mode .project-version-under-logo .version-label,
+[data-theme="dark"] .project-version-under-logo .version-label,
+.dark-mode .status-text,
+[data-theme="dark"] .status-text {
+  color: #d0d0d0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light-mode) .sidebar-card.project-header {
+    background: transparent;
+    color: #f0f0f0;
+  }
+  
+  :root:not(.light-mode) .project-version-under-logo .version-number {
+    background: rgba(255, 255, 255, 0.1);
+    color: #f0f0f0;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  
+  :root:not(.light-mode) .tool-icon {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  
+  :root:not(.light-mode) .tool-icon:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+  
+  :root:not(.light-mode) .project-version-under-logo .version-label,
+  :root:not(.light-mode) .status-text {
+    color: #d0d0d0;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 400px) {
+  .build-tools {
+    gap: 0.25rem;
+  }
+  
+  .tool-icon {
+    width: 16px;
+    height: 16px;
+    font-size: 0.65rem;
+  }
+  
+  .project-logo {
+    width: 80px; /* Smaller logo on mobile */
+    height: 80px;
+  }
+  
+  .sidebar-card.project-header {
+    grid-template-columns: 100px 1fr; /* Adjust grid for mobile */
+  }
+}

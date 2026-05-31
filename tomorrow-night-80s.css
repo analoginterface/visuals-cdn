@@ -1,0 +1,149 @@
+/* ================================================================
+   TOMORROW NIGHT 80S - MINIMAL VERSION
+   ONLY CODE BLOCKS - NO INLINE CODE, NO OUTPUTS, NO GLOBAL CHANGES
+   ================================================================ */
+
+/* ================================================================
+   ONLY TARGET PRE BLOCKS (THE DARK CODE RECTANGLES)
+   ================================================================ */
+
+/* Only the pre container itself */
+pre {
+  background-color: #2d2d2d !important;
+  border: 1px solid #404040 !important;
+  /* Do NOT set text color here */
+}
+
+/* Only code inside pre blocks */
+pre > code {
+  background-color: transparent !important;
+  color: #cccccc !important;
+  font-family: inherit !important; /* Don't override font */
+}
+
+/* Only .sourceCode containers (R Markdown code blocks) */
+.sourceCode {
+  background-color: #2d2d2d !important;
+  /* Do NOT set text color here - let it inherit from children */
+}
+
+.sourceCode > code {
+  color: #cccccc !important;
+}
+
+/* ================================================================
+   SYNTAX HIGHLIGHTING - ONLY INSIDE PRE OR .sourceCode
+   ================================================================ */
+
+/* Keywords */
+pre .kw, pre .keyword, 
+.sourceCode .kw, .sourceCode .keyword { 
+  color: #cc99cc !important; 
+  font-weight: bold !important; 
+}
+
+/* Numbers */
+pre .dv, pre .decimal, pre .fl, pre .float, pre .number,
+.sourceCode .dv, .sourceCode .decimal, .sourceCode .fl, .sourceCode .float, .sourceCode .number { 
+  color: #f99157 !important; 
+}
+
+/* Strings */
+pre .st, pre .string, 
+.sourceCode .st, .sourceCode .string { 
+  color: #99cc99 !important; 
+}
+
+/* Comments */
+pre .co, pre .comment, 
+.sourceCode .co, .sourceCode .comment { 
+  color: #888888 !important; 
+  font-style: italic !important; 
+}
+
+/* Functions */
+pre .fu, pre .function, 
+.sourceCode .fu, .sourceCode .function { 
+  color: #6699cc !important; 
+}
+
+/* Operators */
+pre .op, pre .operator, 
+.sourceCode .op, .sourceCode .operator { 
+  color: #66cccc !important; 
+}
+
+/* Variables */
+pre .va, pre .variable, 
+.sourceCode .va, .sourceCode .variable { 
+  color: #f2777a !important; 
+}
+
+/* Constants */
+pre .cn, pre .constant, pre .bu, pre .builtin,
+.sourceCode .cn, .sourceCode .constant, .sourceCode .bu, .sourceCode .builtin { 
+  color: #f99157 !important; 
+}
+
+/* Control flow */
+pre .cf, pre .controlflow, 
+.sourceCode .cf, .sourceCode .controlflow { 
+  color: #cc99cc !important; 
+  font-weight: bold !important; 
+}
+
+/* ================================================================
+   RAINBOW PARENTHESES - ONLY INSIDE CODE BLOCKS
+   ================================================================ */
+
+pre .paren-1, .sourceCode .paren-1 { color: #f2777a !important; font-weight: bold !important; }
+pre .paren-2, .sourceCode .paren-2 { color: #f99157 !important; font-weight: bold !important; }
+pre .paren-3, .sourceCode .paren-3 { color: #ffcc66 !important; font-weight: bold !important; }
+pre .paren-4, .sourceCode .paren-4 { color: #99cc99 !important; font-weight: bold !important; }
+pre .paren-5, .sourceCode .paren-5 { color: #66cccc !important; font-weight: bold !important; }
+pre .paren-6, .sourceCode .paren-6 { color: #6699cc !important; font-weight: bold !important; }
+pre .paren-7, .sourceCode .paren-7 { color: #cc99cc !important; font-weight: bold !important; }
+
+pre .bracket-1, .sourceCode .bracket-1 { color: #f2777a !important; font-weight: bold !important; }
+pre .bracket-2, .sourceCode .bracket-2 { color: #f99157 !important; font-weight: bold !important; }
+pre .bracket-3, .sourceCode .bracket-3 { color: #ffcc66 !important; font-weight: bold !important; }
+pre .bracket-4, .sourceCode .bracket-4 { color: #99cc99 !important; font-weight: bold !important; }
+pre .bracket-5, .sourceCode .bracket-5 { color: #66cccc !important; font-weight: bold !important; }
+pre .bracket-6, .sourceCode .bracket-6 { color: #6699cc !important; font-weight: bold !important; }
+pre .bracket-7, .sourceCode .bracket-7 { color: #cc99cc !important; font-weight: bold !important; }
+
+pre .brace-1, .sourceCode .brace-1 { color: #f2777a !important; font-weight: bold !important; }
+pre .brace-2, .sourceCode .brace-2 { color: #f99157 !important; font-weight: bold !important; }
+pre .brace-3, .sourceCode .brace-3 { color: #ffcc66 !important; font-weight: bold !important; }
+pre .brace-4, .sourceCode .brace-4 { color: #99cc99 !important; font-weight: bold !important; }
+pre .brace-5, .sourceCode .brace-5 { color: #66cccc !important; font-weight: bold !important; }
+pre .brace-6, .sourceCode .brace-6 { color: #6699cc !important; font-weight: bold !important; }
+pre .brace-7, .sourceCode .brace-7 { color: #cc99cc !important; font-weight: bold !important; }
+
+/* ================================================================
+   ENHANCED R SYNTAX - ONLY INSIDE CODE BLOCKS
+   ================================================================ */
+
+pre .special-op, .sourceCode .special-op { 
+  color: #cc99cc !important; 
+  font-weight: bold !important; 
+}
+
+pre .package-name, .sourceCode .package-name { 
+  color: #f99157 !important; 
+  font-weight: bold !important; 
+}
+
+/* ================================================================
+   LINE NUMBERS - ONLY INSIDE CODE BLOCKS
+   ================================================================ */
+
+pre .line-number,
+.sourceCode .line-number {
+  color: #555555 !important;
+  background-color: transparent !important;
+  border-right: 1px solid #404040 !important;
+  padding-right: 0.5rem !important;
+  margin-right: 1rem !important;
+  user-select: none !important;
+}

@@ -1,0 +1,869 @@
+/* =================================================================
+   MONOSPACE - TT Commons Pro Mono
+   ================================================================= */
+
+/* Monospace Regular */
+@font-face {
+  font-family: "TT Commons Pro Mono";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/TTCommonsProMono/TTCommonsProMono-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Monospace Italic */
+@font-face {
+  font-family: "TT Commons Pro Mono";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/TTCommonsProMono/TT%20Commons%20Pro%20Mono%20Trial%20Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Monospace Medium */
+@font-face {
+  font-family: "TT Commons Pro Mono";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/TTCommonsProMono/TT%20Commons%20Pro%20Mono%20Trial%20Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Monospace Medium Italic */
+@font-face {
+  font-family: "TT Commons Pro Mono";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/TTCommonsProMono/TT%20Commons%20Pro%20Mono%20Trial%20Medium%20Italic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+
+/* Monospace DemiBold (600) */
+@font-face {
+  font-family: "TT Commons Pro Mono";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/TTCommonsProMono/TT%20Commons%20Pro%20Mono%20Trial%20DemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Monospace DemiBold Italic */
+@font-face {
+  font-family: "TT Commons Pro Mono";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/TTCommonsProMono/TT%20Commons%20Pro%20Mono%20Trial%20DemiBold%20Italic.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* =================================================================
+   SERIF FONT FAMILY - Minion Pro
+   ================================================================= */
+
+/* Serif - Regular */
+@font-face {
+  font-family: "Minion Pro";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/Minion-Pro/6817.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Serif - Italic */
+@font-face {
+  font-family: "Minion Pro";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/Minion-Pro/6814.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Serif - Medium */
+@font-face {
+  font-family: "Minion Pro";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/Minion-Pro/6815.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Serif - Medium Italic */
+@font-face {
+  font-family: "Minion Pro";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/Minion-Pro/6816.otf") format("opentype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Serif - Semibold */
+@font-face {
+  font-family: "Minion Pro";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/Minion-Pro/6818.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Serif - Semibold Italic */
+@font-face {
+  font-family: "Minion Pro";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/Minion-Pro/6819.otf") format("opentype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Serif - Bold */
+@font-face {
+  font-family: "Minion Pro";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/Minion-Pro/6812.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Serif - Bold Italic */
+@font-face {
+  font-family: "Minion Pro";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/Minion-Pro/6813.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* =================================================================
+   SANS-SERIF FONT FAMILY - Helvetica Neue LT Com
+   ================================================================= */
+
+/* Sans-serif - Medium Extended */
+@font-face {
+  font-family: "Helvetica Neue LT Com";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/HelveticaNeueLTCom/HelveticaNeueLTCom-MdEx.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Helvetica Neue LT Com";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/HelveticaNeueLTCom/HelveticaNeueLTCom-MdEx.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Sans-serif - Medium*/
+@font-face {
+  font-family: "Neue Haas Display";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/NeueHaasGroteskDisplayPro/NeueHaasDisplayMediu.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue Haas Display";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/NeueHaasGroteskDisplayPro/NeueHaasDisplayMediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* =================================================================
+   APPLIED TYPOGRAPHY STYLES
+   ================================================================= */
+
+/* Default body text - Serif */
+body {
+  font-family: "Minion Pro", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Alternative body text - Sans-serif */
+.sans-text {
+  font-family: "Helvetica Neue LT Com", sans-serif;
+}
+
+/* Headings - Sans-serif by default */
+h1, h3, h4, h5, h6 {
+  font-family: "Neue Haas Display", sans-serif;
+  font-weight: 500;
+  line-height: 1.2;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+h1 {
+  font-family: "Neue Haas Display", sans-serif;
+  font-weight: 500;
+  line-height: 0.9;
+  letter-spacing: -0.025em !important;
+  letter-spacing: optical;
+  word-spacing: 0.23em;
+  margin-top: 0.3em !important;
+  margin-bottom: 4em !important;
+  padding-right: 30vw;
+}
+
+h2 {
+  font-family: "Neue Haas Display", sans-serif;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+/* Heading size hierarchy */
+h1 { font-size: 7rem !important; }
+h2 { font-size: 3rem; }
+h3 { font-size: 2rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1.1rem; }
+
+/* 1) Monospace font for all code elements */
+pre, code, kbd, samp, tt, .sourceCode, .r {
+  font-family: "TT Commons Pro Mono", monospace;
+  font-variant-ligatures: none;
+  font-size: 0.8em;
+}
+
+/* 2) Inline‐only styling */
+code:not(pre code) {
+  background-color: #f0f0f0;
+  border: 1px solid #dee2e6;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+}
+
+/* 3) Block‐only styling */
+/* Outer <pre> wraps the chunk: */
+pre {
+  font-weight: 400;
+  line-height: 1.4;
+  background-color: #f5f5f5;
+  padding: 1em;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+/* Strip inline décor from the nested <code> */
+pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+
+/* Text styles */
+em, i {
+  font-style: italic;
+}
+
+strong, b {
+  font-weight: 700;
+}
+
+/* Special typography for captions and subheadings */
+.caption {
+  font-family: "Minion Pro", serif;
+  font-weight: 500; /* Medium Caption */
+  font-size: 0.9em;
+}
+
+.subhead {
+  font-family: "Minion Pro", serif;
+  font-weight: 600; /* Semibold Subhead */
+  font-size: 1.1em;
+}
+
+table.dataTable,
+table.dataTable th,
+table.dataTable td {
+  font-family: "TT Commons Pro Mono", monospace !important;
+}
+
+table,
+table th,
+table td {
+  font-family: "TT Commons Pro Mono", monospace !important;
+}
+
+/* math font for formulas */
+@font-face {
+  font-family: "TG Pagella Math";
+  src: url("https://cdn.jsdelivr.net/gh/username/tex-gyre-math/texgyrepagella-math.otf")
+       format("opentype");
+  font-display: swap;
+}
+
+/* MathJax spans in the preview */
+span.math,
+div.math {
+  font-family: "TG Pagella Math", serif !important;
+  font-size: 2.1rem;
+}
+
+.subtitle {
+  font-family: "TT Commons Pro Mono", monospace;
+  font-feature-settings: "ss01" 1;
+  
+  /* Include any other styling you want */
+  font-size: 3rem;
+  font-weight: 500;
+}
+
+/* Hide the default R Markdown metadata display */
+.author, .date {
+  display: none;
+}
+
+/* Style header container */
+.header-container {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  column-gap: 1.1em;
+  margin: 2em 0 1.5em auto; /*[top][right][bottom][left]*/
+  max-width: 450px;
+  padding: 1em 0.1em 1em 0;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  font-family: "TT Commons Pro Mono", monospace;
+  /* font-feature-settings: "ss01" 1; */
+  font-size: 1.35rem;
+  font-weight: 500;
+}
+
+/*left column */
+.header-label {
+  text-align: right;
+  color: #CACACA;
+  font-size: 1.35rem;
+  text-transform: uppercase;
+  /* letter-spacing: 0.05em; */
+  font-weight: 500;
+}
+
+/* right column */
+.header-value {
+  color: #606060;
+}
+
+/* Optional: Style the title and subtitle too */
+.title {
+  text-align: left;
+  margin-bottom: 0.5em;
+}
+
+.subtitle {
+  text-align: left;
+  margin-bottom: 2em;
+  font-style: normal;
+  color: #333;
+}
+
+/* Make document fill the entire window width */
+.main-container, 
+.container-fluid, 
+body > .container {
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+  width: 100% !important;
+}
+
+/* Ensure html and body elements take full width */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ensure content doesn't have width constraints */
+.content {
+  width: 100%;
+  max-width: none;
+}
+
+/* Document header and footer */
+
+.page-header-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.75rem 0.5rem !important;
+  line-height: 1.1;
+  font-family: "TT Commons Pro Mono", monospace;
+  font-size: 1.3rem;
+  color: #CBCBCB;
+  font-weight: 500;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1000;
+  border-bottom: 1px solid #e5e5e5;
+  transition: all 0.3s ease;
+}
+
+.page-footer-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.5rem !important;
+  font-family: "TT Commons Pro Mono", monospace;
+  font-size: 1.3rem;
+  color: #CBCBCB;
+  font-weight: 500;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1000;
+  border-top: 1px solid #e5e5e5;
+  margin-top: 2rem;
+}
+
+.header-left, .footer-left {
+  text-align: left;
+}
+
+.header-right, .footer-right {
+  text-align: right;
+}
+
+/* For printed pages or PDF output */
+@media print {
+  @page {
+    @top-left {
+      content: "COLIN MCCORMICK";
+    }
+    @top-right {
+      content: "ABCD 1234";
+    }
+    @bottom-left {
+      content: "DOC TITLE";
+    }
+    @bottom-right {
+      content: counter(page);
+    }
+  }
+}
+
+/* Language label styling */
+pre[class]::before {
+  content: attr(class);
+  font-family: "TT Commons Pro Mono", monospace;
+  font-size: 0.9em;
+  color: #909090;
+  position: absolute;
+  right: 0.8em;
+  top: 0.4em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+/* Specific language overrides */
+pre.r::before { content: "R"; }
+pre.python::before { content: "PYTHON"; }
+pre.sql::before { content: "SQL"; }
+
+/* Position relative for code blocks */
+pre {
+  position: relative;
+  padding-top: 1em !important; /* Make space for label */
+}
+
+h2 code {
+  font-size: 0.7em;
+  font-weight: 400;
+  padding: 0.1em 0.2em;
+  background-color: #f0f0f0;
+  border-radius: 3px;
+  vertical-align: middle;
+  margin: 0 0.1em;
+  font-feature-settings: "ss01" 1;
+  vertical-align: baseline;
+  position: relative;
+  top: -2px; /* Adjust pixel value as needed */
+}
+
+blockquote{
+  border-left: 6px solid #333;
+  padding-left: 1em;
+  margin-left: 0;
+  background-color: #f8f9fa;
+}
+
+/* Target a heading inside the quote */
+blockquote h3 {
+  font-family: "Helvetica Neue LT Com", sans-serif;
+  text-transform: uppercase;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.2em;
+  color: #333;
+  margin: 0.5em 0 1em;
+}
+
+/* The existing paragraph rule will style the body text */
+blockquote p {
+  /* border-left: 4px solid #333; */
+  margin: 0;
+  font-family: "Minion Pro", monospace;
+  font-style: normal;
+  color: #333;
+  line-height: 1.4;
+}
+
+/* Hero section with background image */
+.hero-section {
+  position: relative;
+  width: 100vw;              /* Use viewport width units */
+  margin-left: calc(-50vw + 50%); /* Negative margin technique to break out */
+  left: 0;
+  padding: 2rem 0;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+/* Background image using pseudo-element */
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://raw.githubusercontent.com/analoginterface/visuals/main/images/r-studio_shiny-logo_delegate.jpg');
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  opacity: 0.9;
+}
+
+/* Text color adjustments for better visibility on background */
+.hero-section h1 {
+  color: white !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Make the header info box slightly transparent */
+.hero-section .header-container {
+  background-color: rgba(255, 255, 255) !important;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.hero-content {
+  max-width: 1200px;        /* Controls the width of your content area */
+  margin: 0 auto;           /* Centers the content horizontally */
+  padding: 0 2rem;          /* Restores your desired side margins */
+  position: relative;       /* Keeps proper stacking context */
+}
+
+/* Special styling for the header when it's over the hero section
+.hero-section .page-header-container,
+.page-header-container:has(+ .hero-section) {
+  background-color: white !important;
+  border-bottom: none !important;
+  color: white !important;
+} */
+
+/* Make the header text more visible against the hero background 
+.hero-section .page-header-container .header-left,
+.hero-section .page-header-container .header-right,
+.page-header-container:has(+ .hero-section) .header-left,
+.page-header-container:has(+ .hero-section) .header-right {
+  color: white !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}*/
+
+/*
+.hero-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  background-color: transparent;
+  color: white;
+  padding: 0.75rem 0.5rem;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-header-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+}
+.page-header-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255,255,255,0);
+  z-index: 1001;
+  pointer-events: none;
+}
+*/
+
+/* Hide the default floating TOC */
+#TOC {
+  display: none !important;
+}
+
+/* Only show the TOC in the sidebar */
+#sidebar-toc-container #TOC {
+  display: block !important;
+}
+
+/* =================================================================
+   TABLE OF CONTENTS STYLING
+   ================================================================= */
+/* Base TOC container styling (works for both basic and floating) */
+#TOC, .tocify {
+  font-family: "TT Commons Pro Mono", monospace !important;
+  font-size: 0.8em;
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid #dee2e6; !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 12px rgba(0,0,0,0.1) !important;
+  padding: 1.5rem !important;
+  padding-left: 2rem !important;
+  margin-top: 1rem !important;
+  max-height: 70vh !important;
+  line-spacing: 1.2em;
+}
+
+/* TOC title styling */
+.tocify-header .tocify-item > a {
+  font-family: "Helvetica Neue LT Com", sans-serif !important;
+  font-size: 0.8em !important;
+  font-weight: 500 !important;
+  color: #333 !important;
+  transition: all 0.2s ease !important;
+}
+
+/* List items and links for basic TOC */
+#TOC ul {
+  list-style-type: none !important;
+  padding-left: 0 !important;
+}
+
+#TOC ul li {
+  margin-bottom: 1.2rem !important;
+}
+
+#TOC ul li a {
+  font-family: "TT Commons Pro Mono", monospace !important;
+  text-transform: none !important;
+  color: #333 !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+  display: block !important;
+  padding: 0.2rem !important;
+  line-height: 1em;
+}
+
+#TOC ul li a:hover {
+  color: #1a56db !important;
+  background-color: #f0f0f0 !important;
+  border-radius: 4px !important;
+}
+
+#TOC ul li a,
+.tocify-item > a {
+  text-transform: none !important;
+}
+
+/* Enhanced TOC elements */
+.tocify-subheader .tocify-item > a {
+  font-size: 0.9rem !important;
+  color: #606060 !important;
+  gap: 1.5rem;
+}
+
+/* Active/selected TOC item */
+.tocify-item.active > a, #TOC ul li a.active {
+  background-color: #1a56db !important;
+  color: white !important;
+  border-radius: 4px !important;
+}
+
+/* Hover state for TOC items */
+.tocify-item:hover > a:not(.active), #TOC ul li a:hover {
+  background-color: #f0f0f0 !important;
+  color: #1a56db !important;
+}
+
+/* Indentation for nested items */
+.tocify-subheader, #TOC ul ul {
+  text-indent: 1rem !important;
+  padding-left: 1rem !important;
+}
+
+/* Scrollbar styling */
+#TOC::-webkit-scrollbar, .tocify::-webkit-scrollbar {
+  width: 6px !important;
+}
+
+#TOC::-webkit-scrollbar-thumb, .tocify::-webkit-scrollbar-thumb {
+  background-color: #ccc !important;
+  border-radius: 3px !important;
+}
+
+/* Positioning for floating TOC */
+.tocify {
+  top: 60px !important;
+  max-width: 260px !important;
+  z-index: 900 !important;
+}
+
+/* Responsive behavior */
+@media (max-width: 767px) {
+  .tocify {
+    display: none !important;
+  }
+}
+
+/* General document behavior */
+html {
+  scroll-behavior: smooth !important;
+}
+
+/* Highlight effect for clicked links */
+:target {
+  animation: highlight 2s ease;
+}
+
+@keyframes highlight {
+  0% { background-color: rgba(26, 86, 219, 0.2); }
+  100% { background-color: transparent; }
+}
+
+/* Custom location handling */
+#TOC {
+  position: static !important;
+  float: none !important;
+}
+
+#my-custom-toc-location:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#TOC .toc-title {
+  font-family: "Helvetica Neue LT Com", sans-serif !important;
+  text-transform: uppercase;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.2em;
+  color: #333;
+  margin: 0.5em 0 1em;
+  position: relative;
+  text-transform: uppercase;
+}
+
+/* add a divider bar underneath */
+#TOC .toc-title::after {
+  content: "";
+  display: block;
+  width: 2.5rem;
+  height: 2px;
+  background-color: #1a56db;
+  margin-top: 0.35rem;
+}
+
+#TOC > h2 {
+  font-family: "Helvetica Neue LT Com", sans-serif !important;
+  margin-top: 0 !important;
+  text-transform: uppercase;
+}
+
+/* First, reset any existing TOC heading styles */
+#TOC > h2, #sidebar-toc-container > h2, .toc-title {
+  /* Override the general h2 styling completely */
+  font-family: "Helvetica Neue LT Com", sans-serif !important;
+  font-size: 1.5rem !important; /* Much smaller than the default 3rem */
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  margin-top: 0 !important; /* Remove the large top margin */
+  margin-bottom: 0.8rem !important;
+  color: #333 !important;
+  line-height: 1.2 !important;
+}
+
+/* Make the underline consistent - blue in all cases */
+/*
+#TOC > h2::after, #sidebar-toc-container > h2::after, .toc-title::after {
+  content: "" !important;
+  display: block !important;
+  width: 2.5rem !important;
+  height: 2px !important;
+  background-color: #1a56db !important;
+  margin-top: 0.35rem !important;
+}
+*/
+
+/* Target the header in the sidebar specifically */
+#sidebar-toc-container .toc-title {
+  /* Any specific adjustments needed for the sidebar version */
+  padding-bottom: 0.5rem !important;
+}
+
+/* =================================================================
+   HOVER-ACTIVATED SIDEBAR
+   ================================================================= */
+/* The trigger area on the left edge */
+.sidebar-trigger {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px; /* Width of the trigger area */
+  height: 30vh;
+  z-index: 999;
+}
+
+/* The sidebar itself */
+.sidebar {
+  position: fixed;
+  top: 100px; /* Match your header height */
+  left: -50vw; /* Start off-screen */
+  width: 50vw;
+  max-width: 350px;
+  min-width: 200px;
+  height: 60vh;
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid #dee2e6;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+  transition: left 0.3s ease;
+  overflow-y: auto;
+  z-index: 998;
+  padding: 2rem;;
+  border-radius: 12px;
+}
+
+/* When hovering over the trigger or the sidebar itself, show the sidebar */
+.sidebar-trigger:hover + .sidebar,
+.sidebar:hover {
+  left: 2rem;
+}
+
+/* Style the content inside the sidebar */
+.sidebar-content {
+  font-family: "TT Commons Pro Mono", monospace;
+}
