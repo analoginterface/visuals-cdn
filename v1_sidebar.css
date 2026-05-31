@@ -63,79 +63,15 @@
 
 /* =================================================================
    FONT FACE DEFINITIONS
+   -----------------------------------------------------------------
+   Removed in the visuals-cdn partition. These nine @font-face rules
+   used dead "/fonts/..." paths (leading-slash → CDN root, plus folder
+   names that don't exist), so they 404'd at knit time and never
+   loaded. Every family they declare — TT Commons Pro Mono, Minion Pro,
+   Neue Haas Display, Helvetica Neue LT Com — is already defined with
+   working jsDelivr URLs in styles.css and template.css, which both
+   load alongside this file. Nothing visual is lost.
    ================================================================= */
-@font-face {
-  font-family: "TT Commons Pro Mono";
-  src: url("/fonts/TTCommonsProMono/TTCommonsProMono-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "TT Commons Pro Mono";
-  src: url("/fonts/TTCommonsProMono/TTCommonsProMono-Medium.ttf") format("truetype");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Minion Pro";
-  src: url("/fonts/MinionPro/MinionPro-Regular.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Neue Haas Display";
-  src: url("/fonts/NeueHaasDisplay/NeueHaasDisplayRoman.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Neue Haas Display";
-  src: url("/fonts/NeueHaasDisplay/NeueHaasDisplayMediu.ttf") format("truetype");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Neue Haas Display";
-  src: url("/fonts/NeueHaasDisplay/NeueHaasDisplayBold.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Helvetica Neue LT Com";
-  src: url("/fonts/HelveticaNeueLTCom/HelveticaNeueLTCom-Roman.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Helvetica Neue LT Com";
-  src: url("/fonts/HelveticaNeueLTCom/HelveticaNeueLTCom-Md.ttf") format("truetype");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Helvetica Neue LT Com";
-  src: url("/fonts/HelveticaNeueLTCom/HelveticaNeueLTCom-MdEx.ttf") format("truetype");
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: expanded;
-  font-display: swap;
-}
 
 /* =================================================================
    GLASSMORPHISM UTILITIES
