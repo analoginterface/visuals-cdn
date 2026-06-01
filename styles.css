@@ -5,7 +5,7 @@
 /* Monospace Regular */
 @font-face {
   font-family: "TT Commons Pro Mono";
-  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/TTCommonsProMono/TTCommonsProMono-Regular.ttf") format("truetype");
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/TTCommonsProMono/TTCommonsProMono-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -14,7 +14,7 @@
 /* Monospace Italic */
 @font-face {
   font-family: "TT Commons Pro Mono";
-  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/TTCommonsProMono/TT%20Commons%20Pro%20Mono%20Trial%20Italic.ttf") format("truetype");
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/TTCommonsProMono/TT%20Commons%20Pro%20Mono%20Trial%20Italic.ttf") format("truetype");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -23,7 +23,7 @@
 /* Monospace Medium */
 @font-face {
   font-family: "TT Commons Pro Mono";
-  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/TTCommonsProMono/TT%20Commons%20Pro%20Mono%20Trial%20Medium.ttf") format("truetype");
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/TTCommonsProMono/TT%20Commons%20Pro%20Mono%20Trial%20Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -32,7 +32,7 @@
 /* Monospace Medium Italic */
 @font-face {
   font-family: "TT Commons Pro Mono";
-  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/TTCommonsProMono/TT%20Commons%20Pro%20Mono%20Trial%20Medium%20Italic.ttf") format("truetype");
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/TTCommonsProMono/TT%20Commons%20Pro%20Mono%20Trial%20Medium%20Italic.ttf") format("truetype");
   font-weight: 500;
   font-style: italic;
   font-display: swap;
@@ -42,7 +42,7 @@
 /* Monospace DemiBold (600) */
 @font-face {
   font-family: "TT Commons Pro Mono";
-  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/TTCommonsProMono/TT%20Commons%20Pro%20Mono%20Trial%20DemiBold.ttf") format("truetype");
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/TTCommonsProMono/TT%20Commons%20Pro%20Mono%20Trial%20DemiBold.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -51,7 +51,7 @@
 /* Monospace DemiBold Italic */
 @font-face {
   font-family: "TT Commons Pro Mono";
-  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/TTCommonsProMono/TT%20Commons%20Pro%20Mono%20Trial%20DemiBold%20Italic.ttf") format("truetype");
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/TTCommonsProMono/TT%20Commons%20Pro%20Mono%20Trial%20DemiBold%20Italic.ttf") format("truetype");
   font-weight: 600;
   font-style: italic;
   font-display: swap;
@@ -64,7 +64,7 @@
 /* Serif - Regular */
 @font-face {
   font-family: "Minion Pro";
-  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/Minion-Pro/6817.otf") format("opentype");
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/Minion-Pro/6817.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -73,7 +73,7 @@
 /* Serif - Italic */
 @font-face {
   font-family: "Minion Pro";
-  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/Minion-Pro/6814.otf") format("opentype");
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/Minion-Pro/6814.otf") format("opentype");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -82,7 +82,7 @@
 /* Serif - Medium */
 @font-face {
   font-family: "Minion Pro";
-  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/Minion-Pro/6815.otf") format("opentype");
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/Minion-Pro/6815.otf") format("opentype");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -91,7 +91,7 @@
 /* Serif - Medium Italic */
 @font-face {
   font-family: "Minion Pro";
-  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/Minion-Pro/6816.otf") format("opentype");
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/Minion-Pro/6816.otf") format("opentype");
   font-weight: 500;
   font-style: italic;
   font-display: swap;
@@ -100,7 +100,7 @@
 /* Serif - Semibold */
 @font-face {
   font-family: "Minion Pro";
-  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/Minion-Pro/6818.otf") format("opentype");
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/Minion-Pro/6818.otf") format("opentype");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -109,7 +109,7 @@
 /* Serif - Semibold Italic */
 @font-face {
   font-family: "Minion Pro";
-  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/Minion-Pro/6819.otf") format("opentype");
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/Minion-Pro/6819.otf") format("opentype");
   font-weight: 600;
   font-style: italic;
   font-display: swap;
@@ -118,7 +118,7 @@
 /* Serif - Bold */
 @font-face {
   font-family: "Minion Pro";
-  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/Minion-Pro/6812.otf") format("opentype");
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/Minion-Pro/6812.otf") format("opentype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -127,7 +127,7 @@
 /* Serif - Bold Italic */
 @font-face {
   font-family: "Minion Pro";
-  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/Minion-Pro/6813.otf") format("opentype");
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/Minion-Pro/6813.otf") format("opentype");
   font-weight: 700;
   font-style: italic;
   font-display: swap;
@@ -140,7 +140,7 @@
 /* Sans-serif - Medium Extended */
 @font-face {
   font-family: "Helvetica Neue LT Com";
-  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/HelveticaNeueLTCom/HelveticaNeueLTCom-MdEx.ttf") format("truetype");
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/HelveticaNeueLTCom/HelveticaNeueLTCom-MdEx.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -148,7 +148,7 @@
 
 @font-face {
   font-family: "Helvetica Neue LT Com";
-  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/HelveticaNeueLTCom/HelveticaNeueLTCom-MdEx.ttf") format("truetype");
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/HelveticaNeueLTCom/HelveticaNeueLTCom-MdEx.ttf") format("truetype");
   font-weight: 500;
   font-style: italic;
   font-display: swap;
@@ -157,7 +157,7 @@
 /* Sans-serif - Medium*/
 @font-face {
   font-family: "Neue Haas Display";
-  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/NeueHaasGroteskDisplayPro/NeueHaasDisplayMediu.ttf") format("truetype");
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/NeueHaasGroteskDisplayPro/NeueHaasDisplayMediu.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -165,7 +165,7 @@
 
 @font-face {
   font-family: "Neue Haas Display";
-  src: url("https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/NeueHaasGroteskDisplayPro/NeueHaasDisplayMediumItalic.ttf") format("truetype");
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/NeueHaasGroteskDisplayPro/NeueHaasDisplayMediumItalic.ttf") format("truetype");
   font-weight: 500;
   font-style: italic;
   font-display: swap;

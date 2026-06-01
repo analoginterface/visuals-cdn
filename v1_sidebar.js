@@ -511,7 +511,7 @@ function createSidebarHTML() {
         <!-- Sidebar Header -->
         <div class="sidebarHeader" data-debug-component="sidebar-header">
           <div class="sidebarHeaderLeft">
-            <img src="https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/logos/primary-wordmark_black_mosaic.svg" 
+            <img src="https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/logos/primary-wordmark_black_mosaic.svg" 
                  alt="Mosaic Analytics" 
                  class="sidebarLogo" 
                  data-debug-component="sidebar-logo"
@@ -526,14 +526,14 @@ function createSidebarHTML() {
               
               <div class="socialLinks">
                 <a href="https://github.com/analoginterface" target="_blank" rel="noopener noreferrer" title="GitHub Profile">
-                  <img src="https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/github-logo.svg" 
+                  <img src="https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/github-logo.svg" 
                        alt="GitHub" 
                        class="socialLogo github"
                        draggable="false"
                        onerror="this.src='https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'">
                 </a>
                 <a href="https://www.linkedin.com/in/c0lin-mcc0rmick" target="_blank" rel="noopener noreferrer" title="LinkedIn Profile">
-                  <img src="https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/linkedin-logo.svg" 
+                  <img src="https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/linkedin-logo.svg" 
                        alt="LinkedIn" 
                        class="socialLogo linkedin"
                        draggable="false"
@@ -550,7 +550,7 @@ function createSidebarHTML() {
                     class="techLogo react" 
                     title="Built with R"
                     draggable="false"
-                    onerror="this.src='https://cdn.jsdelivr.net/gh/analoginterface/visuals-cdn@main/r-logo.png'">
+                    onerror="this.src='https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/r-logo.png'">
              </a>
              <a href="https://rmarkdown.rstudio.com/" target="_blank" rel="noopener noreferrer" title="Visit R Markdown Official Site">
                <img src="https://rmarkdown.rstudio.com/docs/reference/figures/logo.png" 
