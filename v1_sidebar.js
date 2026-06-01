@@ -38,8 +38,22 @@ class SidebarSystem {
     this.initializeTOC();
     this.initializeFontLoader();
     this.initializeVersionInfo();
-    
+    this.sizeLogos();
+
     console.log('✓ Sidebar system initialized');
+  }
+
+  /**
+   * Pin logo dimensions via inline !important so NO stylesheet — and no browser-specific SVG
+   * intrinsic sizing (Safari / RStudio Viewer ignore CSS width on an <img> with intrinsic dims and
+   * blow the logo out to max-width) — can break them. This is the single source of truth for logo
+   * size; the .sidebarLogo CSS rule is only a pre-JS fallback to avoid a flash.
+   */
+  sizeLogos() {
+    const set = (el, props) => { if (!el) return; for (const k in props) el.style.setProperty(k, props[k], 'important'); };
+    set(document.querySelector('.sidebarLogo'), { width: '9rem', 'max-width': '9rem', height: 'auto' });
+    document.querySelectorAll('.socialLogo').forEach((l) => set(l, { width: '1.25rem', height: '1.25rem' }));
+    document.querySelectorAll('.techLogo').forEach((l) => set(l, { height: '1.5rem', width: 'auto' }));
   }
 
   /**

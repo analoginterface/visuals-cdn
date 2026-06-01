@@ -33,7 +33,9 @@ html { font-size: 16px !important; --reading-scale: 1; }
    monospace. Inline code = mono Medium (500), unified in size with block code and clearly below body. */
 .main-container p, .main-container li, .main-container blockquote {
   font-family: "Minion Pro", Georgia, serif !important; font-weight: 500 !important;
-  font-size: calc(1.15rem * var(--reading-scale, 1)) !important; line-height: 1.5 !important;
+  /* Minion runs small, so the serif body needs more rem than the mono code to read at the SAME
+     visual size (Colin: serif should match code, not stay smaller). 1.3rem serif ~ 1.0rem mono. */
+  font-size: calc(1.3rem * var(--reading-scale, 1)) !important; line-height: 1.5 !important;
 }
 .main-container p strong, .main-container li strong, .main-container blockquote strong,
 .main-container p b, .main-container li b {
@@ -248,3 +250,18 @@ html[data-theme="dark"] .main-container img { background: #ffffff !important; pa
 html[data-theme="dark"] #chapter-pdf button { background: #26282d !important; color: #cfcfcf !important; border-color: rgba(255,255,255,0.2) !important; }
 /* a gentle cross-fade when toggling */
 body, .main-container, .hero-infodelegate, .sidebar, .page-header-container { transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease; }
+
+/* =================================================================
+   P-FIX (2026-06-01) — targeted fixes
+   ================================================================= */
+/* Code blocks carry a box-shadow from the CDN sheet (heavier on hover) that reads as muddy on dark
+   and pops under the glassmorphic sidebar's backdrop-blur. Kill it everywhere, including hover. */
+div.sourceCode, pre.sourceCode, pre.sourceCode code { box-shadow: none !important; }
+div.sourceCode:hover, pre.sourceCode:hover, div.sourceCode:hover pre, pre.sourceCode:hover code { box-shadow: none !important; }
+/* The sidebar is nested inside .main-container, so the serif body rule bled into it — restore the
+   version string to monospace. */
+.sidebar .sidebarSubtitle { font-family: "TT Commons Pro Mono", monospace !important; font-weight: 400 !important; }
+/* Dark mode: verbatim R OUTPUT (## Rows..., model summaries, warnings) is a separate <pre> from the
+   input .sourceCode and kept #333 text — invisible on dark. Give it dark-card treatment. */
+html[data-theme="dark"] pre:not(.sourceCode) { background: #232427 !important; border: 1px solid rgba(255,255,255,0.08) !important; }
+html[data-theme="dark"] pre:not(.sourceCode), html[data-theme="dark"] pre:not(.sourceCode) code, html[data-theme="dark"] .r-output, html[data-theme="dark"] .r-output code { color: #d4d4d4 !important; }
