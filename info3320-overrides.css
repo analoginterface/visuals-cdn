@@ -265,3 +265,29 @@ div.sourceCode:hover, pre.sourceCode:hover, div.sourceCode:hover pre, pre.source
    input .sourceCode and kept #333 text — invisible on dark. Give it dark-card treatment. */
 html[data-theme="dark"] pre:not(.sourceCode) { background: #232427 !important; border: 1px solid rgba(255,255,255,0.08) !important; }
 html[data-theme="dark"] pre:not(.sourceCode), html[data-theme="dark"] pre:not(.sourceCode) code, html[data-theme="dark"] .r-output, html[data-theme="dark"] .r-output code { color: #d4d4d4 !important; }
+
+/* =================================================================
+   P-INVERT — in DARK mode, flip the INPUT code boxes to LIGHT so they pop against the dark page.
+   The skylighting token spans already exist (knit-time); this is just a second palette — Atom One
+   Light (OSS), NOT the recovered Claude themes (IP line). No facet / client-side highlighter needed.
+   ================================================================= */
+html[data-theme="dark"] div.sourceCode { background: #fafafa !important; border: 1px solid #e1e4e8 !important; }
+html[data-theme="dark"] pre.sourceCode, html[data-theme="dark"] pre.sourceCode code, html[data-theme="dark"] code.sourceCode { color: #383a42 !important; }
+html[data-theme="dark"] code span.co { color: #a0a1a7 !important; font-style: italic !important; }
+html[data-theme="dark"] code span.kw, html[data-theme="dark"] code span.cf, html[data-theme="dark"] code span.im { color: #a626a4 !important; }
+html[data-theme="dark"] code span.fu, html[data-theme="dark"] code span.bu { color: #4078f2 !important; }
+html[data-theme="dark"] code span.op, html[data-theme="dark"] code span.sc { color: #383a42 !important; }
+html[data-theme="dark"] code span.st, html[data-theme="dark"] code span.ch, html[data-theme="dark"] code span.vs, html[data-theme="dark"] code span.ss { color: #50a14f !important; }
+html[data-theme="dark"] code span.dv, html[data-theme="dark"] code span.fl, html[data-theme="dark"] code span.bn, html[data-theme="dark"] code span.cn { color: #986801 !important; }
+html[data-theme="dark"] code span.dt { color: #c18401 !important; }
+html[data-theme="dark"] code span.va, html[data-theme="dark"] code span.at { color: #e45649 !important; }
+/* line-number gutter on the light box */
+html[data-theme="dark"] pre.numberSource { border-left-color: #e1e4e8 !important; }
+html[data-theme="dark"] pre.numberSource code > span > a:first-child::before { color: #c0c0c0 !important; }
+/* code-block chrome (R logo + copy glyph) for the now-light box */
+html[data-theme="dark"] .code-lang svg { fill: #6a737d !important; }
+html[data-theme="dark"] .code-copy { color: #6a737d !important; border-color: rgba(0,0,0,0.15) !important; background: rgba(0,0,0,0.04) !important; }
+html[data-theme="dark"] .code-copy:hover { background: rgba(0,0,0,0.09) !important; color: #24292e !important; }
+html[data-theme="dark"] .code-copy.copied { color: #2da44e !important; border-color: rgba(45,164,78,0.5) !important; background: rgba(45,164,78,0.12) !important; }
+/* inline code chip goes light too, to match */
+html[data-theme="dark"] .main-container :not(pre) > code { background: #eef0f2 !important; color: #383a42 !important; }
