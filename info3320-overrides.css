@@ -17,11 +17,11 @@ html { font-size: 16px !important; }
 .main-container p, .main-container li, .main-container td, .main-container th { font-size: 1.15rem !important; line-height: 1.65 !important; }
 div.sourceCode, pre.sourceCode, pre.sourceCode code, code.sourceCode { font-size: 1.05rem !important; }
 
-/* P12 — tame the heading scale. The CDN sheets set H1 to 7rem (+4-5em bottom margin, 30vw
-   right padding) and leave H2 nearly as large, so H1 swamps the page and H1≈H2 has no
-   hierarchy. Pin a clear ramp: H1 2.5rem > H2 2rem > body 1.15rem. Tune to taste. */
-h1 { font-size: 2.5rem !important; margin-bottom: 0.6em !important; padding-right: 0 !important; }
-h2 { font-size: 2rem !important; }
+/* P12 — heading scale. "Homework N — Topic" is the document TITLE (H1); "Chapter 1 Introduction",
+   "Environment setup", etc. are the SECTION headings (H2). Per Colin: the title should read ~3x the
+   first section heading. So H1 4.5rem (72px) = 3 × H2 1.5rem (24px), with body 1.15rem under that. */
+h1 { font-size: 4.5rem !important; margin-bottom: 0.4em !important; padding-right: 0 !important; }
+h2 { font-size: 1.5rem !important; }
 
 /* P11 + P3 — full-width content container with 2rem side gutters. */
 .main-container, .container-fluid, body > .container {
@@ -123,6 +123,11 @@ div.sourceCode { position: relative !important; padding-top: 2.2em !important; }
    pre[class]::before{content:attr(class)} fallback) printed a stray "R" / language label in the
    code-block corner. The copy glyph is the only chrome we want. Loaded last + !important to win. */
 pre.sourceCode::before, pre[class]::before { content: none !important; display: none !important; }
+/* Language logo (LEFT) — the proper monochrome mark that replaces the suppressed badge; injected by
+   after_body.html, sits in the reserved top band opposite the copy glyph. */
+.code-lang { position: absolute; top: 0.5em; left: 0.75em; z-index: 2; display: inline-flex; align-items: center; height: 1.6em; pointer-events: none; }
+.code-lang svg { height: 1.15em; width: auto; fill: #8a8a8a; display: block; }
+.code-lang .code-lang-name { color: #8a8a8a; font: 500 0.78em/1 "TT Commons Pro Mono", monospace; letter-spacing: 0.06em; }
 .code-copy {
   position: absolute; top: 0.4em; right: 0.5em; z-index: 2;
   display: inline-flex; align-items: center; justify-content: center;
