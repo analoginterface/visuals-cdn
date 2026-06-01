@@ -106,15 +106,32 @@ pre.numberSource code > span > a:first-child::before { color: #8a8a8a !important
   text-indent: -1.3em !important;
 }
 
-/* P-CODECHROME — a header bar on every code block: monochrome language logo (left) + a copy
-   button (right). div.sourceCode is the dark box; make it position:relative, reserve top
-   padding for the bar, and the JS in after_body.html injects the bar per block at load. */
-div.sourceCode { position: relative !important; padding-top: 2.4em !important; }
-.code-header { position: absolute; top: 0; left: 0; right: 0; height: 2.4em; display: flex; align-items: center; justify-content: space-between; padding: 0 0.9em; box-sizing: border-box; pointer-events: none; }
-.code-header .code-copy { pointer-events: auto; }
-.code-lang { display: inline-flex; align-items: center; }
-.code-lang svg { height: 1.15em; width: auto; fill: #8a8a8a; display: block; }
-.code-lang .code-lang-name { color: #8a8a8a; font: 500 0.78em/1 "Helvetica Neue LT Com", sans-serif; letter-spacing: 0.06em; }
-.code-copy { background: transparent; border: 1px solid #555; color: #cccccc; border-radius: 4px; padding: 0.15em 0.7em; font: 500 0.78em/1.4 "Helvetica Neue LT Com", sans-serif; letter-spacing: 0.04em; cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s; }
-.code-copy:hover { background: #3a3a3a; border-color: #777; }
-.code-copy.copied { color: #99cc99; border-color: #99cc99; }
+/* P-CODECHROME — a single Phosphor "Copy" glyph pinned to the top-right corner of every dark code
+   box (no language indicator). div.sourceCode is the dark box AND the positioning context; the JS in
+   after_body.html appends the button and toggles .copied for 2s on click, and the glyph swaps
+   Copy -> Check purely in CSS below. Motion mirrors the Claude desktop app: a ghost button that
+   brightens on hover, presses on :active, using the app's own easing cubic-bezier(0.165,0.85,0.45,1).
+   A slim reserved top padding keeps the first code line clear of the button. */
+div.sourceCode { position: relative !important; padding-top: 2.2em !important; }
+.code-copy {
+  position: absolute; top: 0.4em; right: 0.5em; z-index: 2;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1.7em; height: 1.7em; padding: 0; margin: 0; box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.05); color: #b4b4b4;
+  border: 1px solid rgba(255, 255, 255, 0.10); border-radius: 6px;
+  cursor: pointer; -webkit-appearance: none; appearance: none;
+  transition: background 300ms cubic-bezier(0.165, 0.85, 0.45, 1),
+              border-color 300ms cubic-bezier(0.165, 0.85, 0.45, 1),
+              color 150ms cubic-bezier(0.165, 0.85, 0.45, 1),
+              transform 150ms cubic-bezier(0.165, 0.85, 0.45, 1);
+}
+.code-copy svg { width: 1.05em; height: 1.05em; display: block; fill: currentColor; }
+.code-copy:hover { background: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.22); color: #f2f2f2; }
+.code-copy:active { transform: scale(0.92); }
+.code-copy:focus-visible { outline: 2px solid #6699cc; outline-offset: 2px; }
+.code-copy.copied { color: #99cc99; border-color: rgba(153, 204, 153, 0.55); background: rgba(153, 204, 153, 0.14); }
+/* glyph swap: Copy by default, Check when .copied (with a small pop on appearance) */
+.code-copy .icon-check { display: none; }
+.code-copy.copied .icon-copy { display: none; }
+.code-copy.copied .icon-check { display: block; animation: code-copy-pop 200ms cubic-bezier(0.165, 0.85, 0.45, 1); }
+@keyframes code-copy-pop { 0% { transform: scale(0.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
