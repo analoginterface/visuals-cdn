@@ -9,15 +9,39 @@
    Bootstrap's html{font-size:10px}. Verified by tracer: sidebar 9px -> 14.4px. */
 html { font-size: 16px !important; --reading-scale: 1; }
 
+/* P-SERIF-FACES — load the Minion Pro faces (Text optical size — the only one in the repo) so the
+   serif body renders on ANY machine, not just where Minion is system-installed. Medium = body,
+   Bold = emphasis, + italics. Also add the TT Commons Pro Mono Medium (500) face for inline code
+   (template.css ships only 400/600). Absolute @main urls like the other fonts; these OTFs are
+   immutable so the ref doesn't matter. */
+@font-face { font-family: "Minion Pro"; font-weight: 400; font-style: normal; font-display: swap; src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/Minion-Pro/6817.otf") format("opentype"); }
+@font-face { font-family: "Minion Pro"; font-weight: 500; font-style: normal; font-display: swap; src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/Minion-Pro/6815.otf") format("opentype"); }
+@font-face { font-family: "Minion Pro"; font-weight: 700; font-style: normal; font-display: swap; src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/Minion-Pro/6812.otf") format("opentype"); }
+@font-face { font-family: "Minion Pro"; font-weight: 400; font-style: italic; font-display: swap; src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/Minion-Pro/6814.otf") format("opentype"); }
+@font-face { font-family: "Minion Pro"; font-weight: 500; font-style: italic; font-display: swap; src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/Minion-Pro/6816.otf") format("opentype"); }
+@font-face { font-family: "Minion Pro"; font-weight: 700; font-style: italic; font-display: swap; src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/Minion-Pro/6813.otf") format("opentype"); }
+@font-face { font-family: "TT Commons Pro Mono"; font-weight: 500; font-style: normal; font-display: swap; src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/TTCommonsProMono/TT%20Commons%20Pro%20Mono%20Trial%20Medium.ttf") format("truetype"); }
+
 /* P-READ — the CDN design system shrinks code badly: a `pre, code, .sourceCode { 0.8em }`
    rule compounds three times (div.sourceCode -> pre -> code = 0.8^3) down to ~8px. And body
    text sits at a flat 16px. Bump both to comfortable sizes. These use rem, anchored to the
    16px html base above, so they set an absolute size and can't re-compound. Adjust the two
    numbers to taste. (Native Cmd +/- still zooms the whole page on top of this.) */
 /* Reading text scales with --reading-scale (the sidebar TEXT SIZE control sets it on <html>); only
-   reading text scales, not the chrome, because we multiply per-rule rather than the html base. */
-.main-container p, .main-container li, .main-container td, .main-container th { font-size: calc(1.15rem * var(--reading-scale, 1)) !important; line-height: 1.65 !important; }
-div.sourceCode, pre.sourceCode, pre.sourceCode code, code.sourceCode { font-size: calc(1.05rem * var(--reading-scale, 1)) !important; }
+   reading text scales, not the chrome, because we multiply per-rule rather than the html base.
+   BODY PROSE = Minion Pro Medium (serif; bold emphasis = Minion Bold). DATA tables and CODE stay
+   monospace. Inline code = mono Medium (500), unified in size with block code and clearly below body. */
+.main-container p, .main-container li, .main-container blockquote {
+  font-family: "Minion Pro", Georgia, serif !important; font-weight: 500 !important;
+  font-size: calc(1.15rem * var(--reading-scale, 1)) !important; line-height: 1.5 !important;
+}
+.main-container p strong, .main-container li strong, .main-container blockquote strong,
+.main-container p b, .main-container li b {
+  font-family: "Minion Pro", Georgia, serif !important; font-weight: 700 !important;
+}
+.main-container td, .main-container th { font-size: calc(1.05rem * var(--reading-scale, 1)) !important; }
+div.sourceCode, pre.sourceCode, pre.sourceCode code, code.sourceCode { font-size: calc(1.0rem * var(--reading-scale, 1)) !important; }
+.main-container :not(pre) > code { font-family: "TT Commons Pro Mono", monospace !important; font-weight: 500 !important; font-size: calc(1.0rem * var(--reading-scale, 1)) !important; }
 
 /* P12 — heading scale. "Homework N — Topic" is the document TITLE (H1); "Chapter 1 Introduction",
    "Environment setup", etc. are the SECTION headings (H2). Per Colin: the title should read ~3x the
