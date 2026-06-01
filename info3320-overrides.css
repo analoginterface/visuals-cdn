@@ -113,6 +113,10 @@ pre.numberSource code > span > a:first-child::before { color: #8a8a8a !important
    brightens on hover, presses on :active, using the app's own easing cubic-bezier(0.165,0.85,0.45,1).
    A slim reserved top padding keeps the first code line clear of the button. */
 div.sourceCode { position: relative !important; padding-top: 2.2em !important; }
+/* Kill the CDN design-system's language badge: pre.r::before{content:"R"} (and the
+   pre[class]::before{content:attr(class)} fallback) printed a stray "R" / language label in the
+   code-block corner. The copy glyph is the only chrome we want. Loaded last + !important to win. */
+pre.sourceCode::before, pre[class]::before { content: none !important; display: none !important; }
 .code-copy {
   position: absolute; top: 0.4em; right: 0.5em; z-index: 2;
   display: inline-flex; align-items: center; justify-content: center;
