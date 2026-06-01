@@ -1,19 +1,17 @@
 /* =================================================================
-   INFO 3320 — local standardization overrides
-   The FINAL cascade layer for the assignment template. Loaded LAST in the
-   css: list so its !important rules win. Extracted from the template's inline
-   <style id="info3320-overrides"> block (DRY refactor, 2026-05-31).
+   INFO 3320 — overrides + DESIGN TOKEN SYSTEM  (rebuild 2026-06-01)
+   Loaded LAST so its rules win. Architecture (per design-systems research):
+   • SEMANTIC TOKENS (--c-*, --fs-*, --sp-*) defined on :root; the dark theme redefines ONLY the
+     semantic color layer, so every surface/text/border that references a token flips automatically
+     — no per-element dark overrides (that was the "things don't switch" failure mode).
+   • TYPE on a 1.25 modular scale; x-heights normalized via `font-size-adjust` so the serif body
+     (Minion) and the mono code (TT Commons) read at ONE visual size and stay matched when zoomed.
+   • SPACING on an 8px scale.
+   • Code blocks keep their bespoke INVERSE treatment (dark box on light page; light box on dark)
+     with two syntax palettes — they intentionally contrast the page, so they don't use --c-surface.
    ================================================================= */
 
-/* P5 — pin the rem base so the sidebar scales with the 16px body regardless of
-   Bootstrap's html{font-size:10px}. Verified by tracer: sidebar 9px -> 14.4px. */
-html { font-size: 16px !important; --reading-scale: 1; }
-
-/* P-SERIF-FACES — load the Minion Pro faces (Text optical size — the only one in the repo) so the
-   serif body renders on ANY machine, not just where Minion is system-installed. Medium = body,
-   Bold = emphasis, + italics. Also add the TT Commons Pro Mono Medium (500) face for inline code
-   (template.css ships only 400/600). Absolute @main urls like the other fonts; these OTFs are
-   immutable so the ref doesn't matter. */
+/* ── @font-face: Minion Pro (serif body) + TT Commons Pro Mono Medium + Helvetica Neue Medium ── */
 @font-face { font-family: "Minion Pro"; font-weight: 400; font-style: normal; font-display: swap; src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/Minion-Pro/6817.otf") format("opentype"); }
 @font-face { font-family: "Minion Pro"; font-weight: 500; font-style: normal; font-display: swap; src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/Minion-Pro/6815.otf") format("opentype"); }
 @font-face { font-family: "Minion Pro"; font-weight: 700; font-style: normal; font-display: swap; src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/Minion-Pro/6812.otf") format("opentype"); }
@@ -21,138 +19,140 @@ html { font-size: 16px !important; --reading-scale: 1; }
 @font-face { font-family: "Minion Pro"; font-weight: 500; font-style: italic; font-display: swap; src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/Minion-Pro/6816.otf") format("opentype"); }
 @font-face { font-family: "Minion Pro"; font-weight: 700; font-style: italic; font-display: swap; src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/Minion-Pro/6813.otf") format("opentype"); }
 @font-face { font-family: "TT Commons Pro Mono"; font-weight: 500; font-style: normal; font-display: swap; src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/TTCommonsProMono/TT%20Commons%20Pro%20Mono%20Trial%20Medium.ttf") format("truetype"); }
+@font-face { font-family: "Helvetica Neue Medium"; font-weight: 500; font-style: normal; font-display: swap; src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/HelveticaNeueLTCom/HelveticaNeueLTCom-Md.ttf") format("truetype"); }
 
-/* P-READ — the CDN design system shrinks code badly: a `pre, code, .sourceCode { 0.8em }`
-   rule compounds three times (div.sourceCode -> pre -> code = 0.8^3) down to ~8px. And body
-   text sits at a flat 16px. Bump both to comfortable sizes. These use rem, anchored to the
-   16px html base above, so they set an absolute size and can't re-compound. Adjust the two
-   numbers to taste. (Native Cmd +/- still zooms the whole page on top of this.) */
-/* Reading text scales with --reading-scale (the sidebar TEXT SIZE control sets it on <html>); only
-   reading text scales, not the chrome, because we multiply per-rule rather than the html base.
-   BODY PROSE = Minion Pro Medium (serif; bold emphasis = Minion Bold). DATA tables and CODE stay
-   monospace. Inline code = mono Medium (500), unified in size with block code and clearly below body. */
+/* ── TOKENS — semantic (LIGHT = default) ── */
+:root {
+  --c-bg:        #ffffff;   /* page */
+  --c-surface:   #f6f7f9;   /* hero card, blockquote, sidebar glass base, verbatim output, table header */
+  --c-surface-2: #eceef1;   /* control buttons, inline-code chip */
+  --c-glass:     rgba(247, 248, 250, 0.86);  /* sidebar (translucent over backdrop-blur) */
+  --c-text:      #1c1c28;   /* primary */
+  --c-text-2:    #5b5b72;   /* secondary: labels, captions, running head */
+  --c-text-3:    #8a8a9c;   /* muted: version, placeholder */
+  --c-border:    #e3e3ea;
+  --c-border-2:  #cfcfd9;
+  --c-link:      #3a5bc7;
+  --c-accent:    #3e63dd;
+
+  /* type scale — 1.25 modular */
+  --fs-caption: 0.8rem;
+  --fs-body:    1rem;
+  --fs-h3:      1.25rem;
+  --fs-h2:      1.5625rem;
+  --fs-display: 2.75rem;     /* hero title (a display step above the scale) */
+  --x-normalize: 0.52;       /* x-height target — unifies serif/mono/sans visual size */
+
+  /* spacing — 8px base */
+  --sp-1: 0.5rem; --sp-2: 0.75rem; --sp-3: 1rem; --sp-4: 1.5rem; --sp-5: 2rem; --sp-6: 3rem;
+
+  --reading-scale: 1;        /* set by the sidebar ZOOM control on <html> */
+}
+html { font-size: 16px !important; }
+
+/* ── TOKENS — DARK (only the semantic color layer changes) ── */
+html[data-theme="dark"] {
+  --c-bg:        #16171a;
+  --c-surface:   #1f2024;
+  --c-surface-2: #292a30;
+  --c-glass:     rgba(28, 29, 33, 0.9);
+  --c-text:      #ececf2;
+  --c-text-2:    #b2b2c2;
+  --c-text-3:    #80808f;
+  --c-border:    #303138;
+  --c-border-2:  #45464f;
+  --c-link:      #9eb1f4;
+  --c-accent:    #5472e4;
+  color-scheme: dark;
+}
+
+/* ── BASE ── */
+body { background: var(--c-bg) !important; color: var(--c-text) !important; font-size-adjust: var(--x-normalize); }
+.main-container, .container-fluid { background: var(--c-bg) !important; color: var(--c-text) !important; }
+a { color: var(--c-link) !important; }
+
+/* ── TYPE: prose (Minion serif) + code, sized on the scale × the ZOOM multiplier ──
+   Content (prose, code, tables, headings) scales with --reading-scale; chrome stays fixed.
+   x-height is normalized globally (body font-size-adjust) so serif body == mono code visually. */
 .main-container p, .main-container li, .main-container blockquote {
   font-family: "Minion Pro", Georgia, serif !important; font-weight: 500 !important;
-  /* Minion runs small, so the serif body needs more rem than the mono code to read at the SAME
-     visual size (Colin: serif should match code, not stay smaller). 1.3rem serif ~ 1.0rem mono. */
-  font-size: calc(1.3rem * var(--reading-scale, 1)) !important; line-height: 1.5 !important;
+  font-size: calc(var(--fs-body) * var(--reading-scale)) !important;
+  line-height: 1.55 !important; color: var(--c-text) !important;
 }
 .main-container p strong, .main-container li strong, .main-container blockquote strong,
 .main-container p b, .main-container li b {
   font-family: "Minion Pro", Georgia, serif !important; font-weight: 700 !important;
 }
-.main-container td, .main-container th { font-size: calc(1.05rem * var(--reading-scale, 1)) !important; }
-div.sourceCode, pre.sourceCode, pre.sourceCode code, code.sourceCode { font-size: calc(1.0rem * var(--reading-scale, 1)) !important; }
-.main-container :not(pre) > code { font-family: "TT Commons Pro Mono", monospace !important; font-weight: 500 !important; font-size: calc(1.0rem * var(--reading-scale, 1)) !important; }
+.main-container td, .main-container th {
+  font-size: calc(var(--fs-body) * var(--reading-scale)) !important;
+  color: var(--c-text) !important; border-color: var(--c-border) !important;
+}
+div.sourceCode, pre.sourceCode, pre.sourceCode code, code.sourceCode {
+  font-size: calc(var(--fs-body) * var(--reading-scale)) !important;
+}
+.main-container :not(pre) > code {
+  font-family: "TT Commons Pro Mono", monospace !important; font-weight: 500 !important;
+  font-size: calc(var(--fs-body) * var(--reading-scale)) !important;
+  background: var(--c-surface-2) !important; color: var(--c-text) !important;
+  padding: 0.05em 0.32em; border-radius: 4px;
+}
 
-/* P12 — heading scale. "Homework N — Topic" is the document TITLE (H1); "Chapter 1 Introduction",
-   "Environment setup", etc. are the SECTION headings (H2). Per Colin: the title should read ~3x the
-   first section heading. So H1 4.5rem (72px) = 3 × H2 1.5rem (24px), with body 1.15rem under that. */
-h1 { font-size: 4.5rem !important; margin-bottom: 0.4em !important; padding-right: 0 !important; }
-h2 { font-size: 1.5rem !important; }
+/* ── HEADINGS — display title + modular sections; Neue Haas (from template.css); content-scaled ── */
+h1 { font-size: calc(var(--fs-display) * var(--reading-scale)) !important; color: var(--c-text) !important;
+     margin: 0 0 var(--sp-3) !important; padding-right: 0 !important; line-height: 1.12 !important; }
+h2 { font-size: calc(var(--fs-h2) * var(--reading-scale)) !important; color: var(--c-text) !important;
+     margin: var(--sp-5) 0 var(--sp-2) !important; line-height: 1.25 !important; }
+h3 { font-size: calc(var(--fs-h3) * var(--reading-scale)) !important; color: var(--c-text) !important;
+     margin: var(--sp-4) 0 var(--sp-1) !important; line-height: 1.3 !important; }
+.main-container p { margin-block-end: var(--sp-3) !important; }
 
-/* P11 + P3 — full-width content container with 2rem side gutters. */
+/* ── LAYOUT: full-width container ── */
 .main-container, .container-fluid, body > .container {
   width: 100% !important; max-width: 100% !important;
   padding-left: 2rem !important; padding-right: 2rem !important;
 }
-/* P-HEADER — promote the sticky running head into its own full-bleed layer, separate from the
-   content padding. Pull it out of the container's 2rem gutter with MATCHING negative margins
-   (the safe full-bleed variant — no 100vw, so no scrollbar overflow; verified scrollWidth ==
-   clientWidth), so the bar AND its glassmorphism blur reach the document edges. Then give it its
-   own tighter side padding and zero the CDN's 32px text margins so the name/course hug the edges.
-   A real light-gray hairline replaces the CDN's invisible white-on-white border-bottom. */
+
+/* ── Running head (full-bleed) ── */
 .page-header-container {
-  width: auto !important;
-  margin-left: -2rem !important; margin-right: -2rem !important;
+  width: auto !important; margin-left: -2rem !important; margin-right: -2rem !important;
   padding: 0.75rem 1.25rem !important;
-  border-bottom: 1px solid #e2e2e2 !important;
+  background: var(--c-bg) !important; border-bottom: 1px solid var(--c-border) !important;
 }
 .page-header-container .header-left { margin-left: 0 !important; }
 .page-header-container .header-right { margin-right: 0 !important; }
+.page-header-container, .page-header-container * { color: var(--c-text-2) !important; }
 
-/* P2 — hero metadata card: the CDN sheets set 1.35rem text in a 450px box, so the
-   long labels/values cram and wrap. Shrink the text, widen the box, and size the
-   label column to its content so "INSTRUCTOR:" et al. stay on one line. */
+/* ── Hero metadata card ── */
 .hero-infodelegate {
-  max-width: 620px !important;
-  grid-template-columns: max-content 1fr !important;
-  column-gap: 1em !important;
-  row-gap: 0.4em !important;
-  padding: 1.25em 1.5em !important;
-  font-size: 1rem !important;
+  max-width: 620px !important; grid-template-columns: max-content 1fr !important;
+  column-gap: 1em !important; row-gap: 0.4em !important; padding: 1.25em 1.5em !important;
+  font-size: 1rem !important; background: var(--c-surface) !important; border: 1px solid var(--c-border) !important;
 }
-.hero-infodelegate .header-label,
-.hero-infodelegate .header-value { font-size: 0.95rem !important; line-height: 1.5 !important; }
+.hero-infodelegate .header-label { font-size: 0.95rem !important; line-height: 1.5 !important; color: var(--c-text-2) !important; }
+.hero-infodelegate .header-value { font-size: 0.95rem !important; line-height: 1.5 !important; color: var(--c-text) !important; }
 
-/* ---- Code: ONE dark box on the WRAPPER div, so it encloses pandoc's line-number gutter.
-   pandoc lays numbered code out as a 3em left margin + a border-left separator; we keep that
-   layout untouched, move the dark fill to the div, and recolor the gutter for the dark theme.
-   (Earlier this box was on the pre, which sat to the RIGHT of the number margin -> the numbers
-   fell outside the dark fill and the separator got wiped by border:none.) ---- */
-div.sourceCode { background: #2d2d2d !important; color: #cccccc !important; margin: 1.2em 0 !important; padding: 0.9em 1.1em !important; border: none !important; border-radius: 6px !important; overflow-x: auto !important; }
-pre.sourceCode { background: transparent !important; color: #cccccc !important; margin: 0 !important; padding: 0 !important; border: none !important; border-radius: 0 !important; }
-pre.sourceCode code, code.sourceCode { background: transparent !important; color: #cccccc !important; }
-/* Token colors — the REAL Ace 'tomorrow_night_eighties' palette (your RStudio editor theme) */
-code span.co { color: #999999 !important; font-style: italic !important; }   /* comment */
-code span.kw, code span.cf, code span.im { color: #cc99cc !important; }       /* keyword / control flow */
-code span.fu, code span.bu { color: #66cccc !important; }                     /* function / built-in */
-code span.op, code span.sc { color: #66cccc !important; }                     /* operator (Ace: cyan, not red) */
-code span.st, code span.ch, code span.vs, code span.ss { color: #99cc99 !important; } /* strings */
-code span.dv, code span.fl, code span.bn, code span.cn { color: #f99157 !important; } /* numbers / constants */
-code span.dt { color: #ffcc66 !important; }                                   /* data type */
-code span.va, code span.at { color: #6699cc !important; }                     /* variable / argument */
-/* line numbers: ONE continuous separator (recolor pandoc's border-left for dark), readable
-   numbers, and NO per-line ticks (the border-right was drawing a faint line under every row). */
+/* ── CODE BLOCK (bespoke, NOT tokenized — intentionally inverse of the page) ──
+   Light mode: dark box + Tomorrow-Night palette. Dark mode: light box + Atom-One-Light (P-INVERT). */
+div.sourceCode { background: #2d2d2d !important; color: #cccccc !important; margin: var(--sp-4) 0 !important; padding: 0.9em 1.1em !important; border: none !important; border-radius: 6px !important; overflow-x: auto !important; position: relative !important; padding-top: 2.2em !important; box-shadow: none !important; }
+pre.sourceCode { background: transparent !important; color: #cccccc !important; margin: 0 !important; padding: 0 !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; }
+pre.sourceCode code, code.sourceCode { background: transparent !important; color: #cccccc !important; box-shadow: none !important; }
+div.sourceCode:hover, pre.sourceCode:hover, div.sourceCode:hover pre, pre.sourceCode:hover code { box-shadow: none !important; }
+/* Tomorrow Night 80s token palette (light mode) */
+code span.co { color: #999999 !important; font-style: italic !important; }
+code span.kw, code span.cf, code span.im { color: #cc99cc !important; }
+code span.fu, code span.bu { color: #66cccc !important; }
+code span.op, code span.sc { color: #66cccc !important; }
+code span.st, code span.ch, code span.vs, code span.ss { color: #99cc99 !important; }
+code span.dv, code span.fl, code span.bn, code span.cn { color: #f99157 !important; }
+code span.dt { color: #ffcc66 !important; }
+code span.va, code span.at { color: #6699cc !important; }
+/* line-number gutter (dark box) */
 pre.numberSource { margin-left: 3em !important; padding-left: 0.6em !important; border-left: 1px solid #4a4a4a !important; }
 pre.numberSource code > span > a:first-child::before { color: #8a8a8a !important; border-right: none !important; text-decoration: none !important; }
-/* pin the wordmark logo to a fixed size so it can't blow out (Viewer/rem-independent) */
-/* keep the wordmark's aspect ratio: it sits in a flex column that stretches it to 80% width
-   (then object-fit:fill squishes the SVG). align-self stops the stretch; object-fit is a belt. */
-/* Cross-engine sizing: set an EXPLICIT width (not width:auto-from-height). Chromium derives
-   width from height:44px fine, but Safari / RStudio Viewer ignore that for an SVG <img> with
-   intrinsic dimensions and fall back toward the SVG's own ~521px width → a giant logo. An
-   explicit width + height:auto is honored by every engine (aspect stays correct). */
-.sidebarLogo { width: 9rem !important; height: auto !important; max-width: 80% !important; align-self: flex-start !important; object-fit: contain !important; }
-
-/* P-SIDEBAR — the floating TOC never opened. v1_sidebar.js correctly adds `.active` on trigger
-   hover (mouseenter), but the CDN's `.sidebar.active { left: ... }` lacks the !important to beat
-   `.sidebar { left: -50vw }`, so the panel stayed parked off-screen. This one line is the fix.
-   (The CDN also ships a dead `.sidebar-trigger:hover` rule — note the kebab-case typo vs the real
-   `.sidebarTrigger` element — but that path is redundant; the JS mouseenter is what drives it.) */
-.sidebar.active { left: var(--sidebar-active-left) !important; }
-
-/* P-TOC — TOC links in Helvetica Neue LT Com MEDIUM, NORMAL width (the -Md face, not the
-   extended -MdEx the sidebar body uses). A dedicated @font-face under a distinct family name
-   so it doesn't disturb the extended Helvetica elsewhere. Plus a hanging indent so numbered
-   entries ("1. ...") wrap with their text aligned past the number, like a proper numbered list. */
-@font-face {
-  font-family: "Helvetica Neue Medium";
-  src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/HelveticaNeueLTCom/HelveticaNeueLTCom-Md.ttf") format("truetype");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-.tocLink {
-  font-family: "Helvetica Neue Medium", "Helvetica Neue LT Com", sans-serif !important;
-  font-weight: 500 !important;
-  padding-left: calc(0.75rem + 1.3em) !important;
-  text-indent: -1.3em !important;
-}
-
-/* P-CODECHROME — a single Phosphor "Copy" glyph pinned to the top-right corner of every dark code
-   box (no language indicator). div.sourceCode is the dark box AND the positioning context; the JS in
-   after_body.html appends the button and toggles .copied for 2s on click, and the glyph swaps
-   Copy -> Check purely in CSS below. Motion mirrors the Claude desktop app: a ghost button that
-   brightens on hover, presses on :active, using the app's own easing cubic-bezier(0.165,0.85,0.45,1).
-   A slim reserved top padding keeps the first code line clear of the button. */
-div.sourceCode { position: relative !important; padding-top: 2.2em !important; }
-/* Kill the CDN design-system's language badge: pre.r::before{content:"R"} (and the
-   pre[class]::before{content:attr(class)} fallback) printed a stray "R" / language label in the
-   code-block corner. The copy glyph is the only chrome we want. Loaded last + !important to win. */
+/* suppress the CDN language badge (pre.r::before {content:"R"}) — the glyph is the only chrome */
 pre.sourceCode::before, pre[class]::before { content: none !important; display: none !important; }
-/* Language logo (LEFT) — the proper monochrome mark that replaces the suppressed badge; injected by
-   after_body.html, sits in the reserved top band opposite the copy glyph. */
+
+/* ── CODE-BLOCK CHROME: language logo (left) + Phosphor copy glyph (right) ── */
 .code-lang { position: absolute; top: 0.5em; left: 0.75em; z-index: 2; display: inline-flex; align-items: center; height: 1.6em; pointer-events: none; }
 .code-lang svg { height: 1.15em; width: auto; fill: #8a8a8a; display: block; }
 .code-lang .code-lang-name { color: #8a8a8a; font: 500 0.78em/1 "TT Commons Pro Mono", monospace; letter-spacing: 0.06em; }
@@ -163,113 +163,75 @@ pre.sourceCode::before, pre[class]::before { content: none !important; display: 
   background: rgba(255, 255, 255, 0.05); color: #b4b4b4;
   border: 1px solid rgba(255, 255, 255, 0.10); border-radius: 6px;
   cursor: pointer; -webkit-appearance: none; appearance: none;
-  transition: background 300ms cubic-bezier(0.165, 0.85, 0.45, 1),
-              border-color 300ms cubic-bezier(0.165, 0.85, 0.45, 1),
-              color 150ms cubic-bezier(0.165, 0.85, 0.45, 1),
-              transform 150ms cubic-bezier(0.165, 0.85, 0.45, 1);
+  transition: background 300ms cubic-bezier(0.165, 0.85, 0.45, 1), border-color 300ms cubic-bezier(0.165, 0.85, 0.45, 1), color 150ms cubic-bezier(0.165, 0.85, 0.45, 1), transform 150ms cubic-bezier(0.165, 0.85, 0.45, 1);
 }
 .code-copy svg { width: 1.05em; height: 1.05em; display: block; fill: currentColor; }
 .code-copy:hover { background: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.22); color: #f2f2f2; }
 .code-copy:active { transform: scale(0.92); }
 .code-copy:focus-visible { outline: 2px solid #6699cc; outline-offset: 2px; }
 .code-copy.copied { color: #99cc99; border-color: rgba(153, 204, 153, 0.55); background: rgba(153, 204, 153, 0.14); }
-/* glyph swap: Copy by default, Check when .copied (with a small pop on appearance) */
 .code-copy .icon-check { display: none; }
 .code-copy.copied .icon-copy { display: none; }
 .code-copy.copied .icon-check { display: block; animation: code-copy-pop 200ms cubic-bezier(0.165, 0.85, 0.45, 1); }
 @keyframes code-copy-pop { 0% { transform: scale(0.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
-/* P-CONTROLS — reader settings panel in the sidebar (markup in before_body.html .sidebarControls):
-   sits below the header, above the TOC. Text-size scaler now; a theme toggle will slot into the
-   same panel later. Typography matches the sidebar (Helvetica Neue LT Com, dark-on-light glass). */
-.sidebarControls { padding: 0.85rem 0 0.95rem; border-bottom: 1px solid rgba(0, 0, 0, 0.08); margin-bottom: 0.35rem; }
+/* ── LOGO — pre-JS fallback size; v1_sidebar.js sizeLogos() pins it via inline !important ── */
+.sidebarLogo { width: 9rem !important; height: auto !important; max-width: 80% !important; align-self: flex-start !important; object-fit: contain !important; }
+
+/* ── SIDEBAR (glass) + TOC + version, tokenized ── */
+.sidebar.active { left: var(--sidebar-active-left) !important; }
+.sidebar { background: var(--c-glass) !important; border-color: var(--c-border) !important; }
+.tocTitle { color: var(--c-text-2) !important; }
+.tocLink {
+  font-family: "Helvetica Neue Medium", "Helvetica Neue LT Com", sans-serif !important; font-weight: 500 !important;
+  padding-left: calc(0.75rem + 1.3em) !important; text-indent: -1.3em !important; color: var(--c-text) !important;
+}
+.tocLink:hover { color: var(--c-link) !important; }
+.sidebar .sidebarSubtitle { font-family: "TT Commons Pro Mono", monospace !important; font-weight: 400 !important; color: var(--c-text-3) !important; }
+.sidebar p { color: var(--c-text-3) !important; }
+
+/* ── SIDEBAR CONTROLS (ZOOM + THEME) ── */
+.sidebarControls { padding: 0.85rem 0 0.95rem; border-bottom: 1px solid var(--c-border); margin-bottom: 0.35rem; }
 .sidebarControls .controlRow { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
-.sidebarControls .controlLabel { font: 600 0.72rem/1 "Helvetica Neue LT Com", sans-serif; letter-spacing: 0.1em; color: #555; text-transform: uppercase; }
+.sidebarControls .controlLabel { font: 600 0.72rem/1 "Helvetica Neue LT Com", sans-serif; letter-spacing: 0.1em; color: var(--c-text-2); text-transform: uppercase; }
 .sidebarControls .controlButtons { display: inline-flex; gap: 0.3rem; }
 .sidebarControls .ctrlBtn {
   font: 600 0.92rem/1 "Helvetica Neue LT Com", sans-serif;
   width: 1.95rem; height: 1.7rem; padding: 0;
   display: inline-flex; align-items: center; justify-content: center;
-  border: 1px solid rgba(0, 0, 0, 0.18); border-radius: 5px; background: rgba(255, 255, 255, 0.5);
-  color: #333; cursor: pointer; -webkit-appearance: none; appearance: none;
+  border: 1px solid var(--c-border-2); border-radius: 5px; background: var(--c-surface-2);
+  color: var(--c-text); cursor: pointer; -webkit-appearance: none; appearance: none;
   transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
 }
-.sidebarControls .ctrlBtn:hover { background: #fff; border-color: rgba(0, 0, 0, 0.4); }
+.sidebarControls .ctrlBtn:hover { background: var(--c-surface); border-color: var(--c-accent); }
 .sidebarControls .ctrlBtn:active { transform: scale(0.93); }
-.sidebarControls .ctrlBtn:focus-visible { outline: 2px solid #6699cc; outline-offset: 2px; }
-/* theme toggle: show moon in light mode (click -> dark), sun in dark mode (click -> light) */
+.sidebarControls .ctrlBtn:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
 .theme-toggle svg { width: 1.05em; height: 1.05em; fill: currentColor; display: block; }
 .theme-toggle .icon-sun { display: none; }
 html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
 
-/* =================================================================
-   P-DARK — dark mode. The sidebar THEME control sets data-theme="dark" on <html>; applied early
-   (after_body.html) to avoid a flash. The CDN sheets hardcode light colors, so each surface is
-   overridden here. Plots are baked light-bg PNGs, so they get a light "card" rather than inversion.
-   ================================================================= */
-html[data-theme="dark"], html[data-theme="dark"] body { background: #1a1b1e !important; color: #e6e6e6 !important; }
-html[data-theme="dark"] .main-container, html[data-theme="dark"] .container-fluid { background: #1a1b1e !important; color: #e6e6e6 !important; }
-html[data-theme="dark"] .main-container p, html[data-theme="dark"] .main-container li, html[data-theme="dark"] .main-container blockquote { color: #e6e6e6 !important; }
-html[data-theme="dark"] h1, html[data-theme="dark"] h2, html[data-theme="dark"] h3, html[data-theme="dark"] h4 { color: #f3f3f3 !important; }
-html[data-theme="dark"] a { color: #6cc0c0 !important; }
-/* hero metadata card */
-html[data-theme="dark"] .hero-infodelegate { background: #26282d !important; border-color: rgba(255,255,255,0.12) !important; }
-html[data-theme="dark"] .hero-infodelegate .header-label { color: #9aa0a6 !important; }
-html[data-theme="dark"] .hero-infodelegate .header-value { color: #e6e6e6 !important; }
-/* sticky running head */
-html[data-theme="dark"] .page-header-container { background: rgba(26,27,30,0.82) !important; border-bottom-color: rgba(255,255,255,0.12) !important; }
-html[data-theme="dark"] .page-header-container, html[data-theme="dark"] .page-header-container * { color: #cfcfcf !important; }
-/* sidebar (glass) + its contents */
-html[data-theme="dark"] .sidebar { background: rgba(30,32,36,0.94) !important; border-color: rgba(255,255,255,0.10) !important; }
-html[data-theme="dark"] .tocTitle, html[data-theme="dark"] .sidebarControls .controlLabel { color: #cfcfcf !important; }
-html[data-theme="dark"] .tocLink { color: #cfcfcf !important; }
-html[data-theme="dark"] .tocLink:hover { color: #ffffff !important; }
-html[data-theme="dark"] .sidebarSubtitle, html[data-theme="dark"] .sidebar p { color: #9aa0a6 !important; }
-html[data-theme="dark"] .sidebarControls { border-bottom-color: rgba(255,255,255,0.12) !important; }
-html[data-theme="dark"] .sidebarControls .ctrlBtn { background: rgba(255,255,255,0.06) !important; border-color: rgba(255,255,255,0.18) !important; color: #e0e0e0 !important; }
-html[data-theme="dark"] .sidebarControls .ctrlBtn:hover { background: rgba(255,255,255,0.14) !important; border-color: rgba(255,255,255,0.32) !important; }
-/* inline code chip */
-html[data-theme="dark"] .main-container :not(pre) > code { background: #2d2d2d !important; color: #e0e0e0 !important; }
-/* block code is already dark; just separate it from the page */
-html[data-theme="dark"] div.sourceCode { border: 1px solid rgba(255,255,255,0.08) !important; }
-/* data tables + paged data frame */
-html[data-theme="dark"] .main-container td, html[data-theme="dark"] .main-container th { color: #e0e0e0 !important; border-color: rgba(255,255,255,0.12) !important; }
-html[data-theme="dark"] .pagedtable, html[data-theme="dark"] .pagedtable-wrapper { color: #e0e0e0 !important; }
-html[data-theme="dark"] .pagedtable .even { background: rgba(255,255,255,0.03) !important; }
-html[data-theme="dark"] .pagedtable-info, html[data-theme="dark"] .pagedtable-not-empty .pagedtable-padding-col { color: #9aa0a6 !important; }
-/* reactable widget */
-html[data-theme="dark"] .reactable, html[data-theme="dark"] .rt-table, html[data-theme="dark"] .rt-thead, html[data-theme="dark"] .rt-tbody, html[data-theme="dark"] .rt-th, html[data-theme="dark"] .rt-td { background: #1f2125 !important; color: #e0e0e0 !important; border-color: rgba(255,255,255,0.10) !important; }
-html[data-theme="dark"] .rt-search, html[data-theme="dark"] .rt-filter input, html[data-theme="dark"] .rt-page-size select { background: #26282d !important; color: #e0e0e0 !important; border-color: rgba(255,255,255,0.18) !important; }
-/* blockquote (Instructions) + rules */
-html[data-theme="dark"] blockquote { background: rgba(255,255,255,0.03) !important; border-left-color: rgba(255,255,255,0.22) !important; color: #e0e0e0 !important; }
-html[data-theme="dark"] hr { border-color: rgba(255,255,255,0.12) !important; background-color: rgba(255,255,255,0.12) !important; }
-/* plots: baked light-bg PNGs sit on a light card so they read as intentional, not broken */
-html[data-theme="dark"] .main-container img { background: #ffffff !important; padding: 0.6em !important; border-radius: 8px !important; box-shadow: 0 1px 5px rgba(0,0,0,0.45) !important; }
-/* the click-to-load PDF button is inline-styled light in the template; darken it for dark mode */
-html[data-theme="dark"] #chapter-pdf button { background: #26282d !important; color: #cfcfcf !important; border-color: rgba(255,255,255,0.2) !important; }
-/* a gentle cross-fade when toggling */
-body, .main-container, .hero-infodelegate, .sidebar, .page-header-container { transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease; }
+/* ── TABLES, paged data frame, reactable — tokenized so they flip ── */
+.pagedtable, .pagedtable-wrapper { color: var(--c-text) !important; }
+.pagedtable .even { background: var(--c-surface) !important; }
+.pagedtable-info, .pagedtable-not-empty .pagedtable-padding-col { color: var(--c-text-3) !important; }
+.reactable, .rt-table, .rt-thead, .rt-tbody, .rt-tr, .rt-th, .rt-td { background: var(--c-bg) !important; color: var(--c-text) !important; border-color: var(--c-border) !important; }
+.rt-th { background: var(--c-surface) !important; }
+.rt-search, .rt-filter input, .rt-page-size select { background: var(--c-surface) !important; color: var(--c-text) !important; border-color: var(--c-border-2) !important; }
+
+/* ── Blockquote (Instructions), rules, PDF button, verbatim output — tokenized ── */
+blockquote { background: var(--c-surface) !important; border-left: 4px solid var(--c-border-2) !important; color: var(--c-text) !important; }
+hr { border-color: var(--c-border) !important; background-color: var(--c-border) !important; }
+#chapter-pdf button { background: var(--c-surface) !important; color: var(--c-text) !important; border: 1px solid var(--c-border-2) !important; }
+pre:not(.sourceCode) { background: var(--c-surface) !important; border: 1px solid var(--c-border) !important; }
+pre:not(.sourceCode), pre:not(.sourceCode) code, .r-output, .r-output code { color: var(--c-text) !important; }
+
+/* ── Smooth cross-fade on theme toggle ── */
+body, .main-container, .hero-infodelegate, .sidebar, .page-header-container, blockquote, .reactable, .rt-td, .rt-th, pre:not(.sourceCode), .sidebarControls .ctrlBtn { transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease; }
 
 /* =================================================================
-   P-FIX (2026-06-01) — targeted fixes
-   ================================================================= */
-/* Code blocks carry a box-shadow from the CDN sheet (heavier on hover) that reads as muddy on dark
-   and pops under the glassmorphic sidebar's backdrop-blur. Kill it everywhere, including hover. */
-div.sourceCode, pre.sourceCode, pre.sourceCode code { box-shadow: none !important; }
-div.sourceCode:hover, pre.sourceCode:hover, div.sourceCode:hover pre, pre.sourceCode:hover code { box-shadow: none !important; }
-/* The sidebar is nested inside .main-container, so the serif body rule bled into it — restore the
-   version string to monospace. */
-.sidebar .sidebarSubtitle { font-family: "TT Commons Pro Mono", monospace !important; font-weight: 400 !important; }
-/* Dark mode: verbatim R OUTPUT (## Rows..., model summaries, warnings) is a separate <pre> from the
-   input .sourceCode and kept #333 text — invisible on dark. Give it dark-card treatment. */
-html[data-theme="dark"] pre:not(.sourceCode) { background: #232427 !important; border: 1px solid rgba(255,255,255,0.08) !important; }
-html[data-theme="dark"] pre:not(.sourceCode), html[data-theme="dark"] pre:not(.sourceCode) code, html[data-theme="dark"] .r-output, html[data-theme="dark"] .r-output code { color: #d4d4d4 !important; }
-
-/* =================================================================
-   P-INVERT — in DARK mode, flip the INPUT code boxes to LIGHT so they pop against the dark page.
-   The skylighting token spans already exist (knit-time); this is just a second palette — Atom One
-   Light (OSS), NOT the recovered Claude themes (IP line). No facet / client-side highlighter needed.
+   P-INVERT — DARK mode: flip INPUT code boxes to LIGHT (Atom One Light, OSS) so they pop on the
+   dark page. Second palette over the existing skylighting spans; not tokenized (intentional inverse).
    ================================================================= */
 html[data-theme="dark"] div.sourceCode { background: #fafafa !important; border: 1px solid #e1e4e8 !important; }
 html[data-theme="dark"] pre.sourceCode, html[data-theme="dark"] pre.sourceCode code, html[data-theme="dark"] code.sourceCode { color: #383a42 !important; }
@@ -281,13 +243,12 @@ html[data-theme="dark"] code span.st, html[data-theme="dark"] code span.ch, html
 html[data-theme="dark"] code span.dv, html[data-theme="dark"] code span.fl, html[data-theme="dark"] code span.bn, html[data-theme="dark"] code span.cn { color: #986801 !important; }
 html[data-theme="dark"] code span.dt { color: #c18401 !important; }
 html[data-theme="dark"] code span.va, html[data-theme="dark"] code span.at { color: #e45649 !important; }
-/* line-number gutter on the light box */
 html[data-theme="dark"] pre.numberSource { border-left-color: #e1e4e8 !important; }
 html[data-theme="dark"] pre.numberSource code > span > a:first-child::before { color: #c0c0c0 !important; }
-/* code-block chrome (R logo + copy glyph) for the now-light box */
 html[data-theme="dark"] .code-lang svg { fill: #6a737d !important; }
 html[data-theme="dark"] .code-copy { color: #6a737d !important; border-color: rgba(0,0,0,0.15) !important; background: rgba(0,0,0,0.04) !important; }
 html[data-theme="dark"] .code-copy:hover { background: rgba(0,0,0,0.09) !important; color: #24292e !important; }
 html[data-theme="dark"] .code-copy.copied { color: #2da44e !important; border-color: rgba(45,164,78,0.5) !important; background: rgba(45,164,78,0.12) !important; }
-/* inline code chip goes light too, to match */
-html[data-theme="dark"] .main-container :not(pre) > code { background: #eef0f2 !important; color: #383a42 !important; }
+
+/* ── DARK mode: plots are baked light-bg PNGs → give them a white card, not inversion ── */
+html[data-theme="dark"] .main-container img { background: #ffffff !important; padding: 0.6em !important; border-radius: 8px !important; box-shadow: 0 1px 5px rgba(0,0,0,0.45) !important; }
