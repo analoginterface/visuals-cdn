@@ -1,0 +1,101 @@
+/* =================================================================
+   INFO 3320 — local standardization overrides
+   The FINAL cascade layer for the assignment template. Loaded LAST in the
+   css: list so its !important rules win. Extracted from the template's inline
+   <style id="info3320-overrides"> block (DRY refactor, 2026-05-31).
+   ================================================================= */
+
+/* P5 — pin the rem base so the sidebar scales with the 16px body regardless of
+   Bootstrap's html{font-size:10px}. Verified by tracer: sidebar 9px -> 14.4px. */
+html { font-size: 16px !important; }
+
+/* P-READ — the CDN design system shrinks code badly: a `pre, code, .sourceCode { 0.8em }`
+   rule compounds three times (div.sourceCode -> pre -> code = 0.8^3) down to ~8px. And body
+   text sits at a flat 16px. Bump both to comfortable sizes. These use rem, anchored to the
+   16px html base above, so they set an absolute size and can't re-compound. Adjust the two
+   numbers to taste. (Native Cmd +/- still zooms the whole page on top of this.) */
+.main-container p, .main-container li, .main-container td, .main-container th { font-size: 1.0625rem !important; line-height: 1.65 !important; }
+div.sourceCode, pre.sourceCode, pre.sourceCode code, code.sourceCode { font-size: 0.95rem !important; }
+
+/* P12 — tame the H1. The CDN sheets set 7rem + 4-5em bottom margin + 30vw right
+   padding (a half-screen gap). Keep it bold but sane. */
+h1 { font-size: 3rem !important; margin-bottom: 0.6em !important; padding-right: 0 !important; }
+
+/* P11 + P3 — full-width content container with 2rem side gutters. */
+.main-container, .container-fluid, body > .container {
+  width: 100% !important; max-width: 100% !important;
+  padding-left: 2rem !important; padding-right: 2rem !important;
+}
+/* P-HEADER — promote the sticky running head into its own full-bleed layer, separate from the
+   content padding. Pull it out of the container's 2rem gutter with MATCHING negative margins
+   (the safe full-bleed variant — no 100vw, so no scrollbar overflow; verified scrollWidth ==
+   clientWidth), so the bar AND its glassmorphism blur reach the document edges. Then give it its
+   own tighter side padding and zero the CDN's 32px text margins so the name/course hug the edges.
+   A real light-gray hairline replaces the CDN's invisible white-on-white border-bottom. */
+.page-header-container {
+  width: auto !important;
+  margin-left: -2rem !important; margin-right: -2rem !important;
+  padding: 0.75rem 1.25rem !important;
+  border-bottom: 1px solid #e2e2e2 !important;
+}
+.page-header-container .header-left { margin-left: 0 !important; }
+.page-header-container .header-right { margin-right: 0 !important; }
+
+/* P2 — hero metadata card: the CDN sheets set 1.35rem text in a 450px box, so the
+   long labels/values cram and wrap. Shrink the text, widen the box, and size the
+   label column to its content so "INSTRUCTOR:" et al. stay on one line. */
+.hero-infodelegate {
+  max-width: 620px !important;
+  grid-template-columns: max-content 1fr !important;
+  column-gap: 1em !important;
+  row-gap: 0.4em !important;
+  padding: 1.25em 1.5em !important;
+  font-size: 1rem !important;
+}
+.hero-infodelegate .header-label,
+.hero-infodelegate .header-value { font-size: 0.95rem !important; line-height: 1.5 !important; }
+
+/* ---- Code: ONE dark box on the WRAPPER div, so it encloses pandoc's line-number gutter.
+   pandoc lays numbered code out as a 3em left margin + a border-left separator; we keep that
+   layout untouched, move the dark fill to the div, and recolor the gutter for the dark theme.
+   (Earlier this box was on the pre, which sat to the RIGHT of the number margin -> the numbers
+   fell outside the dark fill and the separator got wiped by border:none.) ---- */
+div.sourceCode { background: #2d2d2d !important; color: #cccccc !important; margin: 1.2em 0 !important; padding: 0.9em 1.1em !important; border: none !important; border-radius: 6px !important; overflow-x: auto !important; }
+pre.sourceCode { background: transparent !important; color: #cccccc !important; margin: 0 !important; padding: 0 !important; border: none !important; border-radius: 0 !important; }
+pre.sourceCode code, code.sourceCode { background: transparent !important; color: #cccccc !important; }
+/* Token colors — the REAL Ace 'tomorrow_night_eighties' palette (your RStudio editor theme) */
+code span.co { color: #999999 !important; font-style: italic !important; }   /* comment */
+code span.kw, code span.cf, code span.im { color: #cc99cc !important; }       /* keyword / control flow */
+code span.fu, code span.bu { color: #66cccc !important; }                     /* function / built-in */
+code span.op, code span.sc { color: #66cccc !important; }                     /* operator (Ace: cyan, not red) */
+code span.st, code span.ch, code span.vs, code span.ss { color: #99cc99 !important; } /* strings */
+code span.dv, code span.fl, code span.bn, code span.cn { color: #f99157 !important; } /* numbers / constants */
+code span.dt { color: #ffcc66 !important; }                                   /* data type */
+code span.va, code span.at { color: #6699cc !important; }                     /* variable / argument */
+/* line numbers: ONE continuous separator (recolor pandoc's border-left for dark), readable
+   numbers, and NO per-line ticks (the border-right was drawing a faint line under every row). */
+pre.numberSource { margin-left: 3em !important; padding-left: 0.6em !important; border-left: 1px solid #4a4a4a !important; }
+pre.numberSource code > span > a:first-child::before { color: #8a8a8a !important; border-right: none !important; text-decoration: none !important; }
+/* pin the wordmark logo to a fixed size so it can't blow out (Viewer/rem-independent) */
+.sidebarLogo { height: 44px !important; width: auto !important; max-width: 80% !important; }
+
+/* P-SIDEBAR — the floating TOC never opened. v1_sidebar.js correctly adds `.active` on trigger
+   hover (mouseenter), but the CDN's `.sidebar.active { left: ... }` lacks the !important to beat
+   `.sidebar { left: -50vw }`, so the panel stayed parked off-screen. This one line is the fix.
+   (The CDN also ships a dead `.sidebar-trigger:hover` rule — note the kebab-case typo vs the real
+   `.sidebarTrigger` element — but that path is redundant; the JS mouseenter is what drives it.) */
+.sidebar.active { left: var(--sidebar-active-left) !important; }
+
+/* P-TOC — the TOC links inherit the body serif (Minion Pro), so they read thin and
+   bookish in the sidebar. Put them in Helvetica Neue LT Com Bold Extended (the "73"
+   weight) — a step up from the Medium Extended ("63") the sidebar was designed around.
+   styles.css only declares this family at weight 500 (-> MdEx), so a real 700 @font-face
+   is needed or the browser would faux-bold the Medium face instead of using BdEx. */
+@font-face {
+  font-family: "Helvetica Neue LT Com";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/HelveticaNeueLTCom/HelveticaNeueLTCom-BdEx.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+.tocLink { font-family: "Helvetica Neue LT Com", sans-serif !important; font-weight: 700 !important; }
