@@ -14,12 +14,14 @@ html { font-size: 16px !important; }
    text sits at a flat 16px. Bump both to comfortable sizes. These use rem, anchored to the
    16px html base above, so they set an absolute size and can't re-compound. Adjust the two
    numbers to taste. (Native Cmd +/- still zooms the whole page on top of this.) */
-.main-container p, .main-container li, .main-container td, .main-container th { font-size: 1.0625rem !important; line-height: 1.65 !important; }
-div.sourceCode, pre.sourceCode, pre.sourceCode code, code.sourceCode { font-size: 0.95rem !important; }
+.main-container p, .main-container li, .main-container td, .main-container th { font-size: 1.15rem !important; line-height: 1.65 !important; }
+div.sourceCode, pre.sourceCode, pre.sourceCode code, code.sourceCode { font-size: 1.05rem !important; }
 
-/* P12 — tame the H1. The CDN sheets set 7rem + 4-5em bottom margin + 30vw right
-   padding (a half-screen gap). Keep it bold but sane. */
-h1 { font-size: 3rem !important; margin-bottom: 0.6em !important; padding-right: 0 !important; }
+/* P12 — tame the heading scale. The CDN sheets set H1 to 7rem (+4-5em bottom margin, 30vw
+   right padding) and leave H2 nearly as large, so H1 swamps the page and H1≈H2 has no
+   hierarchy. Pin a clear ramp: H1 2.5rem > H2 2rem > body 1.15rem. Tune to taste. */
+h1 { font-size: 2.5rem !important; margin-bottom: 0.6em !important; padding-right: 0 !important; }
+h2 { font-size: 2rem !important; }
 
 /* P11 + P3 — full-width content container with 2rem side gutters. */
 .main-container, .container-fluid, body > .container {
@@ -79,7 +81,11 @@ pre.numberSource code > span > a:first-child::before { color: #8a8a8a !important
 /* pin the wordmark logo to a fixed size so it can't blow out (Viewer/rem-independent) */
 /* keep the wordmark's aspect ratio: it sits in a flex column that stretches it to 80% width
    (then object-fit:fill squishes the SVG). align-self stops the stretch; object-fit is a belt. */
-.sidebarLogo { height: 44px !important; width: auto !important; max-width: 80% !important; align-self: flex-start !important; object-fit: contain !important; }
+/* Cross-engine sizing: set an EXPLICIT width (not width:auto-from-height). Chromium derives
+   width from height:44px fine, but Safari / RStudio Viewer ignore that for an SVG <img> with
+   intrinsic dimensions and fall back toward the SVG's own ~521px width → a giant logo. An
+   explicit width + height:auto is honored by every engine (aspect stays correct). */
+.sidebarLogo { width: 9rem !important; height: auto !important; max-width: 80% !important; align-self: flex-start !important; object-fit: contain !important; }
 
 /* P-SIDEBAR — the floating TOC never opened. v1_sidebar.js correctly adds `.active` on trigger
    hover (mouseenter), but the CDN's `.sidebar.active { left: ... }` lacks the !important to beat
