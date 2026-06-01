@@ -244,5 +244,7 @@ html[data-theme="dark"] blockquote { background: rgba(255,255,255,0.03) !importa
 html[data-theme="dark"] hr { border-color: rgba(255,255,255,0.12) !important; background-color: rgba(255,255,255,0.12) !important; }
 /* plots: baked light-bg PNGs sit on a light card so they read as intentional, not broken */
 html[data-theme="dark"] .main-container img { background: #ffffff !important; padding: 0.6em !important; border-radius: 8px !important; box-shadow: 0 1px 5px rgba(0,0,0,0.45) !important; }
+/* the click-to-load PDF button is inline-styled light in the template; darken it for dark mode */
+html[data-theme="dark"] #chapter-pdf button { background: #26282d !important; color: #cfcfcf !important; border-color: rgba(255,255,255,0.2) !important; }
 /* a gentle cross-fade when toggling */
 body, .main-container, .hero-infodelegate, .sidebar, .page-header-container { transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease; }
