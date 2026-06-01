@@ -195,3 +195,54 @@ pre.sourceCode::before, pre[class]::before { content: none !important; display: 
 .sidebarControls .ctrlBtn:hover { background: #fff; border-color: rgba(0, 0, 0, 0.4); }
 .sidebarControls .ctrlBtn:active { transform: scale(0.93); }
 .sidebarControls .ctrlBtn:focus-visible { outline: 2px solid #6699cc; outline-offset: 2px; }
+/* theme toggle: show moon in light mode (click -> dark), sun in dark mode (click -> light) */
+.theme-toggle svg { width: 1.05em; height: 1.05em; fill: currentColor; display: block; }
+.theme-toggle .icon-sun { display: none; }
+html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+
+/* =================================================================
+   P-DARK — dark mode. The sidebar THEME control sets data-theme="dark" on <html>; applied early
+   (after_body.html) to avoid a flash. The CDN sheets hardcode light colors, so each surface is
+   overridden here. Plots are baked light-bg PNGs, so they get a light "card" rather than inversion.
+   ================================================================= */
+html[data-theme="dark"], html[data-theme="dark"] body { background: #1a1b1e !important; color: #e6e6e6 !important; }
+html[data-theme="dark"] .main-container, html[data-theme="dark"] .container-fluid { background: #1a1b1e !important; color: #e6e6e6 !important; }
+html[data-theme="dark"] .main-container p, html[data-theme="dark"] .main-container li, html[data-theme="dark"] .main-container blockquote { color: #e6e6e6 !important; }
+html[data-theme="dark"] h1, html[data-theme="dark"] h2, html[data-theme="dark"] h3, html[data-theme="dark"] h4 { color: #f3f3f3 !important; }
+html[data-theme="dark"] a { color: #6cc0c0 !important; }
+/* hero metadata card */
+html[data-theme="dark"] .hero-infodelegate { background: #26282d !important; border-color: rgba(255,255,255,0.12) !important; }
+html[data-theme="dark"] .hero-infodelegate .header-label { color: #9aa0a6 !important; }
+html[data-theme="dark"] .hero-infodelegate .header-value { color: #e6e6e6 !important; }
+/* sticky running head */
+html[data-theme="dark"] .page-header-container { background: rgba(26,27,30,0.82) !important; border-bottom-color: rgba(255,255,255,0.12) !important; }
+html[data-theme="dark"] .page-header-container, html[data-theme="dark"] .page-header-container * { color: #cfcfcf !important; }
+/* sidebar (glass) + its contents */
+html[data-theme="dark"] .sidebar { background: rgba(30,32,36,0.94) !important; border-color: rgba(255,255,255,0.10) !important; }
+html[data-theme="dark"] .tocTitle, html[data-theme="dark"] .sidebarControls .controlLabel { color: #cfcfcf !important; }
+html[data-theme="dark"] .tocLink { color: #cfcfcf !important; }
+html[data-theme="dark"] .tocLink:hover { color: #ffffff !important; }
+html[data-theme="dark"] .sidebarSubtitle, html[data-theme="dark"] .sidebar p { color: #9aa0a6 !important; }
+html[data-theme="dark"] .sidebarControls { border-bottom-color: rgba(255,255,255,0.12) !important; }
+html[data-theme="dark"] .sidebarControls .ctrlBtn { background: rgba(255,255,255,0.06) !important; border-color: rgba(255,255,255,0.18) !important; color: #e0e0e0 !important; }
+html[data-theme="dark"] .sidebarControls .ctrlBtn:hover { background: rgba(255,255,255,0.14) !important; border-color: rgba(255,255,255,0.32) !important; }
+/* inline code chip */
+html[data-theme="dark"] .main-container :not(pre) > code { background: #2d2d2d !important; color: #e0e0e0 !important; }
+/* block code is already dark; just separate it from the page */
+html[data-theme="dark"] div.sourceCode { border: 1px solid rgba(255,255,255,0.08) !important; }
+/* data tables + paged data frame */
+html[data-theme="dark"] .main-container td, html[data-theme="dark"] .main-container th { color: #e0e0e0 !important; border-color: rgba(255,255,255,0.12) !important; }
+html[data-theme="dark"] .pagedtable, html[data-theme="dark"] .pagedtable-wrapper { color: #e0e0e0 !important; }
+html[data-theme="dark"] .pagedtable .even { background: rgba(255,255,255,0.03) !important; }
+html[data-theme="dark"] .pagedtable-info, html[data-theme="dark"] .pagedtable-not-empty .pagedtable-padding-col { color: #9aa0a6 !important; }
+/* reactable widget */
+html[data-theme="dark"] .reactable, html[data-theme="dark"] .rt-table, html[data-theme="dark"] .rt-thead, html[data-theme="dark"] .rt-tbody, html[data-theme="dark"] .rt-th, html[data-theme="dark"] .rt-td { background: #1f2125 !important; color: #e0e0e0 !important; border-color: rgba(255,255,255,0.10) !important; }
+html[data-theme="dark"] .rt-search, html[data-theme="dark"] .rt-filter input, html[data-theme="dark"] .rt-page-size select { background: #26282d !important; color: #e0e0e0 !important; border-color: rgba(255,255,255,0.18) !important; }
+/* blockquote (Instructions) + rules */
+html[data-theme="dark"] blockquote { background: rgba(255,255,255,0.03) !important; border-left-color: rgba(255,255,255,0.22) !important; color: #e0e0e0 !important; }
+html[data-theme="dark"] hr { border-color: rgba(255,255,255,0.12) !important; background-color: rgba(255,255,255,0.12) !important; }
+/* plots: baked light-bg PNGs sit on a light card so they read as intentional, not broken */
+html[data-theme="dark"] .main-container img { background: #ffffff !important; padding: 0.6em !important; border-radius: 8px !important; box-shadow: 0 1px 5px rgba(0,0,0,0.45) !important; }
+/* a gentle cross-fade when toggling */
+body, .main-container, .hero-infodelegate, .sidebar, .page-header-container { transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease; }
