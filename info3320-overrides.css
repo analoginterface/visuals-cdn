@@ -176,7 +176,7 @@ pre.sourceCode::before, pre[class]::before { content: none !important; display: 
 @keyframes code-copy-pop { 0% { transform: scale(0.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
 /* ── LOGO — pre-JS fallback size; v1_sidebar.js sizeLogos() pins it via inline !important ── */
-.sidebarLogo { width: 9rem !important; height: auto !important; max-width: 80% !important; align-self: flex-start !important; object-fit: contain !important; }
+.sidebarLogo { width: 9rem !important; height: auto !important; max-width: 9rem !important; min-width: 0 !important; align-self: flex-start !important; object-fit: contain !important; }
 
 /* ── SIDEBAR (glass) + TOC + version, tokenized ── */
 .sidebar.active { left: var(--sidebar-active-left) !important; }
@@ -215,9 +215,16 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
 .pagedtable, .pagedtable-wrapper { color: var(--c-text) !important; }
 .pagedtable .even { background: var(--c-surface) !important; }
 .pagedtable-info, .pagedtable-not-empty .pagedtable-padding-col { color: var(--c-text-3) !important; }
-.reactable, .rt-table, .rt-thead, .rt-tbody, .rt-tr, .rt-th, .rt-td { background: var(--c-bg) !important; color: var(--c-text) !important; border-color: var(--c-border) !important; }
+.reactable, .rt-table, .rt-thead, .rt-tbody { background: var(--c-bg) !important; color: var(--c-text) !important; }
+/* cells: NO background override (so the conditional-color heatmap's inline hsl shows in light); just
+   text + borders. Non-conditional cells are transparent and show the table bg, which flips. */
+.rt-tr, .rt-th, .rt-td { color: var(--c-text) !important; border-color: var(--c-border) !important; }
 .rt-th { background: var(--c-surface) !important; }
-.rt-search, .rt-filter input, .rt-page-size select { background: var(--c-surface) !important; color: var(--c-text) !important; border-color: var(--c-border-2) !important; }
+/* filter inputs are input.rt-filter; the search is .rt-search; the page-size dropdown is
+   .rt-page-size-select (my earlier selectors were wrong, so these stayed white in dark). */
+.rt-search, .rt-filter, .rt-page-size-select { background: var(--c-surface) !important; color: var(--c-text) !important; border-color: var(--c-border-2) !important; }
+/* dark: flatten the conditional cells (the light-green hsl reads wrong on a dark table) */
+html[data-theme="dark"] .rt-td { background: var(--c-bg) !important; }
 
 /* ── Blockquote (Instructions), rules, PDF button, verbatim output — tokenized ── */
 blockquote { background: var(--c-surface) !important; border-left: 4px solid var(--c-border-2) !important; color: var(--c-text) !important; }
