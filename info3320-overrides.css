@@ -7,15 +7,17 @@
 
 /* P5 — pin the rem base so the sidebar scales with the 16px body regardless of
    Bootstrap's html{font-size:10px}. Verified by tracer: sidebar 9px -> 14.4px. */
-html { font-size: 16px !important; }
+html { font-size: 16px !important; --reading-scale: 1; }
 
 /* P-READ — the CDN design system shrinks code badly: a `pre, code, .sourceCode { 0.8em }`
    rule compounds three times (div.sourceCode -> pre -> code = 0.8^3) down to ~8px. And body
    text sits at a flat 16px. Bump both to comfortable sizes. These use rem, anchored to the
    16px html base above, so they set an absolute size and can't re-compound. Adjust the two
    numbers to taste. (Native Cmd +/- still zooms the whole page on top of this.) */
-.main-container p, .main-container li, .main-container td, .main-container th { font-size: 1.15rem !important; line-height: 1.65 !important; }
-div.sourceCode, pre.sourceCode, pre.sourceCode code, code.sourceCode { font-size: 1.05rem !important; }
+/* Reading text scales with --reading-scale (the sidebar TEXT SIZE control sets it on <html>); only
+   reading text scales, not the chrome, because we multiply per-rule rather than the html base. */
+.main-container p, .main-container li, .main-container td, .main-container th { font-size: calc(1.15rem * var(--reading-scale, 1)) !important; line-height: 1.65 !important; }
+div.sourceCode, pre.sourceCode, pre.sourceCode code, code.sourceCode { font-size: calc(1.05rem * var(--reading-scale, 1)) !important; }
 
 /* P12 — heading scale. "Homework N — Topic" is the document TITLE (H1); "Chapter 1 Introduction",
    "Environment setup", etc. are the SECTION headings (H2). Per Colin: the title should read ~3x the
@@ -150,3 +152,22 @@ pre.sourceCode::before, pre[class]::before { content: none !important; display: 
 .code-copy.copied .icon-copy { display: none; }
 .code-copy.copied .icon-check { display: block; animation: code-copy-pop 200ms cubic-bezier(0.165, 0.85, 0.45, 1); }
 @keyframes code-copy-pop { 0% { transform: scale(0.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+/* P-CONTROLS — reader settings panel in the sidebar (markup in before_body.html .sidebarControls):
+   sits below the header, above the TOC. Text-size scaler now; a theme toggle will slot into the
+   same panel later. Typography matches the sidebar (Helvetica Neue LT Com, dark-on-light glass). */
+.sidebarControls { padding: 0.85rem 0 0.95rem; border-bottom: 1px solid rgba(0, 0, 0, 0.08); margin-bottom: 0.35rem; }
+.sidebarControls .controlRow { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+.sidebarControls .controlLabel { font: 600 0.72rem/1 "Helvetica Neue LT Com", sans-serif; letter-spacing: 0.1em; color: #555; text-transform: uppercase; }
+.sidebarControls .controlButtons { display: inline-flex; gap: 0.3rem; }
+.sidebarControls .ctrlBtn {
+  font: 600 0.92rem/1 "Helvetica Neue LT Com", sans-serif;
+  width: 1.95rem; height: 1.7rem; padding: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(0, 0, 0, 0.18); border-radius: 5px; background: rgba(255, 255, 255, 0.5);
+  color: #333; cursor: pointer; -webkit-appearance: none; appearance: none;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+.sidebarControls .ctrlBtn:hover { background: #fff; border-color: rgba(0, 0, 0, 0.4); }
+.sidebarControls .ctrlBtn:active { transform: scale(0.93); }
+.sidebarControls .ctrlBtn:focus-visible { outline: 2px solid #6699cc; outline-offset: 2px; }
