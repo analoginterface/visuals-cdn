@@ -297,17 +297,28 @@ html[data-theme="dark"] .main-container img { background: #ffffff !important; pa
   .hero-infodelegate .header-label,
   .hero-infodelegate .header-value { font-size: 0.85rem !important; }
 
-  /* wide tables (kable) scroll horizontally instead of overflowing the page */
+  /* wide tables (kable) scroll horizontally instead of overflowing the page.
+     The caption must be display:block, else it sizes to the table's intrinsic
+     (pre-scroll) width and silently widens the whole layout viewport. */
   .main-container table {
-    display: block !important; width: 100% !important;
+    display: block !important; width: 100% !important; max-width: 100% !important;
     overflow-x: auto !important; -webkit-overflow-scrolling: touch !important;
   }
+  .main-container table caption { display: block !important; white-space: normal !important; }
 
   /* figures + images never exceed the viewport */
   .main-container img, .main-container svg { max-width: 100% !important; height: auto !important; }
 
-  /* code already scrolls-x; trim the font a touch for density */
+  /* code blocks must never widen the page: cap to the viewport so the existing
+     overflow-x:auto actually clips long lines (min-width:0 defeats min-content sizing). */
+  .main-container div.sourceCode { max-width: 100% !important; min-width: 0 !important; overflow-x: auto !important; }
   div.sourceCode, pre.sourceCode { font-size: 0.82rem !important; }
+
+  /* clamp: a nested intrinsic width (e.g. a table's thead/tbody leaking past its
+     scroll box) can silently expand the layout viewport past the device width.
+     Hold the page to the viewport. Nested code/table scroll-boxes keep their own
+     overflow:auto; the off-canvas sidebar is position:fixed, so it's unaffected. */
+  html, body { overflow-x: hidden !important; max-width: 100% !important; }
 }
 
 /* finer tuning for true phone widths */
