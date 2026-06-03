@@ -259,3 +259,73 @@ html[data-theme="dark"] .code-copy.copied { color: #2da44e !important; border-co
 
 /* ── DARK mode: plots are baked light-bg PNGs → give them a white card, not inversion ── */
 html[data-theme="dark"] .main-container img { background: #ffffff !important; padding: 0.6em !important; border-radius: 8px !important; box-shadow: 0 1px 5px rgba(0,0,0,0.45) !important; }
+
+/* =================================================================
+   RESPONSIVE / MOBILE LAYER  (added 2026-06-02)
+   This file loads LAST → these win the cascade at narrow widths. Every rule is
+   gated behind max-width, so the desktop layout is untouched. Fills the gaps the
+   existing 400px/768px blocks leave open: the full-bleed running head overflowing
+   the narrow gutter, the right-aligned hero metadata grid, heading scale, and
+   wide kable tables / figures.
+   ================================================================= */
+@media (max-width: 768px) {
+  /* even, comfortable content gutter on small screens */
+  .main-container, .container-fluid, body > .container {
+    padding-left: 1rem !important; padding-right: 1rem !important;
+  }
+
+  /* running head: desktop bleeds -2rem past the gutter; on a narrow gutter that
+     overflows the viewport (clips the right label). Match a 1rem gutter so it sits
+     flush to the edges, and shrink the type. */
+  .page-header-container {
+    margin-left: -1rem !important; margin-right: -1rem !important;
+    padding: 0.55rem 1rem !important;
+  }
+  .page-header-container .header-left,
+  .page-header-container .header-right { font-size: 0.82rem !important; }
+
+  /* headings scale down so they don't crowd the edge */
+  .main-container h1, h1.title { font-size: 1.6rem !important; line-height: 1.2 !important; }
+  .main-container h2 { font-size: 1.28rem !important; }
+  .main-container h3 { font-size: 1.1rem !important; }
+
+  /* hero metadata card: full width, left-aligned, tighter padding */
+  .hero-infodelegate {
+    max-width: 100% !important; margin: 1.3em 0 !important;
+    padding: 1em 1.1em !important; column-gap: 0.8em !important;
+  }
+  .hero-infodelegate .header-label,
+  .hero-infodelegate .header-value { font-size: 0.85rem !important; }
+
+  /* wide tables (kable) scroll horizontally instead of overflowing the page.
+     The caption must be display:block, else it sizes to the table's intrinsic
+     (pre-scroll) width and silently widens the whole layout viewport. */
+  .main-container table {
+    display: block !important; width: 100% !important; max-width: 100% !important;
+    overflow-x: auto !important; -webkit-overflow-scrolling: touch !important;
+  }
+  .main-container table caption { display: block !important; white-space: normal !important; }
+
+  /* figures + images never exceed the viewport */
+  .main-container img, .main-container svg { max-width: 100% !important; height: auto !important; }
+
+  /* code blocks must never widen the page: cap to the viewport so the existing
+     overflow-x:auto actually clips long lines (min-width:0 defeats min-content sizing). */
+  .main-container div.sourceCode { max-width: 100% !important; min-width: 0 !important; overflow-x: auto !important; }
+  div.sourceCode, pre.sourceCode { font-size: 0.82rem !important; }
+
+  /* clamp: a nested intrinsic width (e.g. a table's thead/tbody leaking past its
+     scroll box) can silently expand the layout viewport past the device width.
+     Hold the page to the viewport. Nested code/table scroll-boxes keep their own
+     overflow:auto; the off-canvas sidebar is position:fixed, so it's unaffected. */
+  html, body { overflow-x: hidden !important; max-width: 100% !important; }
+}
+
+/* finer tuning for true phone widths */
+@media (max-width: 430px) {
+  .main-container h1, h1.title { font-size: 1.4rem !important; }
+  /* stack each hero label above its value on the narrowest screens */
+  .hero-infodelegate { grid-template-columns: 1fr !important; row-gap: 0.15em !important; }
+  .hero-infodelegate .header-label { margin-top: 0.55em !important; opacity: 0.7 !important; }
+  .hero-infodelegate .header-label:first-child { margin-top: 0 !important; }
+}
