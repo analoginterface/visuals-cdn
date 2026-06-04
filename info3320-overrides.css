@@ -188,6 +188,15 @@ pre.sourceCode::before, pre[class]::before { content: none !important; display: 
 .code-copy.copied .icon-check { display: block; animation: code-copy-pop 200ms cubic-bezier(0.165, 0.85, 0.45, 1); }
 @keyframes code-copy-pop { 0% { transform: scale(0.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
+/* ── CODE WRAP + pinned chrome (system-wide) ────────────────────────────────
+   The CDN base sets overflow-x:auto on the code box, so long lines run off the
+   right (forcing a horizontal pan) AND the absolutely-positioned logo/copy chrome
+   scroll away with the content. Wrap instead: the box is the non-scrolling
+   positioned anchor, lines reflow to its width, and the chrome stays pinned. */
+div.sourceCode { position: relative !important; overflow-x: visible !important; }
+pre.sourceCode, pre.sourceCode code, code.sourceCode {
+  white-space: pre-wrap !important; overflow-wrap: anywhere !important; overflow-x: visible !important; }
+
 /* ── LOGO — pre-JS fallback size; v1_sidebar.js sizeLogos() pins it via inline !important ── */
 .sidebarLogo { width: 9rem !important; height: auto !important; max-width: 9rem !important; min-width: 0 !important; align-self: flex-start !important; object-fit: contain !important; }
 
