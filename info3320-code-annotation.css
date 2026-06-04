@@ -1,0 +1,128 @@
+/* =============================================================================
+   info3320-code-annotation.css — code-annotation component (NEW)
+   -----------------------------------------------------------------------------
+   A static, presentation-oriented code block paired with side (or stacked)
+   annotations: code on one half of the slide, bullet annotations on the other.
+   Authored for the INFO 3320 final-project deck; lives here in the format root
+   (mosaics) as the canonical home. It is presentation-scoped, so it is NOT in
+   the document CSS load list (info3320.R) — it is kept with the format for reuse.
+
+   How it differs from the format's regular code block:
+     - a language badge in the top-left corner (static text, read from Pandoc's
+       .sourceCode language class)
+     - NO copy button (the deck is static)
+     - long lines REFLOW (wrap) instead of running off the block — no horizontal
+       scroll
+
+   Built on the project's Tomorrow-Night-80s code box; consumes the design tokens
+   (--mono, --c-accent, --c-text, --c-text-2) so it themes with light/dark.
+   ============================================================================= */
+
+/* ── half / half layout: code on one side, annotations on the other ───────── */
+.ca-split{
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;     /* code slightly wider (~55/45) */
+  gap: 1.6rem;
+  align-items: start;
+  min-height: 0;
+}
+.ca-split.stacked{ grid-template-columns: 1fr; gap: 1rem; }   /* annotations underneath */
+.ca-code{ min-width: 0; }                  /* allow the column to shrink so code can reflow */
+
+/* ── the static, badged, reflowing code box ───────────────────────────────── */
+.ca-code div.sourceCode{
+  position: relative;
+  background: #2d2d2d; color: #cccccc;
+  border: 0; border-radius: 6px;
+  padding: 1.9em 1.0em 0.9em;             /* top padding leaves room for the badge */
+  margin: 0;
+  overflow: hidden;                        /* no horizontal scroll — lines reflow instead */
+  max-height: none;
+  font-family: var(--mono, ui-monospace, monospace);
+  font-size: 0.64rem; line-height: 1.5;
+}
+.ca-code pre.sourceCode,
+.ca-code pre.sourceCode code,
+.ca-code code.sourceCode{
+  background: transparent; color: #cccccc; border: 0; padding: 0; margin: 0;
+  white-space: pre-wrap;                   /* REFLOW long lines */
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+/* language badge, top-left — static, no copy button. Placed on the box (div),
+   which is position:relative, so it anchors reliably at the corner (a pre::before
+   does not). A subtle pill so it reads on the dark box. Content is "R" by default
+   (this deck is R); for another language, override the `content` of this rule. */
+.ca-code div.sourceCode::before{
+  content: "R";
+  position: absolute; top: .5em; left: .85em; z-index: 2;
+  font-family: var(--mono, ui-monospace, monospace);
+  font-size: .58rem; letter-spacing: .12em; text-transform: uppercase;
+  color: #cfcfd9; background: rgba(255,255,255,.09);
+  padding: .12em .55em; border-radius: 4px; pointer-events: none;
+}
+
+/* ── annotations: accent-dash bullets explaining the code ─────────────────── */
+.ca-notes{ align-self: center; }
+.ca-notes ul{ list-style: none; padding: 0; margin: 0; }
+.ca-notes li{
+  position: relative; padding-left: 1.2em; margin: 0 0 .8em;
+  font-family: var(--serif, Georgia, serif);
+  font-size: 1.02rem; line-height: 1.42; color: var(--c-text-2, #5b5b72);
+}
+.ca-notes li::before{
+  content: "\2014"; position: absolute; left: 0; top: 0;       /* em dash, accent */
+  font-family: var(--mono, monospace); color: var(--c-accent, #3e63dd);
+}
+.ca-notes li:last-child{ margin-bottom: 0; }
+.ca-notes code{                            /* inline code-token references */
+  font-family: var(--mono, monospace); font-size: .92em;
+  color: var(--c-accent, #3e63dd); background: none; padding: 0;
+}
+.ca-notes strong{ color: var(--c-text, #1c1c28); font-weight: 700; }
+
+/* ── PROGRESSIVE WALKTHROUGH (.ca-code.walk): code starts gray, colorizes
+   section-by-section as the matching right-side annotation fragment appears.
+   One CSS variable per token type carries the color: defaulted to the box gray,
+   flipped to the real Tomorrow-Night color when a line-span gets `.on` (toggled
+   by the reveal hook in the deck's head.html, keyed to the annotation fragments).
+   The per-token `color:` rules are stated ONCE here and only read the variables;
+   steps never restate a literal, so adding a step is one entry in `data-steps`. */
+.ca-code.walk div.sourceCode{
+  --t-co:#999999; --t-kw:#cccccc; --t-fu:#cccccc; --t-st:#cccccc;
+  --t-dv:#cccccc; --t-dt:#cccccc; --t-va:#cccccc; --t-op:#cccccc;
+}
+.ca-code.walk code span.co{ color:var(--t-co) !important; font-style:italic; }
+.ca-code.walk code span.kw, .ca-code.walk code span.cf, .ca-code.walk code span.im{ color:var(--t-kw) !important; }
+.ca-code.walk code span.fu, .ca-code.walk code span.bu{ color:var(--t-fu) !important; }
+.ca-code.walk code span.op, .ca-code.walk code span.sc, .ca-code.walk code span.ot{ color:var(--t-op) !important; }
+.ca-code.walk code span.st, .ca-code.walk code span.ch, .ca-code.walk code span.vs, .ca-code.walk code span.ss{ color:var(--t-st) !important; }
+.ca-code.walk code span.dv, .ca-code.walk code span.fl, .ca-code.walk code span.bn, .ca-code.walk code span.cn{ color:var(--t-dv) !important; }
+.ca-code.walk code span.dt{ color:var(--t-dt) !important; }
+.ca-code.walk code span.va, .ca-code.walk code span.at{ color:var(--t-va) !important; }
+.ca-code.walk code span{ transition:color .45s ease; }
+/* an active line-span rewrites the variables for its own subtree → its tokens colorize */
+.ca-code.walk [data-step].on{
+  --t-co:#999999; --t-kw:#cc99cc; --t-fu:#66cccc; --t-op:#66cccc;
+  --t-st:#99cc99; --t-dv:#f99157; --t-dt:#ffcc66; --t-va:#6699cc;
+}
+/* gentle dim on not-yet-active lines so the active section reads first */
+.ca-code.walk [data-step]:not(.on){ opacity:.72; transition:opacity .45s ease; }
+.ca-code.walk [data-step].on{ opacity:1; }
+@media (prefers-reduced-motion: reduce){
+  .ca-code.walk code span, .ca-code.walk [data-step]{ transition:none !important; }
+}
+/* the rainbow parentheses ALSO start gray in a .walk box — so "all grayed out"
+   includes the brackets — and restore their depth rainbow when their line-span's
+   step is .on. One variable per depth (1..7), shared across paren/bracket/brace. */
+.ca-code.walk .sourceCode{
+  --rbd1:#cccccc; --rbd2:#cccccc; --rbd3:#cccccc; --rbd4:#cccccc; --rbd5:#cccccc; --rbd6:#cccccc; --rbd7:#cccccc; }
+.ca-code.walk .sourceCode .paren-1, .ca-code.walk .sourceCode .bracket-1, .ca-code.walk .sourceCode .brace-1{ color:var(--rbd1) !important; }
+.ca-code.walk .sourceCode .paren-2, .ca-code.walk .sourceCode .bracket-2, .ca-code.walk .sourceCode .brace-2{ color:var(--rbd2) !important; }
+.ca-code.walk .sourceCode .paren-3, .ca-code.walk .sourceCode .bracket-3, .ca-code.walk .sourceCode .brace-3{ color:var(--rbd3) !important; }
+.ca-code.walk .sourceCode .paren-4, .ca-code.walk .sourceCode .bracket-4, .ca-code.walk .sourceCode .brace-4{ color:var(--rbd4) !important; }
+.ca-code.walk .sourceCode .paren-5, .ca-code.walk .sourceCode .bracket-5, .ca-code.walk .sourceCode .brace-5{ color:var(--rbd5) !important; }
+.ca-code.walk .sourceCode .paren-6, .ca-code.walk .sourceCode .bracket-6, .ca-code.walk .sourceCode .brace-6{ color:var(--rbd6) !important; }
+.ca-code.walk .sourceCode .paren-7, .ca-code.walk .sourceCode .bracket-7, .ca-code.walk .sourceCode .brace-7{ color:var(--rbd7) !important; }
+.ca-code.walk [data-step].on{
+  --rbd1:#f2777a; --rbd2:#f99157; --rbd3:#ffcc66; --rbd4:#99cc99; --rbd5:#66cccc; --rbd6:#6699cc; --rbd7:#cc99cc; }

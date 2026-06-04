@@ -146,6 +146,19 @@ code span.st, code span.ch, code span.vs, code span.ss { color: #99cc99 !importa
 code span.dv, code span.fl, code span.bn, code span.cn { color: #f99157 !important; }
 code span.dt { color: #ffcc66 !important; }
 code span.va, code span.at { color: #6699cc !important; }
+/* operators (.ot: <-, |>, ->) — match the operator cyan (were unstyled) */
+code span.ot { color: #66cccc !important; }
+/* RAINBOW PARENTHESES — canonical palette from tomorrow-night-80s.css: ()[]{}
+   wrapped in .paren/.bracket/.brace-N (N=1..7) by the after_body.html walker,
+   colored bold by nesting depth in ROYGBIV. (These rules existed in the theme file
+   but it was never loaded; this wires the same palette into the active overrides.) */
+.sourceCode .paren-1, .sourceCode .bracket-1, .sourceCode .brace-1 { color: #f2777a !important; font-weight: bold !important; }
+.sourceCode .paren-2, .sourceCode .bracket-2, .sourceCode .brace-2 { color: #f99157 !important; font-weight: bold !important; }
+.sourceCode .paren-3, .sourceCode .bracket-3, .sourceCode .brace-3 { color: #ffcc66 !important; font-weight: bold !important; }
+.sourceCode .paren-4, .sourceCode .bracket-4, .sourceCode .brace-4 { color: #99cc99 !important; font-weight: bold !important; }
+.sourceCode .paren-5, .sourceCode .bracket-5, .sourceCode .brace-5 { color: #66cccc !important; font-weight: bold !important; }
+.sourceCode .paren-6, .sourceCode .bracket-6, .sourceCode .brace-6 { color: #6699cc !important; font-weight: bold !important; }
+.sourceCode .paren-7, .sourceCode .bracket-7, .sourceCode .brace-7 { color: #cc99cc !important; font-weight: bold !important; }
 /* line-number gutter (dark box) */
 pre.numberSource { margin-left: 3em !important; padding-left: 0.6em !important; border-left: 1px solid #4a4a4a !important; }
 pre.numberSource code > span > a:first-child::before { color: #8a8a8a !important; border-right: none !important; text-decoration: none !important; }
