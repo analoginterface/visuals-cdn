@@ -196,6 +196,12 @@ pre.sourceCode::before, pre[class]::before { content: none !important; display: 
 div.sourceCode { position: relative !important; overflow-x: visible !important; }
 pre.sourceCode, pre.sourceCode code, code.sourceCode {
   white-space: pre-wrap !important; overflow-wrap: anywhere !important; overflow-x: visible !important; }
+/* Wrapped NUMBERED lines must hang-indent under the code, not collapse into the
+   gutter. Pandoc shifts each line left 4em (to seat the number) — when a line wraps,
+   the number-less continuation lands at that shifted edge (far left). Undo the shift
+   and rebuild the gutter with padding so continuations align under the code. */
+pre.numberSource code > span { left: 0 !important; padding-left: 4em !important; text-indent: -4em !important; }
+pre.numberSource code > span > a:first-child::before { left: 0 !important; }
 
 /* ── LOGO — pre-JS fallback size; v1_sidebar.js sizeLogos() pins it via inline !important ── */
 .sidebarLogo { width: 9rem !important; height: auto !important; max-width: 9rem !important; min-width: 0 !important; align-self: flex-start !important; object-fit: contain !important; }
