@@ -201,7 +201,8 @@ pre.sourceCode, pre.sourceCode code, code.sourceCode {
    to the far left and fights any padding. Replace it wholesale: each line is a block,
    the line number is absolutely placed in a fixed-width gutter, and the code is padded
    past that gutter — so wrapped continuations hang under the code, numbers stay put. */
-div.sourceCode pre.numberSource { margin-left: 0 !important; padding-left: 0 !important; }
+div.sourceCode pre.numberSource { margin-left: 0 !important; padding-left: 0 !important; border-left: 0 !important; }
+pre.numberSource code { background: linear-gradient(#6a6a6a,#6a6a6a) 3.05em 0 / 1px 100% no-repeat !important; }  /* divider between numbers and code */
 pre.numberSource code > span { display: block !important; position: relative !important; left: 0 !important; padding-left: 3.5em !important; text-indent: 0 !important; }
 pre.numberSource code > span > a:first-child { position: absolute !important; left: 0 !important; top: 0 !important; width: 2.7em !important; text-align: right !important; display: block !important; }
 pre.numberSource code > span > a:first-child::before { position: static !important; left: 0 !important; }

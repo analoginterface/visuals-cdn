@@ -17,11 +17,12 @@
 # =============================================================================
 import sys, shutil, datetime, pathlib
 
-SENTINEL = "<!-- code-wrap-fix v3 -->"
+SENTINEL = "<!-- code-wrap-fix v4 -->"
 CSS = "<style>\n" + SENTINEL + """
 div.sourceCode{position:relative !important;overflow-x:visible !important}
 pre.sourceCode,pre.sourceCode code,code.sourceCode{white-space:pre-wrap !important;overflow-wrap:anywhere !important;overflow-x:visible !important}
-div.sourceCode pre.numberSource{margin-left:0 !important;padding-left:0 !important}
+div.sourceCode pre.numberSource{margin-left:0 !important;padding-left:0 !important;border-left:0 !important}
+pre.numberSource code{background:linear-gradient(#6a6a6a,#6a6a6a) 3.05em 0 / 1px 100% no-repeat !important}
 pre.numberSource code > span{display:block !important;position:relative !important;left:0 !important;padding-left:3.5em !important;text-indent:0 !important}
 pre.numberSource code > span > a:first-child{position:absolute !important;left:0 !important;top:0 !important;width:2.7em !important;text-align:right !important;display:block !important}
 pre.numberSource code > span > a:first-child::before{position:static !important;left:0 !important}
