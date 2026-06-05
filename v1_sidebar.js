@@ -76,13 +76,28 @@ class SidebarSystem {
   setupEventListeners() {
     if (!this.sidebar || !this.indicator || !this.trigger) return;
 
-    // Mouse enter/leave for trigger area
-    this.trigger.addEventListener('mouseenter', () => this.showSidebar());
-    this.trigger.addEventListener('mouseleave', () => this.hideSidebar());
+    // Hover-intent: require a DWELL on the (small) trigger zone before opening, and a short
+    // GRACE before closing so trigger->sidebar travel (or a brief exit) doesn't snap it shut.
+    // Delays are CSS tokens (--sidebar-open-delay / --sidebar-close-delay) so the zone size and
+    // its timing live together in v1_sidebar.css; fall back if unset.
+    const readMs = (name, fallback) => {
+      const v = parseInt(getComputedStyle(document.documentElement).getPropertyValue(name), 10);
+      return Number.isFinite(v) ? v : fallback;
+    };
+    const OPEN_DELAY  = readMs('--sidebar-open-delay', 400);
+    const CLOSE_DELAY = readMs('--sidebar-close-delay', 220);
 
-    // Mouse enter/leave for sidebar itself
-    this.sidebar.addEventListener('mouseenter', () => this.showSidebar());
-    this.sidebar.addEventListener('mouseleave', () => this.hideSidebar());
+    const scheduleOpen  = () => { clearTimeout(this._closeT); clearTimeout(this._openT); this._openT = setTimeout(() => this.showSidebar(), OPEN_DELAY); };
+    const cancelOpen    = () => clearTimeout(this._openT);
+    const scheduleClose = () => { cancelOpen(); clearTimeout(this._closeT); this._closeT = setTimeout(() => this.hideSidebar(), CLOSE_DELAY); };
+    const keepOpen      = () => { cancelOpen(); clearTimeout(this._closeT); this.showSidebar(); };
+
+    // trigger zone: dwell to open, grace to close
+    this.trigger.addEventListener('mouseenter', scheduleOpen);
+    this.trigger.addEventListener('mouseleave', scheduleClose);
+    // sidebar itself: stay open immediately while hovered, grace to close
+    this.sidebar.addEventListener('mouseenter', keepOpen);
+    this.sidebar.addEventListener('mouseleave', scheduleClose);
 
     // Keyboard accessibility
     document.addEventListener('keydown', (e) => {

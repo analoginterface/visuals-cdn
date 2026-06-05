@@ -45,6 +45,12 @@
   --indicator-pill-height: 10vh;
   --indicator-circle-height: 30px;
   --indicator-gap: var(--space-md);
+  /* hover-activation zone: a small box hugging the pill, NOT the full-height left edge.
+     Centered on the pill; widen/heighten these to make the zone easier to hit. */
+  --sidebar-trigger-width: calc(var(--indicator-width) + 16px);
+  --sidebar-trigger-height: calc(var(--indicator-pill-height) + 30px);
+  --sidebar-open-delay: 400;   /* ms the mouse must DWELL on the zone before the sidebar opens (JS reads this) */
+  --sidebar-close-delay: 220;  /* ms grace before it closes, so trigger->sidebar travel doesn't snap it shut */
   
   /* Dot dimensions */
   --dot-size: 8px;
@@ -120,10 +126,11 @@
    ================================================================= */
 .sidebarTrigger {
   position: fixed;
-  top: 0;
   left: 0;
-  width: 3vw;
-  height: var(--sidebar-height);
+  /* centered on the pill (pill center = top-offset + height/2), small box only */
+  top: calc(var(--sidebar-top-offset) + (var(--sidebar-height) / 2) - (var(--sidebar-trigger-height) / 2));
+  width: var(--sidebar-trigger-width);
+  height: var(--sidebar-trigger-height);
   z-index: calc(var(--z-sidebar) - 1);
   background-color: rgba(0, 0, 0, 0);
   cursor: pointer;
