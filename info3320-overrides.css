@@ -47,6 +47,13 @@
   --sp-1: 0.5rem; --sp-2: 0.75rem; --sp-3: 1rem; --sp-4: 1.5rem; --sp-5: 2rem; --sp-6: 3rem;
 
   --reading-scale: 1;        /* set by the sidebar ZOOM control on <html> */
+
+  /* ── code-box (P-CODEGRID) tokens — base = page-LIGHT => LIGHT box (Atom One Light) ── */
+  --cb-num-digits:3; --cb-num-gap:1ch; --cb-gap:1.5ch; --cb-hang:0ch; --cb-rule-w:1px; --cb-pad-x:1.5ch;
+  --cb-bar-h:2.6em; --cb-bar-pad:0.9em; --cb-fs:0.9em; --cb-num-fs:0.95em; --cb-lh:1.55; --cb-pad-y:0.9em;
+  --cb-radius:6px; --cb-tab:2;
+  --cb-bg:#fafafa; --cb-fg:#383a42; --cb-rule-c:#e1e4e8; --cb-num-c:#c0c0c0;
+  --cb-lang-c:#6a737d; --cb-bar-border:rgba(0,0,0,.08); --cb-shade:rgba(0,0,0,.03);
 }
 html { font-size: 16px !important; }
 
@@ -64,6 +71,9 @@ html[data-theme="dark"] {
   --c-link:      #9eb1f4;
   --c-accent:    #5472e4;
   color-scheme: dark;
+  /* code-box (P-CODEGRID): page-DARK => DARK box (Tomorrow Night 80s) — 7 color overrides */
+  --cb-bg:#2d2d2d; --cb-fg:#cccccc; --cb-rule-c:#4a4a4a; --cb-num-c:#8a8a8a;
+  --cb-lang-c:#8a8a8a; --cb-bar-border:rgba(255,255,255,.08); --cb-shade:rgba(255,255,255,.035);
 }
 
 /* ── BASE ── */
@@ -131,23 +141,79 @@ h3 { font-size: calc(var(--fs-h3) * var(--reading-scale)) !important; color: var
 .hero-infodelegate .header-label { font-size: 0.95rem !important; line-height: 1.5 !important; color: var(--c-text-2) !important; }
 .hero-infodelegate .header-value { font-size: 0.95rem !important; line-height: 1.5 !important; color: var(--c-text) !important; }
 
-/* ── CODE BLOCK (bespoke, NOT tokenized — intentionally inverse of the page) ──
-   Light mode: dark box + Tomorrow-Night palette. Dark mode: light box + Atom-One-Light (P-INVERT). */
-div.sourceCode { background: #2d2d2d !important; color: #cccccc !important; margin: var(--sp-4) 0 !important; padding: 0.9em 1.1em !important; border: none !important; border-radius: 6px !important; overflow-x: auto !important; position: relative !important; padding-top: 2.2em !important; box-shadow: none !important; }
-pre.sourceCode { background: transparent !important; color: #cccccc !important; margin: 0 !important; padding: 0 !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; }
-pre.sourceCode code, code.sourceCode { background: transparent !important; color: #cccccc !important; box-shadow: none !important; }
-div.sourceCode:hover, pre.sourceCode:hover, div.sourceCode:hover pre, pre.sourceCode:hover code { box-shadow: none !important; }
-/* Tomorrow Night 80s token palette (light mode) */
-code span.co { color: #999999 !important; font-style: italic !important; }
-code span.kw, code span.cf, code span.im { color: #cc99cc !important; }
-code span.fu, code span.bu { color: #66cccc !important; }
-code span.op, code span.sc { color: #66cccc !important; }
-code span.st, code span.ch, code span.vs, code span.ss { color: #99cc99 !important; }
-code span.dv, code span.fl, code span.bn, code span.cn { color: #f99157 !important; }
-code span.dt { color: #ffcc66 !important; }
-code span.va, code span.at { color: #6699cc !important; }
-/* operators (.ot: <-, |>, ->) — match the operator cyan (were unstyled) */
-code span.ot { color: #66cccc !important; }
+/* ── CODE BLOCK (P-CODEGRID) — two-track CSS-grid line-number gutter, token-driven.
+   MATCHED theme: page-light => LIGHT box (Atom One Light); page-dark => DARK box (Tomorrow Night 80s).
+   Tokens: :root = light base; html[data-theme="dark"] = 7 color overrides. The grid NEUTRALIZES
+   pandoc's inlined skylighting numbering geometry (margin-left:3em / span left:-4em / ::before
+   left:-1em;width:4em) — this file loads after pandoc, so the overrides win. ── */
+div.sourceCode {
+  position: relative !important; background: var(--cb-bg) !important; color: var(--cb-fg) !important;
+  border: 1px solid var(--cb-rule-c) !important; border-radius: var(--cb-radius) !important;
+  margin: var(--sp-4) 0 !important; padding: 0 !important; overflow: hidden !important; box-shadow: none !important;
+  font-family: "TT Commons Pro Mono", ui-monospace, Menlo, Monaco, monospace !important;
+  font-size: calc(var(--cb-fs) * var(--reading-scale)) !important; line-height: var(--cb-lh) !important; }
+pre.sourceCode {
+  margin: 0 !important; border: 0 !important; padding: var(--cb-pad-y) var(--cb-pad-x) !important;
+  --cb-rule-x: calc(var(--cb-pad-x) + var(--cb-num-digits) * 1ch + var(--cb-num-gap));
+  background: linear-gradient(var(--cb-rule-c), var(--cb-rule-c)) var(--cb-rule-x) 0 / var(--cb-rule-w) 100% no-repeat !important; }
+pre.sourceCode code, code.sourceCode { background: transparent !important; box-shadow: none !important; color: var(--cb-fg) !important; }
+
+/* TOP BAR: language mark (left) + copy button (right) */
+.cb-topbar { display: flex; align-items: center; justify-content: space-between;
+  height: var(--cb-bar-h); padding: 0 var(--cb-bar-pad); border-bottom: 1px solid var(--cb-bar-border);
+  position: sticky; left: 0; user-select: none; }
+.cb-bar-left { display: flex; align-items: center; gap: .5em; }
+.cb-lang { display: inline-flex; align-items: center; height: 1.6em; }
+.cb-lang svg { height: 1.15em; width: auto; display: block; fill: var(--cb-lang-c); }
+.cb-lang-label { color: var(--cb-lang-c); font: 500 0.78em/1 "TT Commons Pro Mono", monospace; letter-spacing: .06em; white-space: nowrap; }
+.cb-copy { display: inline-flex; align-items: center; justify-content: center; width: 1.7em; height: 1.7em; padding: 0; box-sizing: border-box;
+  background: rgba(0,0,0,.04); color: #6a737d; border: 1px solid rgba(0,0,0,.15); border-radius: 6px; cursor: pointer; -webkit-appearance: none; appearance: none;
+  transition: background 300ms cubic-bezier(.165,.85,.45,1), border-color 300ms cubic-bezier(.165,.85,.45,1), color 150ms, transform 150ms; }
+.cb-copy svg { width: 1.05em; height: 1.05em; display: block; fill: currentColor; }
+.cb-copy:hover { background: rgba(0,0,0,.09); border-color: rgba(0,0,0,.22); color: #24292e; }
+.cb-copy:active { transform: scale(.92); }
+.cb-copy:focus-visible { outline: 2px solid #6699cc; outline-offset: 2px; }
+.cb-copy.copied { color: #2da44e; border-color: rgba(45,164,78,.5); background: rgba(45,164,78,.12); }
+.cb-copy .icon-check { display: none; }
+.cb-copy.copied .icon-copy { display: none; }
+.cb-copy.copied .icon-check { display: block; animation: code-copy-pop 200ms cubic-bezier(.165,.85,.45,1); }
+@keyframes code-copy-pop { 0% { transform: scale(.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+html[data-theme="dark"] .cb-copy { color: #b4b4b4; border-color: rgba(255,255,255,.10); background: rgba(255,255,255,.05); }
+html[data-theme="dark"] .cb-copy:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.22); color: #f2f2f2; }
+html[data-theme="dark"] .cb-copy.copied { color: #99cc99; border-color: rgba(153,204,153,.55); background: rgba(153,204,153,.14); }
+
+/* NEUTRALIZE pandoc skylighting numbering, then GRID (full selectors — never a bare a:first-child::before) */
+pre.numberSource { margin-left: 0 !important; border-left: 0 !important; }  /* keep pre.sourceCode's --cb-pad-x; only kill pandoc's 3em margin + border */
+pre.numberSource > code.sourceCode { display: block !important; counter-reset: source-line !important; white-space: normal !important; -moz-tab-size: var(--cb-tab); tab-size: var(--cb-tab); }
+pre.numberSource > code.sourceCode > span {
+  display: grid !important; grid-template-columns: calc(var(--cb-num-digits) * 1ch + var(--cb-num-gap)) minmax(0, 1fr) !important;
+  position: static !important; left: auto !important; line-height: var(--cb-lh) !important; counter-increment: source-line; min-width: 0; }
+pre.numberSource > code.sourceCode > span > a:first-child {
+  grid-column: 1; text-align: right !important; padding-right: var(--cb-num-gap); font-size: var(--cb-num-fs); text-decoration: none !important; }
+pre.numberSource > code.sourceCode > span > a:first-child::before {
+  content: counter(source-line); color: var(--cb-num-c) !important; text-decoration: none !important; position: static !important; left: auto !important; width: auto !important; border: none !important; padding: 0 !important; }
+pre.numberSource > code.sourceCode > span > .cb-code {
+  grid-column: 2; padding-left: calc(var(--cb-gap) + var(--cb-line-indent, 0) * 1ch + var(--cb-hang));
+  text-indent: calc(-1 * (var(--cb-line-indent, 0) * 1ch + var(--cb-hang)));
+  white-space: pre-wrap !important; overflow-wrap: anywhere; min-width: 0; }
+/* DEFAULT (page-light) syntax = Atom One Light (matched: light box) */
+code span.co { color: #a0a1a7 !important; font-style: italic !important; }
+code span.kw, code span.cf, code span.im { color: #a626a4 !important; }
+code span.fu, code span.bu { color: #4078f2 !important; }
+code span.op, code span.sc, code span.ot { color: #383a42 !important; }
+code span.st, code span.ch, code span.vs, code span.ss { color: #50a14f !important; }
+code span.dv, code span.fl, code span.bn, code span.cn { color: #986801 !important; }
+code span.dt { color: #c18401 !important; }
+code span.va, code span.at { color: #e45649 !important; }
+/* DARK page => Tomorrow Night 80s (matched: dark box) */
+html[data-theme="dark"] code span.co { color: #999999 !important; }
+html[data-theme="dark"] code span.kw, html[data-theme="dark"] code span.cf, html[data-theme="dark"] code span.im { color: #cc99cc !important; }
+html[data-theme="dark"] code span.fu, html[data-theme="dark"] code span.bu { color: #66cccc !important; }
+html[data-theme="dark"] code span.op, html[data-theme="dark"] code span.sc, html[data-theme="dark"] code span.ot { color: #66cccc !important; }
+html[data-theme="dark"] code span.st, html[data-theme="dark"] code span.ch, html[data-theme="dark"] code span.vs, html[data-theme="dark"] code span.ss { color: #99cc99 !important; }
+html[data-theme="dark"] code span.dv, html[data-theme="dark"] code span.fl, html[data-theme="dark"] code span.bn, html[data-theme="dark"] code span.cn { color: #f99157 !important; }
+html[data-theme="dark"] code span.dt { color: #ffcc66 !important; }
+html[data-theme="dark"] code span.va, html[data-theme="dark"] code span.at { color: #6699cc !important; }
 /* RAINBOW PARENTHESES — canonical palette from tomorrow-night-80s.css: ()[]{}
    wrapped in .paren/.bracket/.brace-N (N=1..7) by the after_body.html walker,
    colored bold by nesting depth in ROYGBIV. (These rules existed in the theme file
@@ -159,53 +225,13 @@ code span.ot { color: #66cccc !important; }
 .sourceCode .paren-5, .sourceCode .bracket-5, .sourceCode .brace-5 { color: #66cccc !important; font-weight: bold !important; }
 .sourceCode .paren-6, .sourceCode .bracket-6, .sourceCode .brace-6 { color: #6699cc !important; font-weight: bold !important; }
 .sourceCode .paren-7, .sourceCode .bracket-7, .sourceCode .brace-7 { color: #cc99cc !important; font-weight: bold !important; }
-/* line-number gutter (dark box) */
-pre.numberSource { margin-left: 3em !important; padding-left: 0.6em !important; border-left: 1px solid #4a4a4a !important; }
-pre.numberSource code > span > a:first-child::before { color: #8a8a8a !important; border-right: none !important; text-decoration: none !important; }
+/* (old pandoc-relative line-number gutter removed — superseded by the CSS-grid block above) */
 /* suppress the CDN language badge (pre.r::before {content:"R"}) — the glyph is the only chrome */
 pre.sourceCode::before, pre[class]::before { content: none !important; display: none !important; }
 
-/* ── CODE-BLOCK CHROME: language logo (left) + Phosphor copy glyph (right) ── */
-.code-lang { position: absolute; top: 0.5em; left: 0.75em; z-index: 2; display: inline-flex; align-items: center; height: 1.6em; pointer-events: none; }
-.code-lang svg { height: 1.15em; width: auto; fill: #8a8a8a; display: block; }
-.code-lang .code-lang-name { color: #8a8a8a; font: 500 0.78em/1 "TT Commons Pro Mono", monospace; letter-spacing: 0.06em; }
-.code-copy {
-  position: absolute; top: 0.4em; right: 0.5em; z-index: 2;
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 1.7em; height: 1.7em; padding: 0; margin: 0; box-sizing: border-box;
-  background: rgba(255, 255, 255, 0.05); color: #b4b4b4;
-  border: 1px solid rgba(255, 255, 255, 0.10); border-radius: 6px;
-  cursor: pointer; -webkit-appearance: none; appearance: none;
-  transition: background 300ms cubic-bezier(0.165, 0.85, 0.45, 1), border-color 300ms cubic-bezier(0.165, 0.85, 0.45, 1), color 150ms cubic-bezier(0.165, 0.85, 0.45, 1), transform 150ms cubic-bezier(0.165, 0.85, 0.45, 1);
-}
-.code-copy svg { width: 1.05em; height: 1.05em; display: block; fill: currentColor; }
-.code-copy:hover { background: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.22); color: #f2f2f2; }
-.code-copy:active { transform: scale(0.92); }
-.code-copy:focus-visible { outline: 2px solid #6699cc; outline-offset: 2px; }
-.code-copy.copied { color: #99cc99; border-color: rgba(153, 204, 153, 0.55); background: rgba(153, 204, 153, 0.14); }
-.code-copy .icon-check { display: none; }
-.code-copy.copied .icon-copy { display: none; }
-.code-copy.copied .icon-check { display: block; animation: code-copy-pop 200ms cubic-bezier(0.165, 0.85, 0.45, 1); }
-@keyframes code-copy-pop { 0% { transform: scale(0.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+/* (absolute-corner .code-lang/.code-copy chrome removed — superseded by the .cb-topbar block above) */
 
-/* ── CODE WRAP + pinned chrome (system-wide) ────────────────────────────────
-   The CDN base sets overflow-x:auto on the code box, so long lines run off the
-   right (forcing a horizontal pan) AND the absolutely-positioned logo/copy chrome
-   scroll away with the content. Wrap instead: the box is the non-scrolling
-   positioned anchor, lines reflow to its width, and the chrome stays pinned. */
-div.sourceCode { position: relative !important; overflow-x: visible !important; }
-pre.sourceCode, pre.sourceCode code, code.sourceCode {
-  white-space: pre-wrap !important; overflow-wrap: anywhere !important; overflow-x: visible !important; }
-/* Numbered lines: lay them out so they WRAP with a clean hanging indent. Pandoc's
-   default (per-line position shift + a margin gutter) collapses wrapped continuations
-   to the far left and fights any padding. Replace it wholesale: each line is a block,
-   the line number is absolutely placed in a fixed-width gutter, and the code is padded
-   past that gutter — so wrapped continuations hang under the code, numbers stay put. */
-div.sourceCode pre.numberSource { margin-left: 0 !important; padding-left: 0 !important; border-left: 0 !important; }
-pre.numberSource code { background: linear-gradient(#6a6a6a,#6a6a6a) 3.05em 0 / 1px 100% no-repeat !important; }  /* divider between numbers and code */
-pre.numberSource code > span { display: block !important; position: relative !important; left: 0 !important; padding-left: 3.5em !important; text-indent: 0 !important; }
-pre.numberSource code > span > a:first-child { position: absolute !important; left: 0 !important; top: 0 !important; width: 2.7em !important; text-align: right !important; display: block !important; }
-pre.numberSource code > span > a:first-child::before { position: static !important; left: 0 !important; }
+/* (old wrap + absolute-gutter override removed — superseded by the CSS-grid gutter above) */
 
 /* ── LOGO — pre-JS fallback size; v1_sidebar.js sizeLogos() pins it via inline !important ── */
 .sidebarLogo { width: 9rem !important; height: auto !important; max-width: 9rem !important; min-width: 0 !important; align-self: flex-start !important; object-fit: contain !important; }
@@ -268,26 +294,9 @@ pre:not(.sourceCode), pre:not(.sourceCode) code, .r-output, .r-output code { col
 /* ── Smooth cross-fade on theme toggle ── */
 body, .main-container, .hero-infodelegate, .sidebar, .page-header-container, blockquote, .reactable, .rt-td, .rt-th, pre:not(.sourceCode), .sidebarControls .ctrlBtn { transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease; }
 
-/* =================================================================
-   P-INVERT — DARK mode: flip INPUT code boxes to LIGHT (Atom One Light, OSS) so they pop on the
-   dark page. Second palette over the existing skylighting spans; not tokenized (intentional inverse).
-   ================================================================= */
-html[data-theme="dark"] div.sourceCode { background: #fafafa !important; border: 1px solid #e1e4e8 !important; }
-html[data-theme="dark"] pre.sourceCode, html[data-theme="dark"] pre.sourceCode code, html[data-theme="dark"] code.sourceCode { color: #383a42 !important; }
-html[data-theme="dark"] code span.co { color: #a0a1a7 !important; font-style: italic !important; }
-html[data-theme="dark"] code span.kw, html[data-theme="dark"] code span.cf, html[data-theme="dark"] code span.im { color: #a626a4 !important; }
-html[data-theme="dark"] code span.fu, html[data-theme="dark"] code span.bu { color: #4078f2 !important; }
-html[data-theme="dark"] code span.op, html[data-theme="dark"] code span.sc { color: #383a42 !important; }
-html[data-theme="dark"] code span.st, html[data-theme="dark"] code span.ch, html[data-theme="dark"] code span.vs, html[data-theme="dark"] code span.ss { color: #50a14f !important; }
-html[data-theme="dark"] code span.dv, html[data-theme="dark"] code span.fl, html[data-theme="dark"] code span.bn, html[data-theme="dark"] code span.cn { color: #986801 !important; }
-html[data-theme="dark"] code span.dt { color: #c18401 !important; }
-html[data-theme="dark"] code span.va, html[data-theme="dark"] code span.at { color: #e45649 !important; }
-html[data-theme="dark"] pre.numberSource { border-left-color: #e1e4e8 !important; }
-html[data-theme="dark"] pre.numberSource code > span > a:first-child::before { color: #c0c0c0 !important; }
-html[data-theme="dark"] .code-lang svg { fill: #6a737d !important; }
-html[data-theme="dark"] .code-copy { color: #6a737d !important; border-color: rgba(0,0,0,0.15) !important; background: rgba(0,0,0,0.04) !important; }
-html[data-theme="dark"] .code-copy:hover { background: rgba(0,0,0,0.09) !important; color: #24292e !important; }
-html[data-theme="dark"] .code-copy.copied { color: #2da44e !important; border-color: rgba(45,164,78,0.5) !important; background: rgba(45,164,78,0.12) !important; }
+/* P-INVERT removed: the theme mapping is now MATCHED (page-light => light box, page-dark => dark box).
+   The dark box, Tomorrow-Night palette, and dark copy chrome now live in the code-box block above
+   and in the html[data-theme="dark"] --cb-* token overrides. */
 
 /* ── DARK mode: plots are baked light-bg PNGs → give them a white card, not inversion ── */
 html[data-theme="dark"] .main-container img { background: #ffffff !important; padding: 0.6em !important; border-radius: 8px !important; box-shadow: 0 1px 5px rgba(0,0,0,0.45) !important; }
@@ -343,7 +352,7 @@ html[data-theme="dark"] .main-container img { background: #ffffff !important; pa
 
   /* code blocks must never widen the page: cap to the viewport so the existing
      overflow-x:auto actually clips long lines (min-width:0 defeats min-content sizing). */
-  .main-container div.sourceCode { max-width: 100% !important; min-width: 0 !important; overflow-x: auto !important; }
+  .main-container div.sourceCode { max-width: 100% !important; min-width: 0 !important; overflow: hidden !important; }
   div.sourceCode, pre.sourceCode { font-size: 0.82rem !important; }
 
   /* clamp: a nested intrinsic width (e.g. a table's thead/tbody leaking past its
