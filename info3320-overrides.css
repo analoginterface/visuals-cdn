@@ -132,6 +132,17 @@ h3 { font-size: calc(var(--fs-h3) * var(--reading-scale)) !important; color: var
 .page-header-container .header-right { margin-right: 0 !important; }
 .page-header-container, .page-header-container * { color: var(--c-text-2) !important; }
 
+/* ── Page footer — mirror the running head so it converts to dark EXACTLY like the header
+   (the base template footer used its own non-converting tokens; force the --c-* tokens here) ── */
+.page-footer-container {
+  width: auto !important; margin-left: -2rem !important; margin-right: -2rem !important;
+  padding: 0.75rem 1.25rem !important;
+  background: var(--c-bg) !important; border-top: 1px solid var(--c-border) !important;
+}
+.page-footer-container .footer-left { margin-left: 0 !important; }
+.page-footer-container .footer-right { margin-right: 0 !important; }
+.page-footer-container, .page-footer-container * { color: var(--c-text-2) !important; }
+
 /* ── Hero metadata card ── */
 .hero-infodelegate {
   max-width: 620px !important; grid-template-columns: max-content 1fr !important;

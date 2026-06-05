@@ -41,8 +41,8 @@
   --sidebar-max-width: 600px;
   --sidebar-min-width: 200px;
   --sidebar-active-left: var(--space-lg);
-  --indicator-width: 30px;
-  --indicator-pill-height: 10vh;
+  --indicator-width: 36px;          /* fixed, a touch fatter than before */
+  --indicator-pill-height: 80px;    /* FIXED px (was 10vh) — pill no longer scales with the viewport */
   --indicator-circle-height: 30px;
   --indicator-gap: var(--space-md);
   /* hover-activation zone: a small box hugging the pill, NOT the full-height left edge.
@@ -223,6 +223,13 @@
   -moz-user-select: none;
   -ms-user-select: none;
   pointer-events: none;
+}
+
+/* dark mode: recolor the black mosaic wordmark to light (like the TOC) and drop the shadow halo */
+.dark-mode .sidebarLogo,
+[data-theme="dark"] .sidebarLogo {
+  filter: brightness(0) invert(1) !important;   /* black wordmark -> white */
+  opacity: 0.82;                                 /* soften to the muted TOC weight */
 }
 
 .sidebarTitle {
