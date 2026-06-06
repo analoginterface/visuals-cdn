@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>colin-prez — frame specimen</title>
+<style>
+  /* ---- tokens (mirror of ../tokens.json) ---- */
+  :root{
+    --orange:#F27221; --charcoal:#222222; --gray:#5E5E5E; --black:#000; --white:#fff; --tint:#F9CBA4;
+    --display:"Neue Haas Display","NeueHaasDisplay","Helvetica Neue",Inter,Arial,sans-serif;
+    --mono:"SF Mono","SFMono-Regular",ui-monospace,Menlo,monospace;
+    --mside:95px; --mtop:85px; --mbot:96px;
+  }
+  html,body{margin:0;background:#f4f4f5;color:#222;font-family:var(--mono);}
+  .page{max-width:1024px;margin:0 auto;padding:32px 24px 64px;}
+  h1{font-family:var(--mono);font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:#555;font-weight:600;}
+  .lede{font-family:var(--display);font-size:18px;color:#333;max-width:62ch;line-height:1.5;}
+  .cap{font-family:var(--mono);font-size:12px;color:#888;letter-spacing:.04em;text-transform:uppercase;margin:28px 0 8px;}
+
+  /* ---- the frame ---- */
+  .frame{width:960px;height:540px;overflow:hidden;border:1px solid #e3e3e3;background:#fff;
+         box-shadow:0 2px 16px rgba(0,0,0,.08);margin-bottom:8px;}
+  .slide{width:1920px;height:1080px;transform:scale(.5);transform-origin:top left;
+         background:var(--white);position:relative;font-family:var(--display);}
+
+  .kicker{position:absolute;top:var(--mtop);font-family:var(--mono);font-weight:500;font-size:26px;
+          letter-spacing:.08em;text-transform:uppercase;color:var(--orange);}
+  .kicker.left{left:var(--mside);}
+  .kicker.right{right:var(--mside);text-align:right;}
+  .kicker.black{color:var(--black);}
+
+  .footer{position:absolute;left:var(--mside);right:var(--mside);bottom:var(--mbot);
+          display:flex;justify-content:space-between;align-items:baseline;}
+  .footer .byline{font-family:var(--mono);font-size:24px;letter-spacing:.04em;
+          text-transform:uppercase;color:var(--black);}
+  .footer .pageno{font-family:var(--mono);font-size:24px;color:var(--charcoal);}
+
+  .hero{position:absolute;left:var(--mside);font-family:var(--display);font-weight:700;
+        font-size:116px;line-height:1.0;color:var(--orange);}
+  .statement{position:absolute;font-family:var(--display);font-weight:300;font-size:50px;
+        line-height:1.16;color:var(--charcoal);}
+
+  /* objective slide motifs */
+  .circle{position:absolute;left:-260px;top:-20px;width:1120px;height:1120px;border-radius:50%;
+          background:var(--tint);}
+  .numeral{position:absolute;left:120px;top:150px;font-family:var(--display);font-weight:700;
+          font-size:760px;line-height:1;color:var(--orange);}
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>colin-prez — frame specimen</h1>
+  <p class="lede">The persistent editorial frame realized in HTML/CSS, driven by the same tokens
+  as <code>../tokens.json</code>. Two-typeface rule: Neue Haas Display speaks, SF Mono labels.
+  Each frame is the native 1920×1080 slide scaled to 50%. If Neue Haas Display is not installed,
+  the display text falls back to Helvetica Neue / Inter (honest substitute).</p>
+
+  <!-- 1. TITLE -->
+  <p class="cap">01 · title slide — hero + kicker, byline + page number on the foot</p>
+  <div class="frame"><div class="slide">
+    <div class="kicker left black">BY DYLAN AKAU, REV HILL &amp; COLIN McCORMICK</div>
+    <div class="hero" style="top:380px">Presentation<br>Delivery</div>
+    <div class="kicker left" style="top:640px;text-transform:uppercase">Chapter 15</div>
+    <div class="footer"><span class="byline">BUS 3000 · BUSINESS COMMUNICATION</span><span class="pageno">01</span></div>
+  </div></div>
+
+  <!-- 2. OBJECTIVE -->
+  <p class="cap">02 · objective slide — giant numeral over tint circle, kicker top-right, statement right</p>
+  <div class="frame"><div class="slide">
+    <div class="circle"></div>
+    <div class="numeral">1</div>
+    <div class="kicker right">Learning Objectives</div>
+    <div class="statement" style="right:95px;width:980px;top:430px;text-align:right">
+      Describe how presentation delivery impacts credibility.</div>
+    <div class="footer"><span class="byline">BUS 3000 · BUSINESS COMMUNICATION</span><span class="pageno">02</span></div>
+  </div></div>
+
+  <!-- 3. FOUR-CORNER METADATA -->
+  <p class="cap">03 · the four-corner furniture — section TL, class TR, name BL, page number BR</p>
+  <div class="frame"><div class="slide">
+    <div class="kicker left">Strategic Presence</div>
+    <div class="kicker right black">BUS 3000</div>
+    <div class="statement" style="left:95px;width:1400px;top:430px">
+      Presenting your real self to the audience establishes your credibility at the outset.</div>
+    <div class="footer"><span class="byline">Colin McCormick</span><span class="pageno">08</span></div>
+  </div></div>
+
+</div>
+</body>
+</html>

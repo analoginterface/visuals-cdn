@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>colin-prez — design system</title>
+<style>
+  /* fonts: same families as the mosaics design system (fonts.css). CDN, system fallback. */
+  @font-face{font-family:"TT Commons Pro Mono";src:url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@ea6d66d/TTCommonsProMono/TTCommonsProMono-Regular.ttf") format("truetype");font-weight:400;font-display:swap;}
+  @font-face{font-family:"Minion Pro";src:url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@ea6d66d/Minion-Pro/6817.otf") format("opentype");font-weight:400;font-display:swap;}
+  @font-face{font-family:"Minion Pro";src:url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@ea6d66d/Minion-Pro/6814.otf") format("opentype");font-weight:400;font-style:italic;font-display:swap;}
+  @font-face{font-family:"Neue Haas Display";src:url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@ea6d66d/NeueHaasGroteskDisplayPro/NeueHaasDisplayMediu.ttf") format("truetype");font-weight:500;font-display:swap;}
+  @font-face{font-family:"Helvetica Neue LT Com";src:url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@ea6d66d/HelveticaNeueLTCom/HelveticaNeueLTCom-MdEx.ttf") format("truetype");font-weight:500;font-display:swap;}
+
+  :root{
+    --orange:#F27221; --charcoal:#222222; --gray:#5E5E5E; --black:#000; --white:#fff; --tint:#F9CBA4;
+    --sans:"Neue Haas Grotesk Display Pro","Neue Haas Display","Helvetica Neue LT Com","Helvetica Neue",system-ui,sans-serif;
+    --serif:"Minion Pro",Georgia,"Iowan Old Style",serif;
+    --mono:"TT Commons Pro Mono",ui-monospace,"SF Mono",Menlo,monospace;
+    --pg:#f4f4f5; --line:#e3e3ea; --ink:#1c1c28; --ink2:#5b5b72;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;background:var(--pg);color:var(--ink);font-family:var(--sans);}
+  a{color:var(--orange);}
+  /* top nav */
+  nav{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);
+      border-bottom:1px solid var(--line);padding:10px 20px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;}
+  nav .brand{font-family:var(--mono);text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--charcoal);font-weight:600;}
+  nav a{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:var(--ink2);}
+  nav a:hover{color:var(--orange);}
+  nav .spacer{flex:1;}
+  nav button{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+      background:var(--orange);color:#fff;border:0;border-radius:6px;padding:7px 12px;cursor:pointer;}
+  main{max-width:1040px;margin:0 auto;padding:28px 24px 100px;}
+  section{margin:44px 0;}
+  h1{font-size:34px;margin:.2em 0;}
+  h2{font-family:var(--mono);text-transform:uppercase;letter-spacing:.12em;font-size:13px;color:var(--orange);
+     border-top:2px solid var(--charcoal);padding-top:10px;margin:0 0 6px;}
+  .sub{font-family:var(--serif);font-style:italic;color:var(--ink2);font-size:16px;margin:.2em 0 18px;}
+  .tok{font-family:var(--mono);font-size:11px;color:var(--ink2);}
+  .lede{font-family:var(--serif);font-size:18px;line-height:1.5;max-width:64ch;color:#33333f;}
+
+  /* palette */
+  .swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;}
+  .sw{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff;}
+  .sw .chip{height:74px;}
+  .sw .meta{padding:8px 10px;font-family:var(--mono);font-size:11px;}
+  .sw .meta b{display:block;text-transform:uppercase;letter-spacing:.06em;font-size:12px;}
+  .sw .meta span{color:var(--ink2);}
+
+  /* type */
+  .voice{border:1px solid var(--line);border-radius:8px;background:#fff;padding:18px 20px;margin:12px 0;}
+  .voice .tag{font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;font-size:11px;color:var(--orange);}
+  .voice .name{font-size:13px;color:var(--ink2);font-family:var(--mono);margin-bottom:10px;}
+  .scale .row{display:flex;align-items:baseline;gap:16px;border-bottom:1px solid var(--line);padding:8px 0;}
+  .scale .pt{font-family:var(--mono);font-size:11px;color:var(--ink2);width:56px;flex:none;}
+  .scale .samp{font-family:var(--sans);font-weight:500;line-height:1;color:var(--charcoal);white-space:nowrap;overflow:hidden;}
+
+  /* 16:9 slide renders */
+  .slide{position:relative;width:100%;max-width:760px;aspect-ratio:16/9;background:#fff;border:1px solid var(--line);
+         border-radius:6px;overflow:hidden;box-shadow:0 2px 14px rgba(0,0,0,.06);}
+  .corner{position:absolute;font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--charcoal);}
+  .c-tl{top:4.6%;left:4.6%;} .c-bl{bottom:4.6%;left:4.6%;} .c-tr{top:4.6%;right:4.6%;} .c-br{bottom:4.6%;right:4.6%;}
+  .logo{width:40px;height:40px;border:2px solid var(--charcoal);border-radius:50%;display:flex;align-items:center;justify-content:center;
+        font-family:var(--sans);font-weight:700;font-size:15px;color:var(--charcoal);}
+  .slide .title-hero{position:absolute;left:4.6%;top:40%;font-family:var(--sans);font-weight:700;font-size:clamp(22px,4.4vw,46px);
+        color:var(--orange);line-height:1;max-width:80%;}
+  .slide .title-kick{position:absolute;left:4.6%;top:58%;font-family:var(--mono);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--charcoal);}
+  /* footer bar */
+  .barslide .kick{position:absolute;left:4.6%;top:8%;font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);}
+  .barslide .head{position:absolute;left:4.6%;top:26%;font-family:var(--sans);font-weight:600;font-size:clamp(18px,3.2vw,34px);color:var(--charcoal);max-width:64%;}
+  .footbar{position:absolute;left:0;right:0;bottom:0;height:8%;background:var(--gray);display:flex;align-items:center;
+           justify-content:space-between;padding:0 4.6%;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:#fff;}
+
+  /* grid diagram */
+  .griddia{position:relative;width:100%;max-width:760px;aspect-ratio:16/9;background:#fff;border:1px solid var(--line);border-radius:6px;}
+  .griddia .marg{position:absolute;inset:4.95% 4.95% 0;border-left:1px dashed var(--orange);border-right:1px dashed var(--orange);}
+  .band{position:absolute;left:4.95%;right:4.95%;background:rgba(242,114,33,.08);border:1px solid rgba(242,114,33,.4);
+        font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--orange);padding:2px 5px;}
+
+  /* bento */
+  .bento-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px;}
+  .bento-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:12px;}
+  .bento-card .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;}
+  .bento-card .hd .id{font-family:var(--mono);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;}
+  .bento-card .hd .use{font-family:var(--serif);font-style:italic;font-size:12px;color:var(--ink2);}
+  .demo{aspect-ratio:16/9;display:grid;gap:5px;}
+  .demo .cell{background:#eceef1;border-radius:4px;}
+  .demo .cell.focal{background:var(--orange);}
+
+  /* animation cards */
+  .anim-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px;}
+  .anim-card{border:1px solid var(--line);border-radius:8px;background:#fff;overflow:hidden;}
+  .anim-card .stage{height:120px;display:flex;align-items:center;justify-content:center;background:#fafafb;
+       font-family:var(--sans);font-weight:600;font-size:24px;color:var(--charcoal);padding:0 12px;text-align:center;overflow:hidden;}
+  .anim-card.dark .stage{background:#16171a;color:#fff;}
+  .anim-card .ft{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-top:1px solid var(--line);}
+  .anim-card .ef{font-family:var(--mono);font-size:12px;color:var(--charcoal);}
+  .anim-card .ef small{color:var(--ink2);}
+  .anim-card .rep{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line);
+       background:#fff;border-radius:5px;padding:5px 9px;cursor:pointer;color:var(--ink2);}
+  .anim-card .rep:hover{border-color:var(--orange);color:var(--orange);}
+  .movie{display:inline-block;font-family:var(--mono);font-size:18px;color:var(--orange);}
+  table.usage{border-collapse:collapse;font-family:var(--mono);font-size:12px;margin-top:10px;width:100%;max-width:560px;}
+  table.usage th,table.usage td{border-bottom:1px solid var(--line);padding:5px 8px;text-align:right;}
+  table.usage th:first-child,table.usage td:first-child{text-align:left;}
+  .note{font-family:var(--serif);font-style:italic;color:var(--ink2);font-size:14px;}
+</style>
+</head>
+<body>
+<nav>
+  <span class="brand">colin-prez</span>
+  <a href="#palette">palette</a><a href="#type">type</a><a href="#grid">grid</a>
+  <a href="#title">title</a><a href="#footer">footer</a><a href="#bento">bento</a><a href="#anim">animation</a>
+  <span class="spacer"></span>
+  <button onclick="replayAll()">▶ replay animations</button>
+</nav>
+<main>
+  <section>
+    <h1>colin-prez — design system</h1>
+    <p class="lede">Everything reverse-engineered from your decks, rendered live. The palette, the
+    three-voice type, the frame, the title-page corners, the gray footer bar, the bento library, and the
+    Keynote animation effects. This mirrors <span class="tok">tokens.json</span>; give feedback and I'll adjust.</p>
+  </section>
+
+  <section id="palette">
+    <h2>Palette</h2>
+    <p class="sub">tokens.json → color · retained from the Keynote decks</p>
+    <div class="swatches" id="sw"></div>
+  </section>
+
+  <section id="type">
+    <h2>Type — three voices</h2>
+    <p class="sub">tokens.json → type.families · sans speaks · serif supports · mono labels</p>
+    <div class="voice">
+      <div class="tag">sans · display</div>
+      <div class="name">Neue Haas Grotesk (Display/Text) — or Helvetica Neue LT</div>
+      <div style="font-family:var(--sans);font-weight:500;font-size:40px;line-height:1.05;color:var(--charcoal)">Our hidden flux factor</div>
+    </div>
+    <div class="voice">
+      <div class="tag">serif · editorial</div>
+      <div class="name">Minion Pro</div>
+      <div style="font-family:var(--serif);font-size:21px;line-height:1.4;color:var(--ink)">The supporting voice: takeaways, captions, and the sentence under the headline. <em>Set in italic for emphasis.</em></div>
+    </div>
+    <div class="voice">
+      <div class="tag">mono · metadata</div>
+      <div class="name">TT Commons Pro Mono (SF Mono fallback)</div>
+      <div style="font-family:var(--mono);font-size:16px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange)">BUS 3000 · SECTION · COLIN McCORMICK · 07</div>
+    </div>
+    <div class="voice scale" id="scale">
+      <div class="tag">type scale (pt @ 1920×1080)</div>
+      <div class="name">tokens.json → type.scale_pt</div>
+    </div>
+  </section>
+
+  <section id="grid">
+    <h2>Grid &amp; frame</h2>
+    <p class="sub">tokens.json → canvas + grid + bands · 1920×1080, ~95px (4.95%) margins, 1730 content</p>
+    <div class="griddia" id="griddia"><div class="marg"></div></div>
+  </section>
+
+  <section id="title">
+    <h2>Title page — four corners</h2>
+    <p class="sub">tokens.json → layouts.title_page · class TL · name BL · DU logo TR · quarter BR · "same every time"</p>
+    <div class="slide">
+      <div class="corner c-tl">BUS 3000</div>
+      <div class="corner c-tr"><span class="logo">DU</span></div>
+      <div class="corner c-bl">Colin McCormick</div>
+      <div class="corner c-br">Winter 2024</div>
+      <div class="title-hero">Our Hidden<br>Flux Factor</div>
+      <div class="title-kick">Strategic Business Communication</div>
+    </div>
+  </section>
+
+  <section id="footer">
+    <h2>Footer bar — the gray bar</h2>
+    <p class="sub">tokens.json → layouts.footer_bar · always bottom · date · section · page number</p>
+    <div class="slide barslide">
+      <div class="kick">Findings</div>
+      <div class="head">Three signals moved the model</div>
+      <div class="footbar"><span>WINTER 2024</span><span>FINDINGS</span><span>07</span></div>
+    </div>
+  </section>
+
+  <section id="bento">
+    <h2>Bento library</h2>
+    <p class="sub">tokens.json → layouts.bento · 14 presets · one focal (accent) cell · cap 4–6 except dashboards</p>
+    <div class="bento-grid" id="bentogrid"></div>
+  </section>
+
+  <section id="anim">
+    <h2>Animation catalog</h2>
+    <p class="sub">keynote-library/animations/_catalog.json · entrance-only builds · web equivalents, live</p>
+    <p class="note">Click any card to replay, or “replay animations” up top. Per-glyph effects use a seeded delay (mimics Keynote's randomNumberSeed).</p>
+    <div class="anim-grid" id="animgrid"></div>
+    <h2 style="margin-top:34px">Usage across the four decks</h2>
+    <table class="usage" id="usage"><thead><tr><th>effect</th><th>BUS3000</th><th>ASML</th><th>INFO copy</th><th>INFO</th><th>total</th></tr></thead><tbody></tbody></table>
+  </section>
+</main>
+
+<script>
+/* ---------- palette ---------- */
+const COLORS=[
+ ['orange','#F27221','accent · kickers, numerals'],
+ ['charcoal','#222222','statement text'],
+ ['gray','#5E5E5E','secondary · footer bar'],
+ ['black','#000000','byline mono'],
+ ['white','#FFFFFF','background'],
+ ['orange tint','#F9CBA4','numeral circle, watermark'],
+];
+document.getElementById('sw').innerHTML=COLORS.map(([n,hex,role])=>
+ `<div class="sw"><div class="chip" style="background:${hex};${hex==='#FFFFFF'?'box-shadow:inset 0 0 0 1px #e3e3ea':''}"></div>
+  <div class="meta"><b>${n}</b><span>${hex}</span><br><span>${role}</span></div></div>`).join('');
+
+/* ---------- type scale ---------- */
+const SCALE=[[116,'hero'],[55,'·'],[50,'statement'],[36,'·'],[34,'body'],[32,'·'],[30,'·'],[27,'·'],[24,'caption'],[18,'·']];
+document.getElementById('scale').insertAdjacentHTML('beforeend',
+ SCALE.map(([pt,role])=>`<div class="row"><span class="pt">${pt}pt ${role!=='·'?role:''}</span>
+   <span class="samp" style="font-size:${Math.min(pt,58)}px">Flux factor</span></div>`).join(''));
+
+/* ---------- grid bands ---------- */
+const BANDS=[['kicker',7.9,4.6],['title',18.8,34],['body',20,60],['footer',86.5,4.6]];
+document.getElementById('griddia').insertAdjacentHTML('beforeend',
+ BANDS.map(([n,y,h])=>`<div class="band" style="top:${y}%;height:${h}%">${n}</div>`).join(''));
+
+/* ---------- bento ---------- */
+const BENTO=[
+ {id:'2x2',cols:2,rows:2,cells:4,use:'four equal points'},
+ {id:'3up',cols:3,rows:1,cells:3,use:'three parallel items'},
+ {id:'4up',cols:4,rows:1,cells:4,use:'four KPIs'},
+ {id:'4x2',cols:4,rows:2,cells:8,use:'dense dashboard'},
+ {id:'2x3',cols:2,rows:3,cells:6,use:'six pairs'},
+ {id:'3x3',cols:3,rows:3,cells:9,use:'nine-cell matrix'},
+ {id:'focal-left',cols:3,rows:2,place:[{c:1,r:1,cs:2,rs:2,f:1},{c:3,r:1},{c:3,r:2}],use:'hero stat + two supports'},
+ {id:'focal-center',cols:5,rows:1,place:[{c:1,r:1},{c:2,r:1},{c:3,r:1,f:1},{c:4,r:1},{c:5,r:1}],use:'headline metric, supports around'},
+ {id:'hero-top',cols:3,rows:2,place:[{c:1,r:1,cs:3,f:1},{c:1,r:2},{c:2,r:2},{c:3,r:2}],use:'lead over three details'},
+ {id:'sidebar',cols:3,rows:2,place:[{c:1,r:1,rs:2,f:1},{c:2,r:1},{c:3,r:1},{c:2,r:2},{c:3,r:2}],use:'rail + four items'},
+ {id:'l-shape',cols:3,rows:3,place:[{c:1,r:1,cs:2,rs:2,f:1},{c:3,r:1},{c:3,r:2},{c:1,r:3,cs:3}],use:'anchored hero with wrap'},
+ {id:'1-2-1',cols:2,rows:3,place:[{c:1,r:1,cs:2},{c:1,r:2},{c:2,r:2},{c:1,r:3,cs:2}],use:'intro / split / conclusion'},
+ {id:'2up-tall',cols:2,rows:1,cells:2,use:'before/after, vs'},
+ {id:'5-mosaic',cols:3,rows:3,place:[{c:1,r:1,cs:2,rs:2,f:1},{c:3,r:1},{c:3,r:2},{c:3,r:3},{c:1,r:3,cs:2}],use:'magazine mosaic'},
+];
+document.getElementById('bentogrid').innerHTML=BENTO.map(b=>{
+  let cells='';
+  if(b.place){cells=b.place.map(p=>`<div class="cell${p.f?' focal':''}" style="grid-column:${p.c}/span ${p.cs||1};grid-row:${p.r}/span ${p.rs||1}"></div>`).join('');}
+  else{cells=Array.from({length:b.cells},(_,i)=>`<div class="cell${i===0&&b.cells<=4?'':''}"></div>`).join('');}
+  return `<div class="bento-card"><div class="hd"><span class="id">${b.id}</span><span class="use">${b.use}</span></div>
+   <div class="demo" style="grid-template-columns:repeat(${b.cols},1fr);grid-template-rows:repeat(${b.rows},1fr)">${cells}</div></div>`;
+}).join('');
+
+/* ---------- animation catalog ---------- */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+const SAMPLE='Sports Analytics';
+const SVG_TRACE='<svg viewBox="0 0 260 70" width="220"><path d="M12,46 C70,8 150,62 248,18" fill="none" stroke="#F27221" stroke-width="5" stroke-linecap="round"/></svg>';
+const SVG_LINE='<svg viewBox="0 0 260 24" width="220"><line x1="8" y1="12" x2="252" y2="12" stroke="#222" stroke-width="4" stroke-linecap="round"/></svg>';
+function splitChars(stage,text){stage.textContent='';const out=[];for(const ch of text){const s=document.createElement('span');s.textContent=ch;s.style.display='inline-block';s.style.whiteSpace='pre';stage.appendChild(s);out.push(s);}return out;}
+function strokeAnim(stage){const p=stage.querySelector('path,line');if(!p)return;const len=p.getTotalLength();p.style.strokeDasharray=len;p.animate([{strokeDashoffset:len},{strokeDashoffset:0}],{duration:1100,easing:'ease-in-out',fill:'both'});}
+
+const EFFECTS=[
+ {ef:'apple:dissolve character',uses:155,dark:false,run:s=>{const sp=splitChars(s,SAMPLE);const r=mulberry32(155);sp.forEach(x=>x.animate([{opacity:0},{opacity:1}],{duration:320,delay:r()*460,easing:'ease-out',fill:'both'}));}},
+ {ef:'apple:dissolve',uses:59,run:s=>{s.textContent=SAMPLE;s.animate([{opacity:0},{opacity:1}],{duration:1000,fill:'both'});}},
+ {ef:'Keynote.FromDarkness',uses:49,dark:true,run:s=>{s.textContent=SAMPLE;s.animate([{opacity:0,filter:'brightness(0)'},{opacity:1,filter:'brightness(1)'}],{duration:1000,fill:'both'});}},
+ {ef:'apple:fade and move',uses:24,run:s=>{s.textContent=SAMPLE;s.animate([{opacity:0,transform:'translateY(26px)'},{opacity:1,transform:'none'}],{duration:800,easing:'cubic-bezier(.2,.7,.2,1)',fill:'both'});}},
+ {ef:'apple:movie-start',uses:22,run:s=>{s.innerHTML='<span class="movie">▶ video</span>';s.firstChild.animate([{opacity:.35,filter:'grayscale(1)'},{opacity:1,filter:'grayscale(0)'}],{duration:900,fill:'both'});}},
+ {ef:'Keynote.Trace',uses:18,run:s=>{s.innerHTML=SVG_TRACE;strokeAnim(s);}},
+ {ef:'apple:fade and move character',uses:16,run:s=>{const sp=splitChars(s,SAMPLE);sp.forEach((x,i)=>x.animate([{opacity:0,transform:'translateY(20px)'},{opacity:1,transform:'none'}],{duration:420,delay:i*28,easing:'cubic-bezier(.2,.7,.2,1)',fill:'both'}));}},
+ {ef:'apple:bc-appear',uses:13,run:s=>{const sp=splitChars(s,SAMPLE);sp.forEach((x,i)=>x.animate([{opacity:0},{opacity:0},{opacity:1}],{duration:130,delay:i*46,fill:'both'}));}},
+ {ef:'Keynote.LineDrawForLine',uses:11,run:s=>{s.innerHTML=SVG_LINE;strokeAnim(s);}},
+ {ef:'apple:move in',uses:4,run:s=>{s.textContent=SAMPLE;s.animate([{opacity:0,transform:'translateX(-70px)'},{opacity:1,transform:'none'}],{duration:700,easing:'cubic-bezier(.2,.7,.2,1)',fill:'both'});}},
+ {ef:'bc-typewriter',uses:'chunk',run:s=>{const sp=splitChars(s,SAMPLE);sp.forEach((x,i)=>{x.style.opacity=0;x.animate([{opacity:0},{opacity:1}],{duration:1,delay:i*65,fill:'both'});});}},
+];
+const cards=[];
+document.getElementById('animgrid').innerHTML=EFFECTS.map((e,i)=>
+ `<div class="anim-card${e.dark?' dark':''}"><div class="stage" id="st${i}"></div>
+   <div class="ft"><span class="ef">${e.ef} <small>·${e.uses}×</small></span><button class="rep" data-i="${i}">replay</button></div></div>`).join('');
+function settle(i){const s=document.getElementById('st'+i),e=EFFECTS[i];
+  if(e.ef.includes('Trace'))s.innerHTML=SVG_TRACE;
+  else if(e.ef.includes('LineDraw'))s.innerHTML=SVG_LINE;
+  else if(e.ef.includes('movie'))s.innerHTML='<span class="movie">▶ video</span>';
+  else s.textContent=SAMPLE;}
+function play(i){const s=document.getElementById('st'+i);s.getAnimations&&s.getAnimations().forEach(a=>a.cancel());EFFECTS[i].run(s);}
+function replayAll(){EFFECTS.forEach((_,i)=>setTimeout(()=>play(i),i*120));}
+EFFECTS.forEach((_,i)=>settle(i));
+document.querySelectorAll('.rep').forEach(b=>b.onclick=()=>play(+b.dataset.i));
+
+/* usage table */
+const USAGE={ 'apple:dissolve character':[0,56,72,27],'apple:dissolve':[0,41,13,5],'Keynote.FromDarkness':[0,30,14,5],
+ 'apple:fade and move':[0,0,17,7],'apple:movie-start':[0,2,16,4],'Keynote.Trace':[0,18,0,0],
+ 'apple:fade and move character':[0,3,12,1],'apple:bc-appear':[0,0,12,1],'Keynote.LineDrawForLine':[0,3,8,0],
+ 'apple:move in':[0,0,3,0],'Keynote.LineDraw':[0,0,3,0]};
+document.querySelector('#usage tbody').innerHTML=Object.entries(USAGE).map(([k,v])=>
+ `<tr><td>${k}</td>${v.map(x=>`<td>${x||'·'}</td>`).join('')}<td><b>${v.reduce((a,b)=>a+b,0)}</b></td></tr>`).join('');
+
+window.addEventListener('load',()=>setTimeout(replayAll,1500));
+</script>
+</body>
+</html>

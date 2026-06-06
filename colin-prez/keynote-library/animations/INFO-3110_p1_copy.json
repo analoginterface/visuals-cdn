@@ -1,0 +1,541 @@
+{
+  "deck": "INFO-3110_p1_copy",
+  "slides": 48,
+  "build_count": 170,
+  "chunk_count": 184,
+  "transitions": {
+    "none": 38,
+    "apple:dissolve": 10
+  },
+  "builds_by_effect": {
+    "apple:dissolve character": 72,
+    "apple:fade and move": 17,
+    "apple:movie-start": 16,
+    "com.apple.iWork.Keynote.FromDarkness": 14,
+    "apple:dissolve": 13,
+    "apple:bc-appear": 12,
+    "apple:fade and move character": 12,
+    "com.apple.iWork.Keynote.LineDrawForLine": 8,
+    "apple:move in": 3,
+    "com.apple.iWork.Keynote.LineDraw": 3
+  },
+  "builds_by_animationType": {
+    "In": 170
+  },
+  "delivery": {
+    "null": 68,
+    "kTextDeliveryByCharacter": 57,
+    "kTextDeliveryByObject": 45
+  },
+  "duration_hist_s": {
+    "1.0": 89,
+    "1.25": 16,
+    "0.5": 14,
+    "1.75": 12,
+    "1.15": 10,
+    "0.8": 8,
+    "3.75": 5,
+    "2.25": 4,
+    "0.4": 3,
+    "2.0": 3,
+    "0.7000000000000001": 3,
+    "0.2": 2,
+    "2.75": 1
+  },
+  "per_slide": [
+    {
+      "slide": "Slide-2668591",
+      "builds": 0,
+      "chunks": 0,
+      "transition": "none",
+      "effects": []
+    },
+    {
+      "slide": "Slide-2671832",
+      "builds": 2,
+      "chunks": 2,
+      "transition": "apple:dissolve",
+      "effects": [
+        "apple:dissolve character",
+        "apple:movie-start"
+      ]
+    },
+    {
+      "slide": "Slide-2680176",
+      "builds": 0,
+      "chunks": 0,
+      "transition": "none",
+      "effects": []
+    },
+    {
+      "slide": "Slide-2702160",
+      "builds": 0,
+      "chunks": 0,
+      "transition": "none",
+      "effects": []
+    },
+    {
+      "slide": "Slide-2715434",
+      "builds": 3,
+      "chunks": 3,
+      "transition": "none",
+      "effects": [
+        "apple:dissolve character",
+        "apple:move in",
+        "com.apple.iWork.Keynote.FromDarkness"
+      ]
+    },
+    {
+      "slide": "Slide-2742232",
+      "builds": 6,
+      "chunks": 6,
+      "transition": "apple:dissolve",
+      "effects": [
+        "apple:dissolve",
+        "apple:dissolve character",
+        "apple:movie-start"
+      ]
+    },
+    {
+      "slide": "Slide-2744758",
+      "builds": 2,
+      "chunks": 2,
+      "transition": "none",
+      "effects": [
+        "apple:bc-appear",
+        "apple:dissolve character"
+      ]
+    },
+    {
+      "slide": "Slide-2753466",
+      "builds": 6,
+      "chunks": 6,
+      "transition": "apple:dissolve",
+      "effects": [
+        "apple:dissolve",
+        "apple:dissolve character",
+        "apple:movie-start"
+      ]
+    },
+    {
+      "slide": "Slide-2754906",
+      "builds": 6,
+      "chunks": 6,
+      "transition": "apple:dissolve",
+      "effects": [
+        "apple:dissolve",
+        "apple:dissolve character",
+        "apple:movie-start"
+      ]
+    },
+    {
+      "slide": "Slide-2785912",
+      "builds": 7,
+      "chunks": 7,
+      "transition": "none",
+      "effects": [
+        "apple:dissolve character",
+        "apple:fade and move",
+        "com.apple.iWork.Keynote.FromDarkness"
+      ]
+    },
+    {
+      "slide": "Slide-2807759",
+      "builds": 3,
+      "chunks": 3,
+      "transition": "none",
+      "effects": [
+        "apple:dissolve character",
+        "com.apple.iWork.Keynote.FromDarkness"
+      ]
+    },
+    {
+      "slide": "Slide-2874394",
+      "builds": 3,
+      "chunks": 10,
+      "transition": "none",
+      "effects": [
+        "apple:dissolve",
+        "apple:dissolve character",
+        "com.apple.iWork.Keynote.FromDarkness"
+      ]
+    },
+    {
+      "slide": "Slide-2893383",
+      "builds": 1,
+      "chunks": 1,
+      "transition": "none",
+      "effects": [
+        "apple:dissolve character"
+      ]
+    },
+    {
+      "slide": "Slide-2930908",
+      "builds": 3,
+      "chunks": 10,
+      "transition": "none",
+      "effects": [
+        "apple:dissolve",
+        "apple:dissolve character",
+        "com.apple.iWork.Keynote.FromDarkness"
+      ]
+    },
+    {
+      "slide": "Slide-2941959",
+      "builds": 4,
+      "chunks": 4,
+      "transition": "none",
+      "effects": [
+        "apple:dissolve character",
+        "apple:fade and move character"
+      ]
+    },
+    {
+      "slide": "Slide-2959731",
+      "builds": 1,
+      "chunks": 1,
+      "transition": "none",
+      "effects": [
+        "apple:fade and move"
+      ]
+    },
+    {
+      "slide": "Slide-2971390",
+      "builds": 1,
+      "chunks": 1,
+      "transition": "none",
+      "effects": [
+        "apple:fade and move"
+      ]
+    },
+    {
+      "slide": "Slide-2977641",
+      "builds": 1,
+      "chunks": 1,
+      "transition": "none",
+      "effects": [
+        "apple:dissolve character"
+      ]
+    },
+    {
+      "slide": "Slide-2989600",
+      "builds": 1,
+      "chunks": 1,
+      "transition": "none",
+      "effects": [
+        "apple:dissolve character"
+      ]
+    },
+    {
+      "slide": "Slide-3001208",
+      "builds": 1,
+      "chunks": 1,
+      "transition": "none",
+      "effects": [
+        "apple:dissolve character"
+      ]
+    },
+    {
+      "slide": "Slide-3003309",
+      "builds": 0,
+      "chunks": 0,
+      "transition": "none",
+      "effects": []
+    },
+    {
+      "slide": "Slide-3003454",
+      "builds": 0,
+      "chunks": 0,
+      "transition": "none",
+      "effects": []
+    },
+    {
+      "slide": "Slide-3004586",
+      "builds": 3,
+      "chunks": 3,
+      "transition": "none",
+      "effects": [
+        "apple:bc-appear",
+        "apple:dissolve character",
+        "apple:move in"
+      ]
+    },
+    {
+      "slide": "Slide-3010236",
+      "builds": 2,
+      "chunks": 2,
+      "transition": "none",
+      "effects": [
+        "apple:dissolve character",
+        "com.apple.iWork.Keynote.FromDarkness"
+      ]
+    },
+    {
+      "slide": "Slide-3010522",
+      "builds": 2,
+      "chunks": 2,
+      "transition": "none",
+      "effects": [
+        "apple:dissolve character",
+        "com.apple.iWork.Keynote.FromDarkness"
+      ]
+    },
+    {
+      "slide": "Slide-3010818",
+      "builds": 2,
+      "chunks": 2,
+      "transition": "none",
+      "effects": [
+        "apple:dissolve character",
+        "com.apple.iWork.Keynote.FromDarkness"
+      ]
+    },
+    {
+      "slide": "Slide-3011140",
+      "builds": 2,
+      "chunks": 2,
+      "transition": "none",
+      "effects": [
+        "apple:dissolve character",
+        "com.apple.iWork.Keynote.FromDarkness"
+      ]
+    },
+    {
+      "slide": "Slide-3011433",
+      "builds": 2,
+      "chunks": 2,
+      "transition": "none",
+      "effects": [
+        "apple:dissolve character",
+        "com.apple.iWork.Keynote.FromDarkness"
+      ]
+    },
+    {
+      "slide": "Slide-3012828",
+      "builds": 4,
+      "chunks": 4,
+      "transition": "none",
+      "effects": [
+        "apple:dissolve",
+        "apple:dissolve character",
+        "apple:movie-start",
+        "com.apple.iWork.Keynote.FromDarkness"
+      ]
+    },
+    {
+      "slide": "Slide-3013119",
+      "builds": 2,
+      "chunks": 2,
+      "transition": "none",
+      "effects": [
+        "apple:dissolve character",
+        "com.apple.iWork.Keynote.FromDarkness"
+      ]
+    },
+    {
+      "slide": "Slide-3086043",
+      "builds": 7,
+      "chunks": 7,
+      "transition": "none",
+      "effects": [
+        "apple:dissolve",
+        "apple:dissolve character",
+        "apple:movie-start",
+        "com.apple.iWork.Keynote.FromDarkness",
+        "com.apple.iWork.Keynote.LineDraw"
+      ]
+    },
+    {
+      "slide": "Slide-3092461",
+      "builds": 6,
+      "chunks": 6,
+      "transition": "apple:dissolve",
+      "effects": [
+        "apple:dissolve",
+        "apple:dissolve character",
+        "apple:movie-start"
+      ]
+    },
+    {
+      "slide": "Slide-3093881",
+      "builds": 6,
+      "chunks": 6,
+      "transition": "apple:dissolve",
+      "effects": [
+        "apple:dissolve",
+        "apple:dissolve character",
+        "apple:movie-start"
+      ]
+    },
+    {
+      "slide": "Slide-3100082",
+      "builds": 6,
+      "chunks": 6,
+      "transition": "apple:dissolve",
+      "effects": [
+        "apple:dissolve",
+        "apple:dissolve character",
+        "apple:movie-start"
+      ]
+    },
+    {
+      "slide": "Slide-3100440",
+      "builds": 3,
+      "chunks": 3,
+      "transition": "none",
+      "effects": [
+        "apple:dissolve character",
+        "apple:move in",
+        "com.apple.iWork.Keynote.FromDarkness"
+      ]
+    },
+    {
+      "slide": "Slide-3116100",
+      "builds": 7,
+      "chunks": 7,
+      "transition": "none",
+      "effects": [
+        "apple:bc-appear",
+        "apple:dissolve character",
+        "apple:fade and move character",
+        "apple:movie-start"
+      ]
+    },
+    {
+      "slide": "Slide-3120875",
+      "builds": 5,
+      "chunks": 5,
+      "transition": "apple:dissolve",
+      "effects": [
+        "apple:dissolve",
+        "apple:dissolve character"
+      ]
+    },
+    {
+      "slide": "Slide-3125553",
+      "builds": 6,
+      "chunks": 6,
+      "transition": "apple:dissolve",
+      "effects": [
+        "apple:dissolve",
+        "apple:dissolve character",
+        "apple:movie-start"
+      ]
+    },
+    {
+      "slide": "Slide-3128681",
+      "builds": 5,
+      "chunks": 5,
+      "transition": "apple:dissolve",
+      "effects": [
+        "apple:dissolve",
+        "apple:dissolve character"
+      ]
+    },
+    {
+      "slide": "Slide-3136782",
+      "builds": 8,
+      "chunks": 8,
+      "transition": "none",
+      "effects": [
+        "apple:bc-appear",
+        "apple:dissolve character",
+        "apple:fade and move character",
+        "apple:movie-start",
+        "com.apple.iWork.Keynote.LineDraw"
+      ]
+    },
+    {
+      "slide": "Slide-3169900",
+      "builds": 17,
+      "chunks": 17,
+      "transition": "none",
+      "effects": [
+        "apple:bc-appear",
+        "apple:fade and move",
+        "apple:fade and move character",
+        "apple:movie-start",
+        "com.apple.iWork.Keynote.LineDraw",
+        "com.apple.iWork.Keynote.LineDrawForLine"
+      ]
+    },
+    {
+      "slide": "Slide-3249538",
+      "builds": 3,
+      "chunks": 3,
+      "transition": "none",
+      "effects": [
+        "apple:bc-appear",
+        "apple:dissolve character",
+        "com.apple.iWork.Keynote.LineDrawForLine"
+      ]
+    },
+    {
+      "slide": "Slide-3260934",
+      "builds": 5,
+      "chunks": 5,
+      "transition": "none",
+      "effects": [
+        "apple:bc-appear",
+        "apple:dissolve character",
+        "apple:fade and move character",
+        "com.apple.iWork.Keynote.LineDrawForLine"
+      ]
+    },
+    {
+      "slide": "Slide-3268233",
+      "builds": 5,
+      "chunks": 5,
+      "transition": "none",
+      "effects": [
+        "apple:bc-appear",
+        "apple:dissolve character",
+        "apple:fade and move character",
+        "com.apple.iWork.Keynote.LineDrawForLine"
+      ]
+    },
+    {
+      "slide": "Slide-3354981",
+      "builds": 4,
+      "chunks": 4,
+      "transition": "none",
+      "effects": [
+        "apple:bc-appear",
+        "apple:dissolve character",
+        "apple:fade and move character",
+        "com.apple.iWork.Keynote.LineDrawForLine"
+      ]
+    },
+    {
+      "slide": "Slide-3406737",
+      "builds": 3,
+      "chunks": 3,
+      "transition": "none",
+      "effects": [
+        "apple:bc-appear",
+        "apple:dissolve character",
+        "com.apple.iWork.Keynote.LineDrawForLine"
+      ]
+    },
+    {
+      "slide": "Slide-3486735",
+      "builds": 2,
+      "chunks": 2,
+      "transition": "none",
+      "effects": [
+        "apple:bc-appear",
+        "com.apple.iWork.Keynote.LineDrawForLine"
+      ]
+    },
+    {
+      "slide": "Slide-3494969",
+      "builds": 2,
+      "chunks": 2,
+      "transition": "none",
+      "effects": [
+        "apple:bc-appear",
+        "apple:dissolve character"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "deck": "ASML_MGMT-3000",
+  "slides": 7,
+  "build_count": 153,
+  "chunk_count": 153,
+  "transitions": {
+    "none": 7
+  },
+  "builds_by_effect": {
+    "apple:dissolve character": 56,
+    "apple:dissolve": 41,
+    "com.apple.iWork.Keynote.FromDarkness": 30,
+    "com.apple.iWork.Keynote.Trace": 18,
+    "apple:fade and move character": 3,
+    "com.apple.iWork.Keynote.LineDrawForLine": 3,
+    "apple:movie-start": 2
+  },
+  "builds_by_animationType": {
+    "In": 153
+  },
+  "delivery": {
+    "null": 87,
+    "kTextDeliveryByObject": 50,
+    "kTextDeliveryByCharacter": 13,
+    "kTextDeliveryByWord": 3
+  },
+  "duration_hist_s": {
+    "1.0": 91,
+    "0.30000000000000004": 34,
+    "0.5": 6,
+    "0.8": 6,
+    "1.5": 5,
+    "0.7000000000000001": 4,
+    "2.0": 4,
+    "0.4": 1,
+    "0.9": 1,
+    "1.25": 1
+  },
+  "per_slide": [
+    {
+      "slide": "Slide-4085018",
+      "builds": 4,
+      "chunks": 4,
+      "transition": "none",
+      "effects": [
+        "apple:dissolve",
+        "apple:movie-start",
+        "com.apple.iWork.Keynote.FromDarkness"
+      ]
+    },
+    {
+      "slide": "Slide-4266650",
+      "builds": 10,
+      "chunks": 10,
+      "transition": "none",
+      "effects": [
+        "apple:dissolve character",
+        "apple:fade and move character",
+        "apple:movie-start",
+        "com.apple.iWork.Keynote.FromDarkness"
+      ]
+    },
+    {
+      "slide": "Slide-5068297",
+      "builds": 57,
+      "chunks": 57,
+      "transition": "none",
+      "effects": [
+        "apple:dissolve",
+        "apple:dissolve character",
+        "com.apple.iWork.Keynote.LineDrawForLine",
+        "com.apple.iWork.Keynote.Trace"
+      ]
+    },
+    {
+      "slide": "Slide-5246169",
+      "builds": 50,
+      "chunks": 50,
+      "transition": "none",
+      "effects": [
+        "apple:dissolve",
+        "apple:dissolve character",
+        "com.apple.iWork.Keynote.FromDarkness"
+      ]
+    },
+    {
+      "slide": "Slide-6002097",
+      "builds": 16,
+      "chunks": 16,
+      "transition": "none",
+      "effects": [
+        "apple:dissolve",
+        "apple:dissolve character",
+        "com.apple.iWork.Keynote.FromDarkness"
+      ]
+    },
+    {
+      "slide": "Slide-6425869",
+      "builds": 8,
+      "chunks": 8,
+      "transition": "none",
+      "effects": [
+        "apple:dissolve character",
+        "com.apple.iWork.Keynote.FromDarkness"
+      ]
+    },
+    {
+      "slide": "Slide-6552849",
+      "builds": 8,
+      "chunks": 8,
+      "transition": "none",
+      "effects": [
+        "apple:dissolve character",
+        "com.apple.iWork.Keynote.FromDarkness"
+      ]
+    }
+  ]
+}

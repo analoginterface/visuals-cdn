@@ -1,0 +1,3 @@
+# Keynote source decks are large binaries (mostly embedded media).
+# Tracked here for the local library, not for git history.
+*.key

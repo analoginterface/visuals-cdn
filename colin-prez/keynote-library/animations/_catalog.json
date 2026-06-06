@@ -1,0 +1,81 @@
+{
+  "effects": [
+    {
+      "effect": "apple:dissolve character",
+      "namespace": "apple",
+      "total_uses": 155,
+      "does": "text fade-in per glyph, seeded scatter",
+      "web_equiv": "per-char opacity stagger"
+    },
+    {
+      "effect": "apple:dissolve",
+      "namespace": "apple",
+      "total_uses": 59,
+      "does": "object fade-in",
+      "web_equiv": "opacity 0->1"
+    },
+    {
+      "effect": "com.apple.iWork.Keynote.FromDarkness",
+      "namespace": "keynote",
+      "total_uses": 49,
+      "does": "emerges from black",
+      "web_equiv": "opacity + brightness(0->1)"
+    },
+    {
+      "effect": "apple:fade and move",
+      "namespace": "apple",
+      "total_uses": 24,
+      "does": "fade + slight rise",
+      "web_equiv": "opacity + translateY"
+    },
+    {
+      "effect": "apple:movie-start",
+      "namespace": "apple",
+      "total_uses": 22,
+      "does": "embedded video auto-plays",
+      "web_equiv": "video.play() on reveal"
+    },
+    {
+      "effect": "com.apple.iWork.Keynote.Trace",
+      "namespace": "keynote",
+      "total_uses": 18,
+      "does": "stroke draws itself",
+      "web_equiv": "SVG stroke-dashoffset"
+    },
+    {
+      "effect": "apple:fade and move character",
+      "namespace": "apple",
+      "total_uses": 16,
+      "does": "per-glyph fade + rise",
+      "web_equiv": "per-char opacity+translateY stagger"
+    },
+    {
+      "effect": "apple:bc-appear",
+      "namespace": "apple",
+      "total_uses": 13,
+      "does": "text appears per character (instant)",
+      "web_equiv": "per-char display toggle"
+    },
+    {
+      "effect": "com.apple.iWork.Keynote.LineDrawForLine",
+      "namespace": "keynote",
+      "total_uses": 11,
+      "does": "line object draws on",
+      "web_equiv": "SVG path draw"
+    },
+    {
+      "effect": "apple:move in",
+      "namespace": "apple",
+      "total_uses": 4,
+      "does": "slides in from an offset",
+      "web_equiv": "translate from edge"
+    },
+    {
+      "effect": "com.apple.iWork.Keynote.LineDraw",
+      "namespace": "keynote",
+      "total_uses": 3,
+      "does": "line draws on",
+      "web_equiv": "SVG path draw"
+    }
+  ]
+}

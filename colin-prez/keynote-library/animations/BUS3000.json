@@ -1,0 +1,71 @@
+{
+  "deck": "BUS3000",
+  "slides": 8,
+  "build_count": 0,
+  "chunk_count": 0,
+  "transitions": {
+    "none": 8
+  },
+  "builds_by_effect": {},
+  "builds_by_animationType": {},
+  "delivery": {},
+  "duration_hist_s": {},
+  "per_slide": [
+    {
+      "slide": "Slide-2652150",
+      "builds": 0,
+      "chunks": 0,
+      "transition": "none",
+      "effects": []
+    },
+    {
+      "slide": "Slide-2660521",
+      "builds": 0,
+      "chunks": 0,
+      "transition": "none",
+      "effects": []
+    },
+    {
+      "slide": "Slide-2662464",
+      "builds": 0,
+      "chunks": 0,
+      "transition": "none",
+      "effects": []
+    },
+    {
+      "slide": "Slide-2665998",
+      "builds": 0,
+      "chunks": 0,
+      "transition": "none",
+      "effects": []
+    },
+    {
+      "slide": "Slide-2666778",
+      "builds": 0,
+      "chunks": 0,
+      "transition": "none",
+      "effects": []
+    },
+    {
+      "slide": "Slide-2669063",
+      "builds": 0,
+      "chunks": 0,
+      "transition": "none",
+      "effects": []
+    },
+    {
+      "slide": "Slide-2676867",
+      "builds": 0,
+      "chunks": 0,
+      "transition": "none",
+      "effects": []
+    },
+    {
+      "slide": "Slide-2681854",
+      "builds": 0,
+      "chunks": 0,
+      "transition": "none",
+      "effects": []
+    }
+  ]
+}

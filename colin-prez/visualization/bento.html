@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>bento — draggable</title>
+<link href="https://cdn.jsdelivr.net/npm/gridstack@11.3.0/dist/gridstack.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/gridstack@11.3.0/dist/gridstack-all.js"></script>
+<style>
+  :root{--cell:#e9ebee;--focal:#d3d6da;--canvas:#fafbfc;--line:#e7e8ea;--ink:#5f6368;--mut:#9aa0a6;--r:16px;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:#fff;color:var(--mut);font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;}
+  .wrap{max-width:1080px;margin:0 auto;padding:36px 28px 100px;}
+  h1{font-size:15px;font-weight:600;letter-spacing:.04em;color:var(--ink);margin:0 0 4px;}
+  .hint{font-size:12px;color:var(--mut);margin:0 0 22px;}
+  .bar{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;margin-bottom:18px;}
+  .bar .grp{display:flex;gap:6px;align-items:center;padding:0 10px 0 0;border-right:1px solid var(--line);margin-right:4px;}
+  .bar .grp:last-of-type{border-right:0;}
+  button{font:inherit;font-size:12px;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 11px;cursor:pointer;}
+  button:hover{border-color:#c7cace;background:#f6f7f8;}
+  button.go{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .bar label{font-size:11px;color:var(--mut);display:flex;align-items:center;gap:6px;}
+  input[type=range]{width:92px;accent-color:#9aa0a6;}
+  #stage{width:100%;max-width:1000px;background:var(--canvas);border:1px solid var(--line);border-radius:18px;padding:10px;}
+  /* white/gray rounded tiles — override gridstack defaults */
+  .grid-stack-item-content{background:var(--cell)!important;border-radius:var(--r);border:0;box-shadow:none;cursor:grab;
+    inset:6px;transition:background .15s;}
+  .grid-stack-item-content.focal{background:var(--focal)!important;}
+  .grid-stack-item.ui-draggable-dragging .grid-stack-item-content,
+  .grid-stack-item.grid-stack-item-moving .grid-stack-item-content{cursor:grabbing;box-shadow:0 12px 32px rgba(0,0,0,.16);}
+  .grid-stack-placeholder>.placeholder-content{background:rgba(0,0,0,.045);border:2px dashed #c8ccd0;border-radius:var(--r);inset:6px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>bento — draggable</h1>
+  <p class="hint">drag any box to rearrange (others reflow) · drag an edge/corner to resize · shuffle for infinite layouts</p>
+  <div class="bar">
+    <div class="grp"><button class="go" id="shuffle">shuffle</button></div>
+    <div class="grp"><span style="font-size:11px;color:var(--mut)">density</span>
+      <button data-d="calm">calm</button><button data-d="busy">busy</button><button data-d="wild">wild</button></div>
+    <div class="grp" id="presets"></div>
+    <div class="grp"><label>gap <input type="range" id="gap" min="0" max="36" value="12"></label>
+      <label>radius <input type="range" id="radius" min="0" max="40" value="16"></label></div>
+  </div>
+  <div id="stage"><div class="grid-stack" id="grid"></div></div>
+</div>
+<script>
+const COLS=12, ROWS=8;                       // fixed 12-col grid (gridstack default CSS)
+const T={gap:12,radius:16,density:'busy'};
+const stage=document.getElementById('stage');
+let grid;
+const DENS={calm:{minW:3,minH:3,stop:.30,depth:3},busy:{minW:2,minH:2,stop:.16,depth:4},wild:{minW:1,minH:1,stop:.06,depth:5}};
+
+function generate(){
+  const o=DENS[T.density], out=[];
+  (function split(c,r,w,h,d){
+    const stop=(w<=o.minW&&h<=o.minH)||d>=o.depth||(w<=o.minW&&h<=o.minH)||Math.random()<o.stop;
+    if(stop||(w<=1&&h<=1)){out.push({x:c,y:r,w,h});return;}
+    const vert=w>h?Math.random()<.78:(w<h?Math.random()<.22:Math.random()<.5);
+    if(vert&&w>1){const k=1+Math.floor(Math.random()*(w-1));split(c,r,k,h,d+1);split(c+k,r,w-k,h,d+1);}
+    else if(h>1){const k=1+Math.floor(Math.random()*(h-1));split(c,r,w,k,d+1);split(c,r+k,w,h-k,d+1);}
+    else out.push({x:c,y:r,w,h});
+  })(0,0,COLS,ROWS,0);
+  return out;
+}
+const PRESETS={
+ '2×2':[[0,0,6,4],[6,0,6,4],[0,4,6,4],[6,4,6,4]],
+ '3-up':[[0,0,4,8],[4,0,4,8],[8,0,4,8]],
+ '4-up':[[0,0,3,8],[3,0,3,8],[6,0,3,8],[9,0,3,8]],
+ 'hero':[[0,0,8,5],[8,0,4,5],[0,5,4,3],[4,5,4,3],[8,5,4,3]],
+ 'sidebar':[[0,0,4,8],[4,0,8,4],[4,4,4,4],[8,4,4,4]],
+ 'spotlight':[[0,0,12,2],[0,6,12,2],[0,2,4,4],[8,2,4,4],[4,2,4,4]],
+ 'mosaic':[[0,0,6,5],[6,0,3,3],[9,0,3,3],[6,3,6,2],[0,5,4,3],[4,5,2,3],[6,5,6,3]],
+};
+
+function cellH(){ const w=stage.clientWidth-20; return Math.max(8,Math.floor((w*9/16)/ROWS)); }
+function applyRadius(){ document.documentElement.style.setProperty('--r',T.radius+'px'); }
+function markFocal(){
+  if(!grid)return; let best=null,ba=-1;
+  grid.engine.nodes.forEach(n=>{const a=(n.w||1)*(n.h||1);if(a>ba){ba=a;best=n;}});
+  grid.engine.nodes.forEach(n=>{const c=n.el&&n.el.querySelector('.grid-stack-item-content');if(c)c.classList.toggle('focal',n===best&&ba>1);});
+}
+// Single source of truth = the layout array. grid.load() reconciles the DOM to it
+// (moves/reuses existing items, adds new, removes gone) — no orphaned nodes, no leaked
+// drag/resize listeners. Replaces the remove-all + re-add churn that piled up DOM.
+let layout=[];
+function load(items){
+  layout=items.map((it,i)=>({x:it.x,y:it.y,w:it.w,h:it.h,id:'i'+i}));
+  grid.cellHeight(cellH()); grid.margin(T.gap/2);
+  grid.load(layout, true);   // addAndRemove=true -> prunes removed items' DOM
+  applyRadius(); markFocal();
+}
+const shuffle=()=>load(generate());
+const preset=n=>load(PRESETS[n].map(([x,y,w,h])=>({x,y,w,h})));
+
+document.getElementById('presets').innerHTML=Object.keys(PRESETS).map(n=>`<button data-preset="${n}">${n}</button>`).join('');
+window.addEventListener('load',()=>{
+  grid=GridStack.init({column:COLS,cellHeight:cellH(),margin:T.gap/2,float:false,
+    resizable:{handles:'n,e,s,w,se,sw,ne,nw'}},document.getElementById('grid'));
+  grid.on('change',markFocal);
+  document.getElementById('shuffle').onclick=shuffle;
+  document.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{T.density=b.dataset.d;shuffle();});
+  document.querySelectorAll('[data-preset]').forEach(b=>b.onclick=()=>preset(b.dataset.preset));
+  document.getElementById('gap').oninput=e=>{T.gap=+e.target.value;grid.margin(T.gap/2);};
+  document.getElementById('radius').oninput=e=>{T.radius=+e.target.value;applyRadius();};
+  window.addEventListener('resize',()=>grid&&grid.cellHeight(cellH()));
+  shuffle();
+});
+</script>
+</body>
+</html>
