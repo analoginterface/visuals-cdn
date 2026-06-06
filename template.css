@@ -201,7 +201,44 @@
 }
 
 /* =================================================================
-   IV. APPLIED TYPOGRAPHY STYLES
+   IV. FIGURE / CHART FONT - TT Commons Pro (full family; figures only)
+   Used by plot_theme.R INFO3320_FIG. Files live under "TT Commons Pro/"
+   in this repo; .otf so format() is opentype.
+   ================================================================= */
+@font-face {
+  font-family: "TT Commons Pro";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/TT%20Commons%20Pro/53557.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TT Commons Pro";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/TT%20Commons%20Pro/53550.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TT Commons Pro";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/TT%20Commons%20Pro/53549.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TT Commons Pro";
+  src: url("https://cdn.jsdelivr.net/gh/analoginterface/mosaics@main/TT%20Commons%20Pro/53553.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* =================================================================
+   V. APPLIED TYPOGRAPHY STYLES
    ================================================================= */
 
 /* ─────────────────────────────────────────────────────────────────
